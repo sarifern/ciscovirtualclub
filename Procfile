@@ -1,0 +1,1 @@
+web: gunicorn ic_marathon_site.wsgi --log-file -
