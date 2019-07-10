@@ -11,7 +11,8 @@
             "program": "${workspaceFolder}/manage.py",
             "args": [
                 "runserver",
-                "--noreload"
+                "--noreload",
+                "--settings=ic_marathon_site.local_settings"
             ],
             "django": true
         }
