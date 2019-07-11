@@ -1,3 +1,3 @@
-# ic-marathon
+# Cisco Running
 
-Repo for Web APP IC-Marathon
+Repo for Web APP Cisco Running
