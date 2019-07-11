@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'ic_marathon_site.urls'
@@ -160,7 +161,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('FB_APP_KEY')        # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('FB_APP_SECRET')  # App Secret
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email'] # add this
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
     'fields': 'id, name, email, picture.type(large), link'
 }
