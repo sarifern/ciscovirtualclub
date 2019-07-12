@@ -12,7 +12,7 @@ pip install -r requirements.txt
 ``` 
 
 3. Please add the .secrets and local-settings.py files. Ask for them to the admins lurifern@cisco.com
-
+Set .secrets at the parent folder, and local-settings.py under the ic_marathon_site folder
 Add the environment variables to your ENV:
 
 ``` 
