@@ -5,13 +5,23 @@ Repo for Web APP Cisco Running
 
 1. Clone the project.
 
-2. Create a virtual environment for Python 3.7.3, and install the requirements
+2. Set up your git global config
+
+``` 
+git config --global user.name "<Your name>"     
+git config --global user.email "<Your email>"
+``` 
+
+3. Install PostgreSQL app.
+https://postgresapp.com/downloads.html
+
+4. Create a virtual environment for Python 3.7.3, and install the requirements
 
 ``` 
 pip install -r requirements.txt
 ``` 
 
-3. Please add the .secrets and local-settings.py files. Ask for them to the admins lurifern@cisco.com
+5. Please add the .secrets and local-settings.py files. Ask for them to the admins lurifern@cisco.com
 Set .secrets at the parent folder, and local-settings.py under the ic_marathon_site folder
 Add the environment variables to your ENV:
 
@@ -19,13 +29,13 @@ Add the environment variables to your ENV:
 export $(grep -v '^#' .secrets | xargs)
 ``` 
 
-4. Make the DB migrations
+6. Make the DB migrations
 
 ``` 
 python manage.py migrate
 ``` 
 
-5. Create a superuser
+7. Create a superuser
 
 ``` 
 python manage.py createsuperuser
