@@ -14,7 +14,11 @@
                 "--noreload",
                 "--settings=ic_marathon_site.local_settings"
             ],
-            "django": true
+            "django": true,
+            "serverReadyAction":{
+                "action": "openExternally"
+            },
+            "envFile": "${workspaceFolder}/.secrets"
         }
     ]
 }
