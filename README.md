@@ -75,7 +75,7 @@ In VSCode, you can use the debugging option, as the .vscode/launch.json has the 
 Manually, the command would be
 
 ``` 
-python manage.py runserver --settings==ic_marathon_site.local_settings
+python manage.py runserver --settings=ic_marathon_site.local_settings
 ``` 
 
 # Heroku deployment
