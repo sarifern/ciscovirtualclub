@@ -4,6 +4,8 @@ Repo for Web APP Cisco Running
 
 # Installation in MAC
 
+0. Install VSCode and VSCode python plugin.
+
 1. Clone the project.
 
 2. Set up your git global config
