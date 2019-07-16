@@ -26,10 +26,11 @@ brew install postgresql
 ``` 
 which pg_config
 ``` 
-to your PATH environment variable.
+to your PATH declaration in your shell profile (for example ~/.bash_profile)
 
-
-
+``` 
+export PATH=$PATH:/usr/local/bin/pg_config
+``` 
 4. Install Xcode tools
 
 ``` 
