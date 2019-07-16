@@ -20,13 +20,15 @@ git config --global user.email "<Your email>"
 ``` 
 brew install postgresql
 ``` 
-Add the path out of 
+
+3.1 Add the path out of 
 
 ``` 
 which pg_config
 ``` 
-
 to your PATH environment variable.
+
+
 
 4. Install Xcode tools
 
@@ -49,6 +51,12 @@ pip install -r requirements.txt
 7. Please add the .secrets and local-settings.py files. Ask for them to the admins lurifern@cisco.com
 Set .secrets at the parent folder, and local-settings.py under the ic_marathon_site folder
 
+7.1 Execute
+
+``` 
+export $(grep -v '^#' .secrets | xargs)
+``` 
+
 8. Make the DB migrations
 
 ``` 
@@ -67,7 +75,6 @@ In VSCode, you can use the debugging option, as the .vscode/launch.json has the 
 Manually, the command would be
 
 ``` 
-export $(grep -v '^#' .secrets | xargs)
 python manage.py runserver --settings==ic_marathon_site.local_settings
 ``` 
 
