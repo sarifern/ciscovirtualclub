@@ -121,6 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
         'social_core.backends.instagram.InstagramOAuth2',
+        'social_core.backends.google.GoogleOAuth2',
         'social_core.backends.facebook.FacebookOAuth2',
         'django.contrib.auth.backends.ModelBackend',
 ]
@@ -177,3 +178,6 @@ SOCIAL_AUTH_INSTAGRAM_KEY = os.environ.get('IG_APP_KEY')         #Client ID
 SOCIAL_AUTH_INSTAGRAM_SECRET = os.environ.get('IG_APP_SECRET')  #Client SECRET
 SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [         ('user', 'user'),
 ]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('G_APP_KEY')         #Client ID
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('G_APP_SECRET')  #Client SECRET
