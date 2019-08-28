@@ -15,13 +15,22 @@ git config --global user.name "<Your name>"
 git config --global user.email "<Your email>"
 ``` 
 
-3. Install PostgreSQL 
+3. Edit your hostnames file and add the following
+
+``` 
+#in /etc/hosts
+#add
+
+127.0.0.1         www.lurifern.com
+``` 
+
+4. Install PostgreSQL 
 
 ``` 
 brew install postgresql
 ``` 
 
-3.1 Add the path out of 
+4.1 Add the path out of 
 
 ``` 
 which pg_config
@@ -31,40 +40,40 @@ to your PATH declaration in your shell profile (for example ~/.bash_profile)
 ``` 
 export PATH=$PATH:/usr/local/bin/pg_config
 ``` 
-4. Install Xcode tools
+5. Install Xcode tools
 
 ``` 
 xcode-select --install
 ``` 
 
-5. Create a virtual environment for Python 3.7.3.
+6. Create a virtual environment for Python 3.7.3.
 
 ``` 
 python3.7 -m virtualenv env
 ``` 
-6. install the packages
+7. install the packages
 
 ``` 
 env LDFLAGS="-I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib" pip install psycopg2
 pip install -r requirements.txt
 ``` 
 
-7. Please add the .secrets and local-settings.py files. Ask for them to the admins lurifern@cisco.com
+8. Please add the .secrets and local-settings.py files. Ask for them to the admins lurifern@cisco.com
 Set .secrets at the parent folder, and local-settings.py under the ic_marathon_site folder
 
-7.1 Execute
+8.1 Execute
 
 ``` 
 export $(grep -v '^#' .secrets | xargs)
 ``` 
 
-8. Make the DB migrations
+9. Make the DB migrations
 
 ``` 
 python manage.py migrate --settings=ic_marathon_site.local_settings
 ``` 
 
-9. Create a superuser
+10. Create a superuser
 
 ``` 
 python manage.py createsuperuser --settings=ic_marathon_site.local_settings
@@ -76,7 +85,7 @@ In VSCode, you can use the debugging option, as the .vscode/launch.json has the 
 Manually, the command would be
 
 ``` 
-python manage.py runserver --settings=ic_marathon_site.local_settings
+python manage.py runsslserver --settings=ic_marathon_site.local_settings
 ``` 
 
 # Heroku deployment

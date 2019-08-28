@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/manage.py",
             "args": [
-                "runserver",
+                "runsslserver",
                 "--noreload",
                 "--settings=ic_marathon_site.local_settings"
             ],
