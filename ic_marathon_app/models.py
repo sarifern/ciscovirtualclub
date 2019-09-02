@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from .validators import validate_file_size
 # Create your models here.
 
 
@@ -11,4 +12,4 @@ class Workout(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     distance = models.DecimalField(
         default=0.00, max_digits=4, decimal_places=2)
-    photo_evidence = models.ImageField()
+    photo_evidence = models.ImageField(validators=[validate_file_size])
