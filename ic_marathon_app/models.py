@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 import uuid
 from .validators import validate_file_size
@@ -9,8 +9,7 @@ from .validators import validate_file_size
 
 class Team(models.Model):
     team_name = models.CharField(max_length=50)
-    team_distance = models.DecimalField(
-        default=0.00, max_digits=4, decimal_places=2)
+    team_goal = models.BooleanField(default=False)
 
     def __str__(self):
         return self.team_name
@@ -18,6 +17,7 @@ class Team(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_goal = models.BooleanField(default=False)
     cec = models.CharField(max_length=30, blank=True)
     distance = models.DecimalField(
         default=0.00, max_digits=4, decimal_places=2)
@@ -44,7 +44,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     if instance.username != "lurifern":
         instance.profile.save()
-        
 
 
 class Workout(models.Model):
@@ -58,14 +57,51 @@ class Workout(models.Model):
     photo_evidence = models.ImageField(validators=[validate_file_size])
 
 
+@receiver(post_delete, sender=Workout)
+def delete_workout(sender, instance, **kwargs):
+    # update personal distance
+    profile = instance.belongs_to
+    profile.distance -= instance.distance
+    if profile.distance >= 42.0:
+        profile.user_goal = True
+    else:
+        profile.user_goal = False
+    profile.save()
+
+    # update team goal
+    team = profile.team
+    profiles = Profile.objects.filter(team__team_name=team.team_name)
+    team_goal = True
+    for profile in profiles:
+        if not profile.user_goal:
+            team_goal = False
+            break
+
+    if team_goal:
+        team.team_goal = True
+    else:
+        team.team_goal = False
+    team.save()
+
+
 @receiver(post_save, sender=Workout)
-def update_workout(sender, instance, **kwargs):
+def save_workout(sender, instance, **kwargs):
     # update personal distance
     profile = instance.belongs_to
     profile.distance += instance.distance
+    if profile.distance >= 42.0:
+        profile.user_goal = True
     profile.save()
 
-    # update team distance
+    # update team goal
     team = profile.team
-    team.team_distance += instance.distance
+    profiles = Profile.objects.filter(team__team_name=team.team_name)
+    team_goal = True
+    for profile in profiles:
+        if not profile.user_goal:
+            team_goal = False
+            break
+
+    if team_goal:
+        team.team_goal = True
     team.save()
