@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
+from django.core.files.storage import default_storage
 from django.dispatch import receiver
 import uuid
 from .validators import validate_file_size
+import q
 # Create your models here.
 
 
@@ -67,6 +69,12 @@ def delete_workout(sender, instance, **kwargs):
     else:
         profile.user_goal = False
     profile.save()
+
+    #delete image from S3
+    try:
+        default_storage.delete(instance.photo_evidence.name)
+    except Exception:
+        q("Can't delete the file {} in S3".format(instance.photo_evidence.name))
 
     # update team goal
     team = profile.team
