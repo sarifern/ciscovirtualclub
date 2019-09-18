@@ -8,3 +8,11 @@ def validate_file_size(value):
         raise ValidationError("The maximum file size that can be uploaded is 5MB")
     else:
         return value
+
+
+def validate_workout_time(value):
+        
+    if value < 15:
+        raise ValidationError("The minimum time value for a workout is 15 min")
+    else:
+        return value

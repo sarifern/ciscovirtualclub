@@ -4,7 +4,7 @@ from django.db.models.signals import post_save, post_delete
 from django.core.files.storage import default_storage
 from django.dispatch import receiver
 import uuid
-from .validators import validate_file_size
+from .validators import validate_file_size,validate_workout_time
 import q
 # Create your models here.
 
@@ -57,6 +57,7 @@ class Workout(models.Model):
     distance = models.DecimalField(
         default=0.00, max_digits=4, decimal_places=2)
     photo_evidence = models.ImageField(validators=[validate_file_size])
+    time = models.IntegerField(help_text='Workout in minutes',validators=[validate_workout_time])
 
 
 @receiver(post_delete, sender=Workout)
