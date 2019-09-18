@@ -12,7 +12,7 @@ def validate_file_size(value):
 
 def validate_workout_time(value):
         
-    if value < 15:
+    if value < 14:
         raise ValidationError("The minimum time value for a workout is 15 min")
     else:
         return value
