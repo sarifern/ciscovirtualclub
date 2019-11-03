@@ -21,6 +21,10 @@ from ic_marathon_app import views
 urlpatterns = [
         path('admin/', admin.site.urls),         
         path("login/", views.login, name="login"),
+        path("my_workouts/", views.login, name="my_workouts"),
+        path("my_team/", views.login, name="my_team"),
+        path("add_team/", views.login, name="add_team"),
+        path("leaderboard/", views.login, name="leaderboard"),
         path("logout/", auth_views.LogoutView.as_view(), name="logout"),
         path('social-auth/', include('social_django.urls', namespace="social")),
         path("", views.home, name="home"),

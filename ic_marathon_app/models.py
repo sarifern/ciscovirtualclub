@@ -2,9 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.core.files.storage import default_storage
+from django.forms import ModelForm
 from django.dispatch import receiver
 import uuid
-from .validators import validate_file_size, validate_workout_time
+from .validators import validate_file_size, validate_workout_time, validate_team_members
 import q
 # Create your models here.
 
@@ -17,8 +18,15 @@ class Team(models.Model):
         return self.team_name
 
 
+class TeamForm(ModelForm):
+    class Meta:
+        model = Team
+        fields = ['team_name']
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.CharField(max_length=100, blank=False)
     user_goal = models.BooleanField(default=False)
     cec = models.CharField(max_length=30, blank=True)
     distance = models.DecimalField(
@@ -33,7 +41,8 @@ class Profile(models.Model):
     category = models.CharField(
         max_length=10, choices=CATEGORY_CHOICES, blank=True, null=True)
     team = models.ForeignKey(
-        Team, related_name="related_team", default=None, on_delete=models.CASCADE, blank=True, null=True)
+        Team, related_name="related_team", default=None, on_delete=models.CASCADE, blank=True, null=True, validators=[
+            validate_team_members])
 
 
 @receiver(post_save, sender=User)
@@ -59,6 +68,12 @@ class Workout(models.Model):
     photo_evidence = models.ImageField(validators=[validate_file_size])
     time = models.IntegerField(help_text='Workout in minutes', validators=[
                                validate_workout_time])
+
+
+class WorkoutForm(ModelForm):
+    class Meta:
+        model = Workout
+        fields = ['distance', 'photo_evidence', 'time']
 
 
 @receiver(post_delete, sender=Workout)

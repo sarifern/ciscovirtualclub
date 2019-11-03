@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'django_select2',
     'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'ic_marathon_app'
+    'ic_marathon_app',
+
 ]
 
 MIDDLEWARE = [
@@ -181,7 +183,23 @@ SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [         ('user', 'user'),
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('G_APP_KEY')         #Client ID
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('G_APP_SECRET')  #Client SECRET
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile'
+]
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'ic_marathon_app.pipeline.get_avatar',
 
+)
 ### S3 ###
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
