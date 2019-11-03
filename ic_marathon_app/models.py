@@ -26,7 +26,7 @@ class TeamForm(ModelForm):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.CharField(max_length=100, blank=False)
+    avatar = models.CharField(max_length=200, blank=False)
     user_goal = models.BooleanField(default=False)
     cec = models.CharField(max_length=30, blank=True)
     distance = models.DecimalField(
