@@ -11,7 +11,7 @@ def get_avatar(backend, strategy, details, response,
     if backend.name == 'google-oauth2':
         url = response.get('picture')
     if url:
-        user.profile = Profile.objects.get_or_create(user=user)
+        user.profile = Profile.objects.get_or_create(user=user)[0]
 
         user.profile.avatar = url
         user.save()
