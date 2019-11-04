@@ -44,7 +44,7 @@ class Profile(models.Model):
         Team, related_name="related_team", default=None, on_delete=models.CASCADE, blank=True, null=True, validators=[
             validate_team_members])
 
-
+'''
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -55,7 +55,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     if instance.username != "lurifern":
         instance.profile.save()
-
+'''
 
 class Workout(models.Model):
     belongs_to = models.OneToOneField(
