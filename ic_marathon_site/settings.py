@@ -71,8 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends', 
-                'social_django.context_processors.login_redirect', 
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -122,10 +122,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-        'social_core.backends.instagram.InstagramOAuth2',
-        'social_core.backends.google.GoogleOAuth2',
-        'social_core.backends.facebook.FacebookOAuth2',
-        'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 ### Social Network LOGIN ###
@@ -136,9 +136,18 @@ CACHES = {
         'BACKEND': 'django_bmemcached.memcached.BMemcached',
         'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
         'OPTIONS': {
-                    'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
-                    'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
-            }
+            'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
+            'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
+        }
+    },
+    'select2': {
+        'BACKEND': 'django_bmemcached.memcached.BMemcached',
+        'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
+        'TIMEOUT': 60 * 60 * 24,
+        'OPTIONS': {
+            'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
+            'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
+        }
     }
 }
 
@@ -165,24 +174,25 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('FB_APP_KEY')        # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('FB_APP_SECRET')  # App Secret
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email'] # add this
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']  # add this
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
     'fields': 'id, name, email, picture.type(large), link'
 }
 SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
-        ('name', 'name'),
-        ('email', 'email'),
-        ('picture', 'picture'),
-        ('link', 'profile_url'),
-    ]
-
-SOCIAL_AUTH_INSTAGRAM_KEY = os.environ.get('IG_APP_KEY')         #Client ID
-SOCIAL_AUTH_INSTAGRAM_SECRET = os.environ.get('IG_APP_SECRET')  #Client SECRET
-SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [         ('user', 'user'),
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
 ]
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('G_APP_KEY')         #Client ID
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('G_APP_SECRET')  #Client SECRET
+SOCIAL_AUTH_INSTAGRAM_KEY = os.environ.get('IG_APP_KEY')  # Client ID
+SOCIAL_AUTH_INSTAGRAM_SECRET = os.environ.get('IG_APP_SECRET')  # Client SECRET
+SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [('user', 'user'),
+                                    ]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('G_APP_KEY')  # Client ID
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(
+    'G_APP_SECRET')  # Client SECRET
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile'

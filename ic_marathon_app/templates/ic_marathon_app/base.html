@@ -5,6 +5,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -30,11 +31,10 @@
         <div class="sidebar" id="mySidenav">
             <div class="sidebar__header">
                 <div class="sidebar__header-title">
-                    
-                    <img class="w3-round no-padding avatar"
-                        src={{user.profile.avatar}} >
-                    
-                    
+
+                    <img class="w3-round no-padding avatar" src={{user.profile.avatar}}>
+
+
                 </div>
             </div>
             <ul>
@@ -46,27 +46,26 @@
                     <h1 class="display-4 flex-center">Team {{user.profile.team.team_name}}</h1>
                 </li>
                 <li class="sidebar__item">
-                    <a href="{% url 'my_workouts' %}" ><i
-                            class="fa fa-lightbulb-o fa-fw w3-margin-right"></i>My Workouts</a>
+                    <a href="{% url 'my_workouts' %}"><i class="fa fa-lightbulb-o fa-fw w3-margin-right"></i>My
+                        Workouts</a>
                 </li>
                 <li class="sidebar__item">
-                    <a href="{% url 'my_team' %}" ><i class="fa fa-th fa-fw w3-margin-right"></i>My
+                    <a href="{% url 'my_team' %}"><i class="fa fa-th fa-fw w3-margin-right"></i>My
                         Team</a>
                 </li>
 
                 {%else%}
                 <li class="sidebar__item">
-                    <a href="{% url 'add_team' %}" ><i
-                            class="fa fa-lightbulb-o fa-fw w3-margin-right"></i>Add Team</a>
+                    <a href="{% url 'profile_wizard' %}"><i
+                            class="fa fa-lightbulb-o fa-fw w3-margin-right"></i>Configure Profile</a>
                 </li>
                 {%endif%}
                 <li class="sidebar__item">
-                    <a href="{% url 'leaderboard' %}" ><i
+                    <a href="{% url 'leaderboard' %}"><i
                             class="fa fa-question-circle fa-fw w3-margin-right"></i>Leaderboard</a>
                 </li>
                 <li class="sidebar__item">
-                    <a href="{% url 'logout'%}" ><i
-                            class="fa fa-sign-out fa-fw w3-margin-right"></i>Logout</a>
+                    <a href="{% url 'logout'%}"><i class="fa fa-sign-out fa-fw w3-margin-right"></i>Logout</a>
                 </li>
             </ul>
         </div>
@@ -76,7 +75,9 @@
             {% endblock %}
         </main>
     </div>
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <script src="http://malsup.github.io/jquery.blockUI.js"></script>
+    
+
+</body>
+
 
 </html>

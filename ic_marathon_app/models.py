@@ -3,10 +3,14 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.core.files.storage import default_storage
 from django.forms import ModelForm
+from django import forms
 from django.dispatch import receiver
+from django_select2.forms import ModelSelect2Widget
 import uuid
 from .validators import validate_file_size, validate_workout_time, validate_team_members
 import q
+
+
 # Create your models here.
 
 
@@ -44,6 +48,21 @@ class Profile(models.Model):
         Team, related_name="related_team", default=None, on_delete=models.CASCADE, blank=True, null=True, validators=[
             validate_team_members])
 
+
+class TeamSelectWidget(ModelSelect2Widget):
+    model = Team
+    search_fields = ['team_name__icontains']
+
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        widgets = {
+            'team': TeamSelectWidget,
+        }
+        fields = ['cec', 'category', 'team']
+
+
 '''
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -56,6 +75,7 @@ def save_user_profile(sender, instance, **kwargs):
     if instance.username != "lurifern":
         instance.profile.save()
 '''
+
 
 class Workout(models.Model):
     belongs_to = models.OneToOneField(
