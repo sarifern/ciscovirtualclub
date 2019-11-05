@@ -3,24 +3,22 @@
 {% extends 'registration/base.html' %}
 {% block title %} Sign in {% endblock %}
 {% block content %}
-<div class="row no-gutters">
-    <div class="col-md  panel panel--bordered text-center">
-        <div>
-            <button class="btn btn--success mb-2">
-                <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
-            </button>
-        </div>
-
-        <div>
-            <button class="btn btn--primary  mb-2">
-                <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-            </button>
-        </div>
-
-        <div>
-            <button class="btn btn--secondary  mb-2">   
-                <a href="{% url 'social:begin' 'instagram' %}">Login with Instagram</a>
-            </button></div>
+<div>
+        <button class="btn btn--success mb-2">
+            <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+        </button>
     </div>
-</div>
+
+    <div>
+        <button class="btn btn--primary  mb-2">
+            <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+        </button>
+    </div>
+
+    <div>
+        <button class="btn btn--secondary  mb-2">   
+            <a href="{% url 'social:begin' 'instagram' %}">Login with Instagram</a>
+        </button>
+    </div>
+
 {% endblock %}
