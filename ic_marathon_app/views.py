@@ -17,12 +17,12 @@ def home(request):
 
 @login_required
 def profile_wizard(request):
+    profile = Profile.objects.get_or_create(user=request.user)[0]
     if request.method == "POST":
-        profile = Profile.objects.get_or_create(user=request.user)[0]
         form = ProfileForm(request.POST,instance=profile)
         if form.is_valid():
             form.save()
             return redirect('home')
     else:
-        form = ProfileForm()
+        form = ProfileForm(instance=profile)
     return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form})

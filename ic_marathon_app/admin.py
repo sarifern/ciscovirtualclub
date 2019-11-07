@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Workout, Team, Profile
+from .models import Workout, Profile
 # Register your models here.
 
 
@@ -11,17 +11,9 @@ class WorkoutAdmin(admin.ModelAdmin):
 admin.site.register(Workout, WorkoutAdmin)
 
 
-class TeamAdmin(admin.ModelAdmin):
-    list_display = ('team_name', 'team_goal')
-    list_filter = ['team_name']
-
-
-admin.site.register(Team, TeamAdmin)
-
-
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'cec', 'user_goal', 'team', 'distance')
-    list_filter = ['user', 'cec', 'team']
+    list_display = ('user', 'cec', 'user_goal', 'distance')
+    list_filter = ['user', 'cec']
 
 
 admin.site.register(Profile, ProfileAdmin)

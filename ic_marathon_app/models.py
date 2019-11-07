@@ -5,29 +5,21 @@ from django.core.files.storage import default_storage
 from django.forms import ModelForm
 from django import forms
 from django.dispatch import receiver
-from django_select2.forms import ModelSelect2Widget
+from django_select2.forms import Select2Widget
 import uuid
-from .validators import validate_file_size, validate_workout_time, validate_team_members
+from .validators import validate_file_size, validate_workout_time 
 import q
 
-
 # Create your models here.
+BABYRUNNER = "babyrunner"
+RUNNER = "runner"
+BIKER = "biker"
 
-
-class Team(models.Model):
-    team_name = models.CharField(max_length=50)
-    team_goal = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.team_name
-
-
-class TeamForm(ModelForm):
-    class Meta:
-        model = Team
-        fields = ['team_name']
-
-
+CATEGORY_CHOICES = (
+    (BABYRUNNER, 'Baby Runner'),
+    (RUNNER, 'Runner'),
+    (BIKER, 'Biker'),
+)
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.CharField(max_length=200, blank=False)
@@ -35,32 +27,23 @@ class Profile(models.Model):
     cec = models.CharField(max_length=30, blank=True)
     distance = models.DecimalField(
         default=0.00, max_digits=4, decimal_places=2)
-    RUNNER = "Runner"
-    BIKER = "Biker"
-    CATEGORY_CHOICES = (
-        (None, 'Please select a category'),
-        (RUNNER, 'Runner'),
-        (BIKER, 'Biker'),
-    )
+
     category = models.CharField(
-        max_length=10, choices=CATEGORY_CHOICES, blank=True, null=True)
-    team = models.ForeignKey(
-        Team, related_name="related_team", default=None, on_delete=models.CASCADE, blank=True, null=True, validators=[
-            validate_team_members])
+        max_length=10, choices=CATEGORY_CHOICES,blank=False,default=BABYRUNNER)
 
-
-class TeamSelectWidget(ModelSelect2Widget):
-    model = Team
-    search_fields = ['team_name__icontains']
-
+    def check_achievements(self,distance):
+        if distance >= 70.0 and self.category=="babyrunner":
+            self.category = "runner"
+        elif distance < 42.0:
+            self.user_goal = False
+        elif distance >= 42.0:
+            self.user_goal = True
 
 class ProfileForm(ModelForm):
+    
     class Meta:
         model = Profile
-        widgets = {
-            'team': TeamSelectWidget,
-        }
-        fields = ['cec', 'category', 'team']
+        fields = ['cec', 'category']
 
 
 '''
@@ -101,10 +84,7 @@ def delete_workout(sender, instance, **kwargs):
     # update personal distance
     profile = instance.belongs_to
     profile.distance -= instance.distance
-    if profile.distance >= 42.0:
-        profile.user_goal = True
-    else:
-        profile.user_goal = False
+    profile.check_achievements(profile.distance)
     profile.save()
 
     # delete image from S3
@@ -113,40 +93,11 @@ def delete_workout(sender, instance, **kwargs):
     except Exception:
         q("Can't delete the file {} in S3".format(instance.photo_evidence.name))
 
-    # update team goal
-    team = profile.team
-    profiles = Profile.objects.filter(team__team_name=team.team_name)
-    team_goal = True
-    for profile in profiles:
-        if not profile.user_goal:
-            team_goal = False
-            break
-
-    if team_goal:
-        team.team_goal = True
-    else:
-        team.team_goal = False
-    team.save()
-
 
 @receiver(post_save, sender=Workout)
 def save_workout(sender, instance, **kwargs):
     # update personal distance
     profile = instance.belongs_to
     profile.distance += instance.distance
-    if profile.distance >= 42.0:
-        profile.user_goal = True
+    profile.check_achievements(profile.distance)
     profile.save()
-
-    # update team goal
-    team = profile.team
-    profiles = Profile.objects.filter(team__team_name=team.team_name)
-    team_goal = True
-    for profile in profiles:
-        if not profile.user_goal:
-            team_goal = False
-            break
-
-    if team_goal:
-        team.team_goal = True
-    team.save()

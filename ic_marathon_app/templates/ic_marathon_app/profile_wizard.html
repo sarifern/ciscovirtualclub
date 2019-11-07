@@ -6,17 +6,19 @@
         var warning = document.getElementById('info-disclaimer');
         warning.className = 'alert hide';
     }
-
-
-
+    function select_hidden_category(category) {
+        
+        
+        document.getElementById("category_hidden").value = category;
+    }
 </script>
 </br>
-        
+
 <h1 class="display-3">Edit your Profile</h1>
 <div class="divider divider--thick divider--accent-blue divider--compressed"></div>
 
 {{ form.media.css }}
-<form method="POST" id="form" class="profile-form dbl-padding-bottom" onsubmit="">{% csrf_token %}
+<form method="POST" id="categoryForm" class="profile-form dbl-padding-bottom">{% csrf_token %}
 
     <div class="row">
         <div class="col-6">
@@ -30,38 +32,30 @@
     </div>
 
 
-    <div class="row">
-        <div class="col-6">
-            <div class="form-group dropdown">
-                <div class="form-group__text select">
-                    <label>Category</label>
-                    {{ form.category }}
-                </div>
-            </div>
-        </div>
+    <div class="rcategory-group">
+        
+        <input id="category_hidden" name="category"  type="hidden">
+
     </div>
+
+
 
 
     <div class="row">
         <div class="col-6">
             <div class="form-group">
-                <div class="row">
+
+                <label>Category</label>
+                <div class="btn-group">
 
 
-                    <div id='team_selector'>
-                        <label style="padding-right: 10px; padding-left: 10px">Team:</label>
-                        {{ form.team }}
-                    </div>
-                    <div class="pad-top">
+                    {% for choice in form.fields.category.choices %}
+                    <button type="submit" name="category" value={{choice.0}} {% if form.initial.category == choice.0 %}
+                        class="btn btn--ghost selected" {%else %} class="btn btn--ghost" {% endif %}
+                        onclick="select_hidden_category('{{choice.0}}')">{{choice.1}}</button>
 
-                        <div class="alert hide" id="info-disclaimer">
-                            <div class="alert__icon icon-info-outline"></div>
-                            <div class="alert__message">If your team member is not listed, please ask them to log into
-                                the system to update our system.</div>
-                            <a onclick="closeWarning()" class="alert__close icon-close"></a>
-                        </div>
+                    {% endfor %}
 
-                    </div>
                 </div>
             </div>
         </div>
@@ -69,13 +63,11 @@
 
     <div class="row">
         <div class="col-6">
-            <button type="submit" class="save btn btn--success padding" name="save_button" value="Save" onclick="">Save
-            </button>
+            <button name="save" type="submit" class="save btn btn--success padding" value="Save">Save</button>
         </div>
     </div>
 
 </form>
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-<script src="http://malsup.github.io/jquery.blockUI.js"></script>
 {{ form.media.js }}
 {% endblock %}

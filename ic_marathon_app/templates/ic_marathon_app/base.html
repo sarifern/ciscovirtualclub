@@ -6,7 +6,7 @@
 
 <head>
 
-        <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -18,60 +18,67 @@
         type="text/css">
     <title>Cisco Running!</title>
 </head>
+<script>
+    function wires() {
+        $('body .btn-group .btn').click(function () {
+            event.preventDefault();
 
-<body class="cui">
+            $(this).siblings().removeClass('selected');
+            $(this).addClass('selected');
+
+        });
+    };
+    
+</script>
+
+<body class="cui styleguide"  onload="wires()">
 
 
 
     <div class="content-fluid">
 
-            <nav class="sidebar sidebar--light" role="navigation">
-                    <div class="sidebar__header">
-                        <img class="w3-round no-padding avatar" src={{user.profile.avatar}}>
-                        <div class="sidebar__header-title">Welcome {{user.first_name}}</div>
-                    </div>
-                    <ul>
-                        <li class="sidebar__item">
-                            <a tabindex="0">
-                                <span class="icon-home"></span>
-                                <span>Team {{user.profile.team.team_name}}</span>
-                            </a>
-                        </li>
-                        <li class="sidebar__item">
-                            <a href="{% url 'my_workouts' %}">
-                                <span class="icon-bell"></span>
-                                <span>My Workouts</span>
-                            </a>
-                        </li>
-                        <li class="sidebar__item">
-                            <a href="{% url 'profile_wizard' %}">
-                                <span class="icon-devices"></span>
-                                <span>Configure Profile</span>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="sidebar__item">
-                            <a href="{% url 'leaderboard' %}">
-                                <span class="icon-cog"></span>
-                                <span>Leaderboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar__item">
-                            <a href="{% url 'logout'%}"">
-                                <span class="icon-help"></span>
-                                <span>Logout</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="col-18 col-lg-10 col-xl-10">
+        <nav class="sidebar sidebar--light" role="navigation">
+            <div class="sidebar__header">
+                <img class="w3-round no-padding avatar" src={{user.profile.avatar}}>
+                <div class="sidebar__header-title">Welcome {{user.first_name}}</div>
+            </div>
+            <ul>
+                <li class="sidebar__item">
+                    <a href="{% url 'my_workouts' %}">
+                        <span class="icon-bell"></span>
+                        <span>My Workouts</span>
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a href="{% url 'profile_wizard' %}">
+                        <span class="icon-devices"></span>
+                        <span>Configure Profile</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li class="sidebar__item">
+                    <a href="{% url 'leaderboard' %}">
+                        <span class="icon-cog"></span>
+                        <span>Leaderboard</span>
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a href="{% url 'logout'%}"">
+                                <span class=" icon-help"></span>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="col-18 col-lg-10 col-xl-10">
 
-                <div class="section">
-            {% block content %}
-            {% endblock %}
-                </div></div>
+            <div class="section">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
     </div>
-    
+
 
 </body>
 
