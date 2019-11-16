@@ -59,7 +59,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Workout(models.Model):
     belongs_to = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, default=None)
+        Profile, on_delete=models.CASCADE, default=None, unique=False)
     uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     uploaded_at = models.DateTimeField(auto_now_add=True)
@@ -73,7 +73,6 @@ class WorkoutForm(ModelForm):
     class Meta:
         model = Workout
         fields = ['distance', 'photo_evidence', 'time']
-
 
 
 """
@@ -126,6 +125,3 @@ def check_badges(profile, distance):
     elif profile.distance >= 10.0:
         Award.objects.create(
             user=user, badge=Badge.objects.get(slug='10K'))
-
-
-
