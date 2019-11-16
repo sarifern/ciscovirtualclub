@@ -1,0 +1,23 @@
+{% extends "ic_marathon_app/base.html" %}
+{% load staticfiles %}
+{% block title %}Badges{% endblock %}
+
+{% block content %}
+{% if not badges %}
+<p>No badges yet.</p>
+{% else %}
+<ul>
+    {% for badge in badges %}
+    <li>
+        <img class="w3-round no-padding avatar" src="{{ badge.image.url }}">
+        <h4><a href="{{ badge.get_absolute_url }}">{{ badge.name }}</a></h4>
+        <ul>
+            <li><em>{{ badge.description }}</em></li>
+            <li><strong>{{ badge.users_count }} users</strong></li>
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+{% include "_pagination.html" %}
+{% endif %}
+{% endblock %}

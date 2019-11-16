@@ -1,0 +1,45 @@
+{% extends 'ic_marathon_app/base.html' %}
+{% block content %}
+<script>
+
+
+</script>
+
+
+
+
+
+<div class="header-bar__main">
+    <div class="header-heading ">
+        <h1 class="page-title">My Workouts <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a></h1>
+    </div>
+</div>
+<div class="divider divider--thick divider--accent-blue divider--compressed"></div>
+
+{% comment %}
+TODO[sarifern] include table for all the workouts with link to image, and ability to see one workout, erase one or
+several
+{% endcomment %}
+
+
+{% if workouts %}
+{% for workout in workouts  %}
+
+{% comment %}
+TODO[sarifern] implement some kind of table for this
+{% endcomment %}
+
+<p><b>Time:</b>{{workout.time}}</p>
+<p><b>Distance:</b>{{workout.distance}}</p>
+
+{% endfor %}
+{% else %}
+<p>No workouts yet! Bring it!</p>
+{% endif %}
+    
+
+    
+
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+{% endblock %}

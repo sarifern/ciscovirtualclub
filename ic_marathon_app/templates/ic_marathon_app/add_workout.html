@@ -1,0 +1,56 @@
+{% extends 'ic_marathon_app/base.html' %}
+{% block content %}
+<script>
+
+   
+</script>
+</br>
+
+<h1 class="display-3">Add a workout</h1>
+<div class="divider divider--thick divider--accent-blue divider--compressed"></div>
+
+
+<form method="POST" id="workoutForm" class="dbl-padding-bottom">{% csrf_token %}
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <div class="form-group__text">
+                    <label>Distance</label>
+                    {{ form.distance }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <div class="form-group__text">
+                        <label>Time</label>
+                        {{ form.time }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <div class="form-group__text">
+                        <label>Screenshot</label>
+                        {{ form.photo_evidence }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-6">
+            <button name="save" type="submit" class="save btn btn--success padding" value="Save">Save</button>
+        </div>
+    </div>
+
+</form>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+{% endblock %}

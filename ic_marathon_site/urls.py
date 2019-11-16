@@ -19,13 +19,15 @@ from django.contrib.auth import views as auth_views
 from ic_marathon_app import views
 
 urlpatterns = [
-        path('admin/', admin.site.urls),         
-        path("login/", views.login, name="login"),
-        path("profile_wizard/", views.profile_wizard, name="profile_wizard"),
-        path("my_workouts/", views.login, name="my_workouts"),
-        path("leaderboard/", views.login, name="leaderboard"),
-        path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-        path('social-auth/', include('social_django.urls', namespace="social")),
-        path("", views.home, name="home"),
-        path('select2/', include('django_select2.urls')),
-    ]
+    path('admin/', admin.site.urls),
+    path("login/", views.login, name="login"),
+    path("profile_wizard/", views.profile_wizard, name="profile_wizard"),
+    path("my_workouts/", views.my_workouts, name="my_workouts"),
+    path("add_workout/", views.add_workout, name="add_workout"),
+    path("leaderboard/", views.leaderboard, name="leaderboard"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path('social-auth/', include('social_django.urls', namespace="social")),
+    path("", views.home, name="home"),
+    path('select2/', include('django_select2.urls')),
+    path('badges/',include('badgify.urls')),
+]

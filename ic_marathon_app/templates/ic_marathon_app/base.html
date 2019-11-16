@@ -13,8 +13,9 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static 'css/icapp.css' %}">
     <link rel="stylesheet" href="{% static 'css/cui-standard.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    
+
     <title>Cisco Running!</title>
 </head>
 <script>
@@ -27,10 +28,10 @@
 
         });
     };
-    
+
 </script>
 
-<body class="cui styleguide"  onload="wires()">
+<body class="cui styleguide" onload="wires()">
 
 
 
@@ -40,30 +41,35 @@
             <div class="sidebar__header">
                 <img class="w3-round no-padding avatar" src={{user.profile.avatar}}>
                 <div class="sidebar__header-title">Welcome {{user.first_name}}</div>
+                
             </div>
+
+
             <ul>
+                {%if user.profile.cec %}
                 <li class="sidebar__item">
                     <a href="{% url 'my_workouts' %}">
                         <span class="icon-bell"></span>
                         <span>My Workouts</span>
                     </a>
                 </li>
-                <li class="sidebar__item">
-                    <a href="{% url 'profile_wizard' %}">
-                        <span class="icon-devices"></span>
-                        <span>Configure Profile</span>
-                    </a>
-                </li>
+                {% endif %}
                 <li class="divider"></li>
                 <li class="sidebar__item">
                     <a href="{% url 'leaderboard' %}">
-                        <span class="icon-cog"></span>
+                        <span class="icon-software-suggested-md"></span>
                         <span>Leaderboard</span>
                     </a>
                 </li>
                 <li class="sidebar__item">
+                        <a href="/badges/">
+                            <span class="icon-software-certified"></span>
+                            <span>Badges</span>
+                        </a>
+                </li>
+                <li class="sidebar__item">
                     <a href="{% url 'logout'%}"">
-                                <span class=" icon-help"></span>
+                        <span class=" icon-help"></span>
                         <span>Logout</span>
                     </a>
                 </li>

@@ -9,6 +9,7 @@ dj-database-url==0.5.0
 Django==2.2.3
 django-allauth==0.39.1
 django-appconf==1.0.3
+django-badgify==0.3.0
 django-bmemcached==0.2.4
 django-select2==7.1.1
 django-sslserver==0.21
@@ -26,6 +27,7 @@ psycopg2==2.8.3
 pycodestyle==2.5.0
 PyJWT==1.7.1
 pylint==2.3.1
+pylint-plugin-utils==0.6
 python-binary-memcached==0.28.0
 python-dateutil==2.8.0
 python3-openid==3.1.0
