@@ -3,12 +3,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save, post_delete
 from django.core.files.storage import default_storage
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.forms import ModelForm
 from django import forms
 from django.dispatch import receiver
 from django_select2.forms import Select2Widget
 import uuid
-from badgify.models import Award,Badge
+from badgify.models import Award, Badge
 import q
 
 # Create your models here.
@@ -21,6 +22,7 @@ CATEGORY_CHOICES = (
     (RUNNER, 'Runner'),
     (BIKER, 'Biker'),
 )
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -75,16 +77,15 @@ class WorkoutForm(ModelForm):
     def clean(self):
         super(WorkoutForm, self).clean()
 
-        #distance = self.clean_data.get('distance')
+        # distance = self.clean_data.get('distance')
         time = self.data.get('time')
         photo_evidence = self.clean_data.get('photo_evidence')
 
         if int(time) < 14:
-            self._errors['time'] = self.error_call(['The minimum time value for a workout is 15 min'])
-        
+            self._errors['time'] = self.error_call(
+                ['The minimum time value for a workout is 15 min'])
+
         return self.cleaned_data
-
-
 
 
 """
@@ -114,22 +115,29 @@ def save_workout(sender, instance, **kwargs):
     profile.save()
 
 
-
 def check_badges(profile, distance):
-    
+
     user = profile.user
     if distance >= 168.0:
-        Award.objects.create(user=user, badge=Badge.objects.get(slug="168K"))
+        Award.objects.create(user=user, badge=Badge.objects.get(slug='168K'))
     elif profile.distance >= 126.0:
-        Award.objects.create(user=user, badge=Badge.objects.get(slug="126K"))
+        Award.objects.create(
+            user=user, badge=Badge.objects.get(slug='126K'))
     elif profile.distance >= 84.0:
-        Award.objects.create(user=user, badge=Badge.objects.get(slug="84K"))
-    
+        Award.objects.create(
+            user=user, badge=Badge.objects.get(slug='84K'))
+
     elif profile.distance >= 42.0:
-        Award.objects.create(user=user, badge=Badge.objects.get(slug="42K"))
+        Award.objects.create(
+            user=user, badge=Badge.objects.get(slug='42K'))
         profile.user_goal = True
         profile.save()
     elif profile.distance >= 21.0:
-        Award.objects.create(user=user, badge=Badge.objects.get(slug="21K"))
+        Award.objects.create(
+            user=user, badge=Badge.objects.get(slug='21K'))
     elif profile.distance >= 10.0:
-        Award.objects.create(user=user, badge=Badge.objects.get(slug="10K"))
+        Award.objects.create(
+            user=user, badge=Badge.objects.get(slug='10K'))
+
+
+
