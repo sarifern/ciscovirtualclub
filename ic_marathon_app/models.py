@@ -10,6 +10,7 @@ from django.dispatch import receiver
 from django_select2.forms import Select2Widget
 import uuid
 from badgify.models import Award, Badge
+from .validators import validate_file_size, validate_workout_time 
 import q
 
 # Create your models here.
@@ -65,8 +66,9 @@ class Workout(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     distance = models.DecimalField(
         default=0.00, max_digits=4, decimal_places=2)
-    photo_evidence = models.ImageField()
-    time = models.IntegerField(help_text='Workout in minutes')
+    photo_evidence = models.ImageField(validators=[validate_file_size])
+    time = models.IntegerField(help_text='Workout in minutes', validators=[
+                               validate_workout_time])
 
 
 class WorkoutForm(ModelForm):

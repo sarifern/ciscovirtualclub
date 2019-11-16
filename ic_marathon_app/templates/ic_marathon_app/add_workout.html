@@ -12,7 +12,7 @@
 
 <form method="POST" id="workoutForm" class="dbl-padding-bottom" enctype="multipart/form-data">
     {% csrf_token %}
-
+    {{ form.non_field_errors }}
     <div class="row">
         <div class="col-6">
             <div class="form-group">
@@ -30,6 +30,7 @@
                     <div class="form-group__text">
                         <label>Time</label>
                         {{ form.time }}
+                        {{form.time.errors}}
                     </div>
                 </div>
             </div>
@@ -40,6 +41,7 @@
                     <div class="form-group__text">
                         <label>Screenshot</label>
                         {{ form.photo_evidence }}
+                        {{form.photo_evidence.errors}}
                     </div>
                 </div>
             </div>

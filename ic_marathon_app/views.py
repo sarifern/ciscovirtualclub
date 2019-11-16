@@ -32,8 +32,6 @@ def my_workouts(request):
 
 @login_required
 def add_workout(request):
-
-    # TODO[sarifern] put the POST functionality
     if request.method == "POST":
         form = WorkoutForm(request.POST, request.FILES)
         form.instance.belongs_to = request.user.profile
