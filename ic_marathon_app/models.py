@@ -33,7 +33,7 @@ class Profile(models.Model):
         default=0.00, max_digits=4, decimal_places=2)
 
     category = models.CharField(
-        max_length=10, choices=CATEGORY_CHOICES, blank=False, default=BEGINNERRUNNER)
+        max_length=20, choices=CATEGORY_CHOICES, blank=False, default=BEGINNERRUNNER)
 
 
 class ProfileForm(ModelForm):
@@ -79,7 +79,7 @@ class WorkoutForm(ModelForm):
 
         # distance = self.clean_data.get('distance')
         time = self.data.get('time')
-        photo_evidence = self.clean_data.get('photo_evidence')
+        photo_evidence = self.data.get('photo_evidence')
 
         if int(time) < 14:
             self._errors['time'] = self.error_call(
