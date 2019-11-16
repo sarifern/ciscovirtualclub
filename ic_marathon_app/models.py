@@ -119,17 +119,17 @@ def check_badges(profile, distance):
     
     user = profile.user
     if distance >= 168.0:
-        Award.objects.create(user=user, badge=Badge.object.get(slug="168K"))
+        Award.objects.create(user=user, badge=Badge.objects.get(slug="168K"))
     elif profile.distance >= 126.0:
-        Award.objects.create(user=user, badge=Badge.object.get(slug="126K"))
+        Award.objects.create(user=user, badge=Badge.objects.get(slug="126K"))
     elif profile.distance >= 84.0:
-        Award.objects.create(user=user, badge=Badge.object.get(slug="84K"))
+        Award.objects.create(user=user, badge=Badge.objects.get(slug="84K"))
     
     elif profile.distance >= 42.0:
-        Award.objects.create(user=user, badge=Badge.object.get(slug="42K"))
+        Award.objects.create(user=user, badge=Badge.objects.get(slug="42K"))
         profile.user_goal = True
         profile.save()
     elif profile.distance >= 21.0:
-        Award.objects.create(user=user, badge=Badge.object.get(slug="21K"))
+        Award.objects.create(user=user, badge=Badge.objects.get(slug="21K"))
     elif profile.distance >= 10.0:
-        Award.objects.create(user=user, badge=Badge.object.get(slug="10K"))
+        Award.objects.create(user=user, badge=Badge.objects.get(slug="10K"))
