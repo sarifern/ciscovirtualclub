@@ -21,7 +21,6 @@ def home(request):
         return profile_wizard(request)
 
 
-
 @login_required
 def my_workouts(request):
     try:
@@ -36,7 +35,8 @@ def add_workout(request):
 
     # TODO[sarifern] put the POST functionality
     if request.method == "POST":
-        form = WorkoutForm(request.POST)
+        form = WorkoutForm(request.POST, request.FILES)
+        form.instance.belongs_to = request.user.profile
         if form.is_valid():
             form.save()
             return redirect('home')

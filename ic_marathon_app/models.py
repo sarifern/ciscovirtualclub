@@ -74,18 +74,6 @@ class WorkoutForm(ModelForm):
         model = Workout
         fields = ['distance', 'photo_evidence', 'time']
 
-    def clean(self):
-        super(WorkoutForm, self).clean()
-
-        # distance = self.clean_data.get('distance')
-        time = self.data.get('time')
-        photo_evidence = self.data.get('photo_evidence')
-
-        if int(time) < 14:
-            self._errors['time'] = self.error_call(
-                ['The minimum time value for a workout is 15 min'])
-
-        return self.cleaned_data
 
 
 """
