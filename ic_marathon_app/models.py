@@ -8,9 +8,10 @@ from django.forms import ModelForm
 from django import forms
 from django.dispatch import receiver
 from django_select2.forms import Select2Widget
+from bootstrap_datepicker_plus import TimePickerInput
 import uuid
 from badgify.models import Award, Badge
-from .validators import validate_file_size, validate_workout_time 
+from .validators import validate_file_size, validate_workout_time
 import q
 
 # Create your models here.
@@ -67,14 +68,17 @@ class Workout(models.Model):
     distance = models.DecimalField(
         default=0.00, max_digits=4, decimal_places=2)
     photo_evidence = models.ImageField(validators=[validate_file_size])
-    time = models.IntegerField(help_text='Workout in minutes', validators=[
-                               validate_workout_time])
+    time = models.TimeField(help_text='Workout in minutes', validators=[
+        validate_workout_time],default='00:00')
 
 
 class WorkoutForm(ModelForm):
     class Meta:
         model = Workout
         fields = ['distance', 'photo_evidence', 'time']
+        widgets = {
+            'time': TimePickerInput(),
+        }
 
 
 """

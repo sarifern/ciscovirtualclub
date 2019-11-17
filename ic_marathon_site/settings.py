@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
     'badgify',
     'django_select2',
     'sslserver',
@@ -47,7 +49,9 @@ INSTALLED_APPS = [
     'storages',
 
 ]
-
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -230,8 +234,6 @@ SOCIAL_AUTH_PIPELINE = (
     'ic_marathon_app.pipeline.get_avatar',
 
 )
-
-
 
 
 LOGGING = {
