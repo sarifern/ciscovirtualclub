@@ -67,7 +67,13 @@ Set .secrets at the parent folder, and local-settings.py under the ic_marathon_s
 export $(grep -v '^#' .secrets | xargs)
 ``` 
 
-9. Setup the badging system
+9. Collect static files
+
+``` 
+python manage.py collectstatic --settings=ic_marathon_site.local_settings
+``` 
+
+10. Setup the badging system
 
 ``` 
 python manage.py badgify_sync badges --settings=ic_marathon_site.local_settings
@@ -75,23 +81,24 @@ python manage.py badgify_sync awards --disable-signals --settings=ic_marathon_si
 python manage.py badgify_sync counts --settings=ic_marathon_site.local_settings
 ``` 
 
-10. Run the initialize_badges.py script
+11. Run the initialize_badges.py script
 
 ``` 
 python manage.py shell < initialize_badges.py  --settings=ic_marathon_site.local_settings
 ``` 
-11. Make the DB migrations
+12. Make the DB migrations
 
 ``` 
 python manage.py makemigrations --settings=ic_marathon_site.local_settings
 python manage.py migrate --settings=ic_marathon_site.local_settings
 ``` 
 
-12. Create a superuser
+13. Create a superuser
 
 ``` 
 python manage.py createsuperuser --settings=ic_marathon_site.local_settings
 ```  
+
 
 # Running the project locally
 

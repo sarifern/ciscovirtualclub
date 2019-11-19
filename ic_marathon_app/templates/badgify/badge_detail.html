@@ -10,6 +10,11 @@
     <p><em>{{ badge.description }}</em></p>
     <p><strong>{{ badge.users_count }} users</strong>:</p>
     <ul>
+      
+      {% comment %}
+        insert when the badge was awarded
+      {% endcomment %}
+        
         {% for user in awarded_users %}
         <li>{{ user.profile.cec }}</li>
         {% endfor %}

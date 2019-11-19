@@ -2,8 +2,21 @@
 {% block content %}
 {{ form.media }}
 <script>
+    function openModal() {
+        var modal = document.getElementById('modal-fluid');
+        var overlay = document.getElementById('modal-overlay');
+        modal.className = "modal show";
+       
+    }
 
-   
+    function closeModal() {
+        var overlay = document.getElementById('modal-overlay');
+        var modal = document.getElementById('modal-fluid');
+        modal.className = "modal fade";
+        
+        window.location.href = "/";
+    }
+
 </script>
 </br>
 
@@ -26,27 +39,27 @@
     </div>
 
     <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <div class="form-group__text">
-                        <label>Time</label>
-                        {{ form.time }}
-                        {{form.time.errors}}
-                    </div>
+        <div class="col-6">
+            <div class="form-group">
+                <div class="form-group__text">
+                    <label>Time</label>
+                    {{ form.time }}
+                    {{form.time.errors}}
                 </div>
             </div>
         </div>
+    </div>
     <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <div class="form-group__text">
-                        <label>Screenshot</label>
-                        {{ form.photo_evidence }}
-                        {{form.photo_evidence.errors}}
-                    </div>
+        <div class="col-6">
+            <div class="form-group">
+                <div class="form-group__text">
+                    <label>Screenshot</label>
+                    {{ form.photo_evidence }}
+                    {{form.photo_evidence.errors}}
                 </div>
             </div>
         </div>
+    </div>
 
     <div class="row">
         <div class="col-6">
@@ -55,6 +68,30 @@
     </div>
 
 </form>
+{% if new_badge %}
+
+{% comment %}
+    TODO put the badge and ok boton (and maybe transparency) in the center of the modal
+{% endcomment %}
+    
+<div class="modal modal--fluid show fade" id="modal-fluid">
+    <div class="modal__dialog">
+        <div class="modal__content">
+            <a class="modal__close" onclick="closeModal()"><span class="icon-close"></span></a>
+            <div class="modal__header">
+                <div class="modal__title">{{new_badge.name}}</div>
+            </div>
+            <div class="modal__body">
+                <p class="subtitle">{{new_badge.description}}</p>
+                <img class="w3-round no-padding avatar" src="{{ new_badge.image.url }}">
+            </div>
+            <div class="modal__footer">
+                <button class="btn" onclick="closeModal()">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
 {% endblock %}

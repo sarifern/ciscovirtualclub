@@ -1,14 +1,5 @@
 {% extends 'ic_marathon_app/base.html' %}
 {% block content %}
-<script>
-
-
-</script>
-
-
-
-
-
 <div class="header-bar__main">
     <div class="header-heading ">
         <h1 class="page-title">My Workouts <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a></h1>
@@ -22,6 +13,9 @@ several
 {% endcomment %}
 
 
+
+    
+
 {% if workouts %}
 {% for workout in workouts  %}
 
@@ -31,9 +25,9 @@ TODO[sarifern] implement some kind of table for this
 
 
 {% comment %}
-    take out the am/pm from the time
+take out the am/pm from the time
 {% endcomment %}
-    
+
 <p><b>Time:</b>{{workout.time}}</p>
 <p><b>Distance:</b>{{workout.distance}}</p>
 
@@ -41,9 +35,8 @@ TODO[sarifern] implement some kind of table for this
 {% else %}
 <p>No workouts yet! Bring it!</p>
 {% endif %}
-    
 
-    
+
 
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
