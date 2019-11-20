@@ -68,7 +68,7 @@ class Workout(models.Model):
         default=0.00, max_digits=4, decimal_places=2)
     photo_evidence = models.ImageField(validators=[validate_file_size])
     time = models.TimeField(help_text='Workout in minutes', validators=[
-        validate_workout_time],default='00:00')
+        validate_workout_time], default='00:00')
 
 
 class WorkoutForm(ModelForm):
@@ -78,7 +78,6 @@ class WorkoutForm(ModelForm):
         widgets = {
             'time': TimePickerInput(),
         }
-
 
 
 @receiver(post_delete, sender=Workout)
@@ -95,12 +94,14 @@ def delete_workout(sender, instance, **kwargs):
     except Exception:
         q("Can't delete the file {} in S3".format(instance.photo_evidence.name))
 
+
 @receiver(post_save, sender=Workout)
 def save_workout(sender, instance, **kwargs):
     # update personal distance
     profile = instance.belongs_to
     profile.distance += instance.distance
+    if profile.distance >= 80.0 and profile.category == "beginnerrunner":
+        profile.category = "runner"
+    if profile.distance >= 42.0:
+        profile.user_goal = True
     profile.save()
-
-
-

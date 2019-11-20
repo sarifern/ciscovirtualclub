@@ -6,14 +6,14 @@
         var modal = document.getElementById('modal-fluid');
         var overlay = document.getElementById('modal-overlay');
         modal.className = "modal show";
-       
+
     }
 
     function closeModal() {
         var overlay = document.getElementById('modal-overlay');
         var modal = document.getElementById('modal-fluid');
         modal.className = "modal fade";
-        
+
         window.location.href = "/";
     }
 
@@ -68,22 +68,29 @@
     </div>
 
 </form>
-{% if new_badge %}
+{% if new_badges %}
 
 {% comment %}
-    TODO put the badge and ok boton (and maybe transparency) in the center of the modal
+TODO put the badge and ok boton (and maybe transparency) in the center of the modal
 {% endcomment %}
-    
+
 <div class="modal modal--fluid show fade" id="modal-fluid">
     <div class="modal__dialog">
         <div class="modal__content">
             <a class="modal__close" onclick="closeModal()"><span class="icon-close"></span></a>
             <div class="modal__header">
+
+                {% for new_badge in new_badges %}
+
                 <div class="modal__title">{{new_badge.name}}</div>
+                {% endfor %}
             </div>
             <div class="modal__body">
+                {% for new_badge in new_badges %}
+
                 <p class="subtitle">{{new_badge.description}}</p>
                 <img class="w3-round no-padding avatar" src="{{ new_badge.image.url }}">
+                {% endfor %}
             </div>
             <div class="modal__footer">
                 <button class="btn" onclick="closeModal()">Ok</button>

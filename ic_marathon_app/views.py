@@ -38,9 +38,9 @@ def add_workout(request):
         form.instance.belongs_to = request.user.profile
         if form.is_valid():
             form.save()
-            new_badge = check_badges(request.user)
-            if new_badge:
-                return render(request, 'ic_marathon_app/add_workout.html', {'form': form, 'new_badge': new_badge})
+            new_badges = check_badges(request.user)
+            if new_badges:
+                return render(request, 'ic_marathon_app/add_workout.html', {'form': form, 'new_badges': new_badges})
             else:
                 return redirect('home')
         else:
@@ -69,26 +69,34 @@ def profile_wizard(request):
 
 
 def check_badges(user):
-    profile = user.profile
     distance = user.profile.distance
-
+    new_badges = []
     if distance >= 168.0:
-        return award_badge(user=user, slug='168K')
-    elif profile.distance >= 126.0:
-        return award_badge(user=user, slug='126K')
-    elif profile.distance >= 84.0:
-        return award_badge(user=user, slug='84K')
-    elif profile.distance >= 80.0 and profile.category == "beginnerrunner":
-        profile.category = "runner"
-        profile.save()
-    elif profile.distance >= 42.0:
-        return award_badge(user=user, slug='42K')
-    elif profile.distance >= 21.0:
-        return award_badge(user=user, slug='21K')
-    elif profile.distance >= 10.0:
-        return award_badge(user=user, slug='10K')
+        new_badge= award_badge(user=user, slug='168K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 126.0:
+        new_badge= award_badge(user=user, slug='126K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 84.0:
+        new_badge= award_badge(user=user, slug='84K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 42.0:
+        new_badge= award_badge(user=user, slug='42K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 21.0:
+       new_badge= award_badge(user=user, slug='21K')
+       if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 10.0:
+        new_badge= award_badge(user=user, slug='10K')
+        if new_badge:
+            new_badges.append(new_badge)
 
-    return None
+    return new_badges
 
 
 def award_badge(user, slug):
