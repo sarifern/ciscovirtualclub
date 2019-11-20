@@ -26,9 +26,12 @@ def home(request):
 def my_workouts(request):
     try:
         workouts = Workout.objects.filter(belongs_to=request.user.profile)
+        awards = Award.objects.filter(user=request.user)
+
     except ObjectDoesNotExist:
         workouts = {}
-    return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts})
+        awards = {}
+    return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts,'awards':awards})
 
 
 @login_required

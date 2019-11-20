@@ -1,9 +1,9 @@
 <!-- templates/ic_marathon_app/base.html -->
 
 {% load static %}
-{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
-{% bootstrap_css %}         {# Embed Bootstrap CSS #}
-{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+{% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
+{% bootstrap_css %} {# Embed Bootstrap CSS #}
+{% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,9 +42,17 @@
             <div class="sidebar__header">
                 <img class="w3-round no-padding avatar" src={{user.profile.avatar}}>
                 <div class="sidebar__header-title">Welcome {{user.first_name}}</div>
-                
-            </div>
+                <br>
 
+            </div>
+            {% if awards%}
+
+            <div class="badges">
+                {% for award in awards %}
+                <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}">
+                {% endfor %}
+            </div>
+            {% endif %}
 
             <ul>
                 {%if user.profile.cec %}
@@ -55,7 +63,7 @@
                     </a>
                 </li>
                 {% endif %}
-                <li class="divider"></li>
+
                 <li class="sidebar__item">
                     <a href="{% url 'leaderboard' %}">
                         <span class="icon-software-suggested-md"></span>
@@ -63,10 +71,10 @@
                     </a>
                 </li>
                 <li class="sidebar__item">
-                        <a href="/badges/">
-                            <span class="icon-software-certified"></span>
-                            <span>Badges</span>
-                        </a>
+                    <a href="/badges/">
+                        <span class="icon-software-certified"></span>
+                        <span>Badges</span>
+                    </a>
                 </li>
                 <li class="sidebar__item">
                     <a href="{% url 'logout'%}"">
