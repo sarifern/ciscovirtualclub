@@ -8,8 +8,7 @@
 <div class="divider divider--thick divider--accent-blue divider--compressed"></div>
 
 {% comment %}
-TODO[sarifern] include table for all the workouts with link to image, and ability to see one workout, erase one or
-several
+TODO[sarifern] include table for all the workouts with link to image, and ability to see one workout
 {% endcomment %}
 
 
@@ -25,10 +24,10 @@ TODO[sarifern] implement some kind of table for this
 
 
 {% comment %}
-take out the am/pm from the time
+TODO[sarifern] take out the am/pm from the time
 {% endcomment %}
 
-<p><b>Time:</b>{{workout.time}}</p>
+<p><b>Time:</b>Hours: {{workout.time.hour}} Minutes: {{workout.time.minute}}</p>
 <p><b>Distance:</b>{{workout.distance}}</p>
 
 {% endfor %}
