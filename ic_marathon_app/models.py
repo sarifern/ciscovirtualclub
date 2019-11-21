@@ -31,7 +31,7 @@ class Profile(models.Model):
     avatar = models.CharField(max_length=200, blank=False)
     cec = models.CharField(max_length=30, blank=True)
     distance = models.DecimalField(
-        default=0.00, max_digits=4, decimal_places=2)
+        default=0.00, max_digits=10, decimal_places=2)
 
     category = models.CharField(
         max_length=20, choices=CATEGORY_CHOICES, blank=False, default=BEGINNERRUNNER)

@@ -76,21 +76,25 @@ python manage.py collectstatic --settings=ic_marathon_site.local_settings
 10. Setup the badging system
 
 ``` 
+python manage.py makemigrations badgify --settings=ic_marathon_site.local_settings
+python manage.py migrate badgify --settings=ic_marathon_site.local_settings
 python manage.py badgify_sync badges --settings=ic_marathon_site.local_settings
+python manage.py badgify_reset --settings=ic_marathon_site.local_settings
 python manage.py badgify_sync awards --disable-signals --settings=ic_marathon_site.local_settings
 python manage.py badgify_sync counts --settings=ic_marathon_site.local_settings
 ``` 
 
-11. Run the initialize_badges.py script
-
-``` 
-python manage.py shell < initialize_badges.py  --settings=ic_marathon_site.local_settings
-``` 
-12. Make the DB migrations
+11. Make the DB migrations
 
 ``` 
 python manage.py makemigrations --settings=ic_marathon_site.local_settings
 python manage.py migrate --settings=ic_marathon_site.local_settings
+```
+
+12. Run the initialize_badges.py script
+
+``` 
+python manage.py shell < initialize_badges.py  --settings=ic_marathon_site.local_settings
 ``` 
 
 13. Create a superuser
