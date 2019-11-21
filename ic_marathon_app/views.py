@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import ProfileForm, Profile, Workout, WorkoutForm
 from badgify.models import Award, Badge
 from django.shortcuts import redirect
-
+from .tables import WorkoutTable
 # TODO[sarifern] document every function
 
 # Create your views here.
@@ -26,12 +26,14 @@ def home(request):
 def my_workouts(request):
     try:
         workouts = Workout.objects.filter(belongs_to=request.user.profile)
+        workouts_table = WorkoutTable(workouts)
+
         awards = Award.objects.filter(user=request.user)
 
     except ObjectDoesNotExist:
         workouts = {}
         awards = {}
-    return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts,'awards':awards})
+    return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts_table, 'awards': awards})
 
 
 @login_required
@@ -75,27 +77,27 @@ def check_badges(user):
     distance = user.profile.distance
     new_badges = []
     if distance >= 168.0:
-        new_badge= award_badge(user=user, slug='168K')
+        new_badge = award_badge(user=user, slug='168K')
         if new_badge:
             new_badges.append(new_badge)
     if distance >= 126.0:
-        new_badge= award_badge(user=user, slug='126K')
+        new_badge = award_badge(user=user, slug='126K')
         if new_badge:
             new_badges.append(new_badge)
     if distance >= 84.0:
-        new_badge= award_badge(user=user, slug='84K')
+        new_badge = award_badge(user=user, slug='84K')
         if new_badge:
             new_badges.append(new_badge)
     if distance >= 42.0:
-        new_badge= award_badge(user=user, slug='42K')
+        new_badge = award_badge(user=user, slug='42K')
         if new_badge:
             new_badges.append(new_badge)
     if distance >= 21.0:
-       new_badge= award_badge(user=user, slug='21K')
-       if new_badge:
+        new_badge = award_badge(user=user, slug='21K')
+        if new_badge:
             new_badges.append(new_badge)
     if distance >= 10.0:
-        new_badge= award_badge(user=user, slug='10K')
+        new_badge = award_badge(user=user, slug='10K')
         if new_badge:
             new_badges.append(new_badge)
 

@@ -16,9 +16,14 @@
     <link rel="stylesheet" href="{% static 'css/cui-standard.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <title>Cisco Running!</title>
 </head>
+
+{% block javascript %}
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+
 <script>
     function wires() {
         $('body .btn-group .btn').click(function () {
@@ -28,9 +33,13 @@
             $(this).addClass('selected');
 
         });
+        
+
     };
 
+
 </script>
+{% endblock javascript %}
 
 <body class="cui styleguide" onload="wires()">
 

@@ -1,5 +1,7 @@
 {% extends 'ic_marathon_app/base.html' %}
 {% block content %}
+{% load render_table from django_tables2 %}
+
 <div class="header-bar__main">
     <div class="header-heading ">
         <h1 class="page-title">My Workouts <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a></h1>
@@ -13,30 +15,25 @@ TODO[sarifern] include table for all the workouts with link to image, and abilit
 
 
 
-    
+
 
 {% if workouts %}
-{% for workout in workouts  %}
+{% render_table workouts %}
+ 
 
-{% comment %}
-TODO[sarifern] implement some kind of table for this
-{% endcomment %}
-
-
-{% comment %}
-TODO[sarifern] take out the am/pm from the time
-{% endcomment %}
-
-<p><b>Time:</b>Hours: {{workout.time.hour}} Minutes: {{workout.time.minute}}</p>
-<p><b>Distance:</b>{{workout.distance}}</p>
-
-{% endfor %}
 {% else %}
 <p>No workouts yet! Bring it!</p>
 {% endif %}
 
 
 
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
 
 {% endblock %}
+{% block javascript %}
+{{ block.super }}
+<script type="application/javascript">
+    
+    
+</script>
+{% endblock javascript %}

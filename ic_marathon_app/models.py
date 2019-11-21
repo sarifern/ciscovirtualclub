@@ -85,7 +85,9 @@ def delete_workout(sender, instance, **kwargs):
     # update personal distance
     profile = instance.belongs_to
     profile.distance -= instance.distance
-    # TODO probably a badge
+    
+    if profile.distance < 42.0:
+        profile.user_goal = False
     profile.save()
 
     # delete image from S3
