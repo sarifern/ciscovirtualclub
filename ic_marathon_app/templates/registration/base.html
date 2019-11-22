@@ -1,28 +1,26 @@
 {% load staticfiles %}
-<html>
-
-        <head>
-                <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
-                <title>Cisco Running!</title>
+<!doctype html>
+<html lang="en">
+            <head>
                 <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="{% static 'css/cui-standard.min.css' %}">
-                <link rel="stylesheet" href="{% static 'css/icapp.css' %}">
-        
-        
+                <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+                <meta name="viewport" content="width=device-width,initial-scale=1">
+                <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet" type="text/css">
+                <link href="{% static 'css/icapp.css' %}" rel="stylesheet" type="text/css">
+                <title>Cisco Running</title>
             </head>
     <body class="cui">
         <header class="header">
-                            <div class="container">
-                                <div class="header-panels">
-                                    <div class="header-panel">
-                                        <a class="header__logo" href="http://www.cisco.com" target="_blank">
-                                            <span class="icon-cisco"></span>
-                                                </a>
-                                        <div class="header__title">Cisco Running</div>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="container">
+                <div class="header-panels">
+                    <div class="header-panel">
+                        <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                            <span class="icon-cisco"></span>
+                                </a>
+                        <div class="header__title">Cisco Running</div>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <div class="content">

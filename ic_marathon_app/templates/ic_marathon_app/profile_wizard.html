@@ -11,61 +11,47 @@
     }
 </script>
 </br>
+<div class="panel panel--loose panel--raised base-margin-bottom">     
+        <h2 class="subtitle">Edit your profile</h2>            <hr>
+        <div class="section">
+          
+         
+                {{ form.media.css }}
+                <form method="POST" id="categoryForm" class="dbl-padding-bottom">{% csrf_token %}
 
-<h1 class="display-3">Edit your Profile</h1>
-<div class="divider divider--thick divider--accent-blue divider--compressed"></div>
+                        <div class="form-group">
+                                <div class="form-group__text">
+                                    <label for="input-layout-stacked-1">CEC</label>
+                                    {{ form.cec }}
+                                </div>
+                        </div>
+                        <div class="form-group">
+                
+                                <label for="input-layout-stacked-1">Category</label><br>
+                                <div class="btn-group">
+                
+                
+                                    {% for choice in form.fields.category.choices %}
+                                    <button type="submit" name="category" value={{choice.0}} {% if form.initial.category == choice.0 %}
+                                        class="btn btn--ghost selected" {%else %} class="btn btn--ghost" {% endif %}
+                                        onclick="select_hidden_category('{{choice.0}}')">{{choice.1}}</button>
+                
+                                    {% endfor %}
+                
+                                </div>
+                            </div>
 
-{{ form.media.css }}
-<form method="POST" id="categoryForm" class="profile-form dbl-padding-bottom">{% csrf_token %}
+                
+<div class="flex flex-center">
+                            <button name="save" type="submit" class="save btn btn--success padding" value="Save">Save</button></div>
 
-    <div class="row">
-        <div class="col-6">
-            <div class="form-group">
-                <div class="form-group__text">
-                    <label>Cec</label>
-                    {{ form.cec }}
-                </div>
-            </div>
+                </form>
+                <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+                {{ form.media.js }}
+        </div>
         </div>
     </div>
 
 
-    <div class="rcategory-group">
-        
-        <input id="category_hidden" name="category"  type="hidden" value="beginnerrunner">
 
-    </div>
-
-
-
-
-    <div class="row">
-        <div class="col-6">
-            <div class="form-group">
-
-                <label>Category</label>
-                <div class="btn-group">
-
-
-                    {% for choice in form.fields.category.choices %}
-                    <button type="submit" name="category" value={{choice.0}} {% if form.initial.category == choice.0 %}
-                        class="btn btn--ghost selected" {%else %} class="btn btn--ghost" {% endif %}
-                        onclick="select_hidden_category('{{choice.0}}')">{{choice.1}}</button>
-
-                    {% endfor %}
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-6">
-            <button name="save" type="submit" class="save btn btn--success padding" value="Save">Save</button>
-        </div>
-    </div>
-
-</form>
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-{{ form.media.js }}
 {% endblock %}

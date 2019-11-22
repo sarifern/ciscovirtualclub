@@ -3,22 +3,29 @@
 {% extends 'registration/base.html' %}
 {% block title %} Sign in {% endblock %}
 {% block content %}
-<div>
-        <button class="btn btn--success mb-2">
-            <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
-        </button>
-    </div>
+{% load staticfiles %}
 
-    <div>
-        <button class="btn btn--primary  mb-2">
-            <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-        </button>
-    </div>
+<div class="flex flex-center">
+    <img style="width: 30%" src="{% static 'img/CR_Logo.png' %}"/>
+</div>
 
-    <div>
-        <button class="btn btn--secondary  mb-2">   
-            <a href="{% url 'social:begin' 'instagram' %}">Login with Instagram</a>
-        </button>
+<div class="flex flex-center">
+    
+</div>
+
+<div class="flex flex-center">
+    <div class="form-signin">
+        <h4 class="form-header">It's time for "Maraton Guadalupe-Reyes"</h4>
+        <div>
+            <a href="{% url 'social:begin' 'google-oauth2' %}"><button class="button-loggin">Login with Google</button></a>
+        </div>
+        <div>
+            <a href="{% url 'social:begin' 'facebook' %}"><button class="button-loggin">Login with Facebook</button></a>
+        </div>
+        <div>
+            <a href="{% url 'social:begin' 'instagram' %}"><button class="button-loggin">Login with Instagram</button></a>
+        </div>
     </div>
+</div>
 
 {% endblock %}

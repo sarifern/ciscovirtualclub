@@ -7,6 +7,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <head>
 
     <meta charset="utf-8">
@@ -36,24 +38,20 @@
         
 
     };
-
-
 </script>
 {% endblock javascript %}
 
 <body class="cui styleguide" onload="wires()">
 
-
+        <div class="content content--alt">
 
     <div class="content-fluid">
 
-        <nav class="sidebar sidebar--light" role="navigation">
-            <div class="sidebar__header">
-                <img class="w3-round no-padding avatar" src={{user.profile.avatar}}>
-                <div class="sidebar__header-title">Welcome {{user.first_name}}</div>
-                <br>
-
-            </div>
+        <nav class="col-lg-3 col-xl-2 sidebar hidden-md-down sidebar sidebar--light" role="navigation">
+                <div class="base-margin">
+                        <img class="image-size-64" src={{user.profile.avatar}}>
+                        <div class="text-size-16 ">Welcome {{user.first_name}}</div>
+                    </div>
             {% if awards%}
 
             <div class="badges">
@@ -102,7 +100,7 @@
         </div>
     </div>
 
-
+        </div>
 </body>
 
 
