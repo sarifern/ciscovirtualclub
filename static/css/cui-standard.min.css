@@ -5,10 +5,17 @@
  * @license 2019 Cisco Systems, Inc. All rights reserved. Terms and Conditions: http://cisco.com/en/US/swassets/sw293/sitewide_important_notices.html
  */
  @charset "UTF-8";
+<<<<<<< HEAD
 /*
 ================================================================================
 Cisco Brand UI Kit Default Theme
 --------------------------------------------------------------------------------
+=======
+/*
+================================================================================
+Cisco Brand UI Kit Default Theme
+--------------------------------------------------------------------------------
+>>>>>>> 79f5e62c422cc2dd36b555003e01db5b3876e5bd
 */
 html {
   /* 1rem = 10px (see https://snook.ca/archives/html_and_css/font-size-with-rem)*/
@@ -21,7 +28,11 @@ body.cui {
   --cui-font-size-sm: 12px;
   --cui-font-size-lg: 16px;
   --cui-font-stack: 'CiscoSans', 'Arial', sans-serif;
+<<<<<<< HEAD
   --cui-font-mono-stack: Monaco, Inconsolata, Consolas, 'Courier New',
+=======
+  --cui-font-mono-stack: Monaco, Inconsolata, Consolas, 'Courier New',
+>>>>>>> 79f5e62c422cc2dd36b555003e01db5b3876e5bd
         Courier, 'Lucida Console', monospace;
   --cui-font-weight: 300;
   --cui-header-height: 50px;
@@ -484,6 +495,7 @@ body.cui [data-balloon] {
   --cui-tooltip-border-radius: var(--cui-border-radius);
   --cui-tooltip-padding: var(--cui-spacing-qtr) var(--cui-spacing-half); }
 
+<<<<<<< HEAD
 /*
 ================================================================================
 Cisco Brand UI Kit Dark Theme
@@ -491,6 +503,15 @@ Cisco Brand UI Kit Dark Theme
 This file contains just the overrides for the dark theme. The default theme
 contains the entire set of custom CSS properties which can be overridden.
 --------------------------------------------------------------------------------
+=======
+/*
+================================================================================
+Cisco Brand UI Kit Dark Theme
+
+This file contains just the overrides for the dark theme. The default theme
+contains the entire set of custom CSS properties which can be overridden.
+--------------------------------------------------------------------------------
+>>>>>>> 79f5e62c422cc2dd36b555003e01db5b3876e5bd
 */
 body.cui[data-theme="dark"] {
   /* Font */

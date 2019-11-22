@@ -26,6 +26,7 @@
 
 <form method="POST" id="workoutForm" class="dbl-padding-bottom" enctype="multipart/form-data">
     {% csrf_token %}
+
     {{ form.non_field_errors }}
     <div class="row">
         <div class="col-6">
@@ -79,18 +80,21 @@ TODO put the badge and ok boton (and maybe transparency) in the center of the mo
         <div class="modal__content">
             <a class="modal__close" onclick="closeModal()"><span class="icon-close"></span></a>
             <div class="modal__header">
-
-                {% for new_badge in new_badges %}
-
-                <div class="modal__title">{{new_badge.name}}</div>
-                {% endfor %}
+                <div class="modal__title">
+                    {% for new_badge in new_badges %}
+                    <p>{{new_badge.name}}</p>
+                    {% endfor %}
+                </div>
             </div>
             <div class="modal__body">
-                {% for new_badge in new_badges %}
-
-                <p class="subtitle">{{new_badge.description}}</p>
-                <img class="w3-round no-padding" height="500" width="500" src="{{ new_badge.image.url }}">
-                {% endfor %}
+                <div class="row">
+                    {% for new_badge in new_badges %}
+                    <div class="">
+                        <img class="w3-round no-padding" height="250" width="250" src="{{ new_badge.image.url }}">
+                        <p class="subtitle">{{new_badge.description}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="modal__footer">
                 <button class="btn" onclick="closeModal()">Ok</button>
@@ -99,6 +103,5 @@ TODO put the badge and ok boton (and maybe transparency) in the center of the mo
     </div>
 </div>
 {% endif %}
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
 {% endblock %}
