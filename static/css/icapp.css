@@ -306,7 +306,6 @@ font-size: 15px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-<<<<<<< HEAD
 }
 
 .form-header{
@@ -341,6 +340,8 @@ font-size: 15px;
 .button-loggin:hover {
   background: #0d274d;
   border-radius: 5px;
-=======
->>>>>>> 79f5e62c422cc2dd36b555003e01db5b3876e5bd
+}
+
+tr[user-goal="True"] {
+  background-color: #fbab18;
 }

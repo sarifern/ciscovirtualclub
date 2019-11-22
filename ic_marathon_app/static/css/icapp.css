@@ -341,3 +341,7 @@ font-size: 15px;
   background: #0d274d;
   border-radius: 5px;
 }
+
+tr[user-goal="True"] {
+  background-color: #fbab18;
+}

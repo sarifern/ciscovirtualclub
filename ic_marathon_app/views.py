@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import ProfileForm, Profile, Workout, WorkoutForm
 from badgify.models import Award, Badge
 from django.shortcuts import redirect
-from .tables import WorkoutTable
+from .tables import WorkoutTable, ProfileTable
 # TODO[sarifern] document every function
 
 # Create your views here.
@@ -57,7 +57,13 @@ def add_workout(request):
 
 @login_required
 def leaderboard(request):
-    return render(request, 'ic_marathon_app/leaderboard.html')
+    leaders_br = Profile.objects.filter(
+        category="beginnerrunner").order_by('distance')
+    leaders_r = Profile.objects.filter(category="runner").order_by('distance')
+    leaders_b = Profile.objects.filter(category="biker").order_by('distance')
+    return render(request, 'ic_marathon_app/leaderboard.html',
+                  {'leaders_br': ProfileTable(leaders_br), 'leaders_r': ProfileTable(leaders_r),
+                   'leaders_b': ProfileTable(leaders_b)})
 
 
 @login_required
