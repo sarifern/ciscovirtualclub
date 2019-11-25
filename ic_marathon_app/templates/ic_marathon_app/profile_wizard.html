@@ -1,13 +1,27 @@
 {% extends 'ic_marathon_app/base.html' %}
 {% block content %}
 <script>
-
+    
     function closeWarning() {
         var warning = document.getElementById('info-disclaimer');
         warning.className = 'alert hide';
     }
     function select_hidden_category(category) {
         document.getElementById("category_hidden").value = category;
+    }
+    function openModal() {
+        var modal = document.getElementById('modal--full');
+        var overlay = document.getElementById('modal-overlay');
+        modal.className = "modal show";
+
+    }
+
+    function closeModal() {
+        var overlay = document.getElementById('modal-overlay');
+        var modal = document.getElementById('modal--full');
+        modal.className = "modal fade";
+
+        window.location.href = "/";
     }
 </script>
 </br>
@@ -58,7 +72,30 @@
     </div>
 </div>
 </div>
+{% if activation %}
+{% comment %}
+TODO put the badge and ok boton (and maybe transparency) in the center of the modal
+{% endcomment %}
 
+<div class="modal modal--full show fade" id="modal--full">
+    <div class="modal__dialog">
+        <div class="modal__content">
+            <a class="modal__close" onclick="closeModal()"><span class="icon-close"></span></a>
+            <div class="modal__header">
+                <div class="modal__title">
+                    Registration was successful!
+                </div>
+            </div>
+            <div class="modal__body">                  
+                    See you next Dec 12th!
+            </div>
+            <div class="modal__footer">
+                <button class="btn" onclick="closeModal()">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 
 {% endblock %}

@@ -13,10 +13,10 @@ from datetime import datetime
 # Create your views here.
 DATE_START = datetime(2019, 12, 12, 0, 0, 0)
 DATE_END = datetime(2020, 1, 7, 0, 0, 0)
-DATE = datetime.now()
+#DATE = datetime.now()
 # TODO CHANGE when pushing to github
 
-#DATE = datetime(2019, 12, 12, 0, 0, 0)
+DATE = datetime(2019, 12, 12, 0, 0, 0)
 # Check time period DIC 12 to Jan 6
 if DATE >= DATE_START and DATE <= DATE_END:
     ACTIVE = True
@@ -99,7 +99,7 @@ def profile_wizard(request):
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form, 'activation': True})
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form})
