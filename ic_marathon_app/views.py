@@ -71,8 +71,8 @@ def add_workout(request):
 def leaderboard(request):
     leaders_br = Profile.objects.filter(
         category="beginnerrunner").order_by('distance')
-    leaders_r = Profile.objects.filter(category="runner").order_by('distance')
-    leaders_b = Profile.objects.filter(category="biker").order_by('distance')
+    leaders_r = Profile.objects.filter(category="runner").order_by('-distance')
+    leaders_b = Profile.objects.filter(category="biker").order_by('-distance')
     return render(request, 'ic_marathon_app/leaderboard.html',
                   {'leaders_br': ProfileTable(leaders_br), 'leaders_r': ProfileTable(leaders_r),
                    'leaders_b': ProfileTable(leaders_b)})
