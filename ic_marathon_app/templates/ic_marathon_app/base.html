@@ -33,7 +33,7 @@
             $(this).addClass('selected');
 
         });
-        
+
 
     };
 </script>
@@ -41,64 +41,66 @@
 
 <body class="cui styleguide" onload="wires()">
 
-        <div class="content content--alt">
+    <div class="content content--alt">
 
-    <div class="content-fluid">
+        <div class="content-fluid">
 
-        <nav class="col-lg-3 col-xl-2 sidebar hidden-md-down sidebar sidebar--light" role="navigation">
+            <nav class="col-lg-3 col-xl-2 sidebar hidden-md-down sidebar sidebar--light" role="navigation">
                 <div class="base-margin">
-                        <img class="image-size-64" src={{user.profile.avatar}}>
-                        <div class="text-size-16 ">Welcome {{user.first_name}}</div>
-                    </div>
-            {% if awards%}
+                    <img class="image-size-64" src={{user.profile.avatar}}>
+                    <div class="text-size-16 ">Welcome {{user.first_name}}</div>
+                </div>
+                {% if awards%}
 
-            <div class="badges">
-                {% for award in awards %}
-                <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}">
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            <ul>
-                {%if user.profile.cec %}
-                <li class="sidebar__item">
-                    <a href="{% url 'my_workouts' %}">
-                        <span class="icon-manage-cable"></span>
-                        <span>My Workouts</span>
-                    </a>
-                </li>
+                <div class="badges">
+                    {% for award in awards %}
+                    <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}">
+                    {% endfor %}
+                </div>
                 {% endif %}
 
-                <li class="sidebar__item">
-                    <a href="{% url 'leaderboard' %}">
-                        <span class="icon-software-suggested-md"></span>
-                        <span>Leaderboard</span>
-                    </a>
-                </li>
-                <li class="sidebar__item">
-                    <a href="/badges/">
-                        <span class="icon-software-certified"></span>
-                        <span>Badges</span>
-                    </a>
-                </li>
-                <li class="sidebar__item">
-                    <a href="{% url 'logout'%}"">
-                        <span class="icon-leave-meeting"></span>
-                        <span>Logout</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <div class="col-18 col-lg-10 col-xl-10">
+                <ul>
+                    {%if user.profile.cec %}
+                    <li class="sidebar__item">
+                        <a href="{% url 'my_workouts' %}">
+                            <span class="icon-manage-cable"></span>
+                            <span>My Workouts</span>
+                        </a>
+                    </li>
+                    {% endif %}
 
-            <div class="section">
-                {% block content %}
-                {% endblock %}
+                    {% if active %}
+                    <li class="sidebar__item">
+                        <a href="{% url 'leaderboard' %}">
+                            <span class="icon-software-suggested-md"></span>
+                            <span>Leaderboard</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="sidebar__item">
+                        <a href="/badges/">
+                            <span class="icon-software-certified"></span>
+                            <span>Badges</span>
+                        </a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="{% url 'logout'%}"">
+                        <span class=" icon-leave-meeting"></span>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="col-18 col-lg-10 col-xl-10">
+
+                <div class="section">
+                    {% block content %}
+                    {% endblock %}
+                </div>
             </div>
         </div>
-    </div>
 
-        </div>
+    </div>
 </body>
 
 

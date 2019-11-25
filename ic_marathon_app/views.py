@@ -5,9 +5,12 @@ from .models import ProfileForm, Profile, Workout, WorkoutForm
 from badgify.models import Award, Badge
 from django.shortcuts import redirect
 from .tables import WorkoutTable, ProfileTable
+from datetime import datetime
 # TODO[sarifern] document every function
 
 # Create your views here.
+DATE_START = datetime(2019, 12, 12, 0, 0, 0)
+DATE_END = datetime(2020, 1, 7, 0, 0, 0)
 
 
 def login(request):
@@ -16,14 +19,21 @@ def login(request):
 
 @login_required
 def home(request):
-    if request.user.profile.cec:
-        return my_workouts(request)
+    date = datetime.now()
+    # Check time period DIC 12 to Jan 6
+    if date >= DATE_START and date <= DATE_END:
+        active = True
     else:
-        return profile_wizard(request)
+        active = False
+
+    if request.user.profile.cec:
+        return my_workouts(request, active)
+    else:
+        return profile_wizard(request, active)
 
 
 @login_required
-def my_workouts(request):
+def my_workouts(request, active=False):
     try:
         workouts = Workout.objects.filter(belongs_to=request.user.profile)
         workouts_table = WorkoutTable(workouts)
@@ -33,7 +43,9 @@ def my_workouts(request):
     except ObjectDoesNotExist:
         workouts = {}
         awards = {}
-    return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts_table, 'awards': awards})
+    return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts_table,
+                                                                'awards': awards,
+                                                                'active': active})
 
 
 @login_required
@@ -67,7 +79,7 @@ def leaderboard(request):
 
 
 @login_required
-def profile_wizard(request):
+def profile_wizard(request, active=False):
     profile = Profile.objects.get_or_create(user=request.user)[0]
     if request.method == "POST":
         form = ProfileForm(request.POST, instance=profile)
@@ -76,7 +88,7 @@ def profile_wizard(request):
             return redirect('home')
     else:
         form = ProfileForm(instance=profile)
-    return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form})
+    return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form, 'active': active})
 
 
 def check_badges(user):

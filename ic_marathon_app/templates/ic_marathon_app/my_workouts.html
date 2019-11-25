@@ -4,7 +4,17 @@
 
 <div class="header-bar__main">
     <div class="header-heading ">
-        <h1 class="page-title">My Workouts <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a></h1>
+        <h1 class="page-title">My Workouts
+
+            {% if active %}
+            <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a>
+            {% else %}
+            <div class="alert alert--info">
+                    <div class="alert__icon icon-info-outline"></div>
+                    <div class="alert__message">The challenge is not active yet! Stay tuned (Dec 12th)!</div>
+                </div>
+            {% endif %}
+        </h1>
     </div>
 </div>
 <div class="divider divider--thick divider--accent-blue divider--compressed"></div>
@@ -19,7 +29,7 @@ TODO[sarifern] include table for all the workouts with link to image, and abilit
 
 {% if workouts %}
 {% render_table workouts %}
- 
+
 
 {% else %}
 <p>No workouts yet! Bring it!</p>
@@ -33,7 +43,7 @@ TODO[sarifern] include table for all the workouts with link to image, and abilit
 {% block javascript %}
 {{ block.super }}
 <script type="application/javascript">
-    
-    
+
+
 </script>
 {% endblock javascript %}
