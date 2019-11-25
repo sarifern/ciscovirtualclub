@@ -29,7 +29,7 @@ def home(request):
     if request.user.profile.cec:
         return my_workouts(request, active)
     else:
-        return profile_wizard(request, active)
+        return profile_wizard(request)
 
 
 @login_required
@@ -79,7 +79,7 @@ def leaderboard(request):
 
 
 @login_required
-def profile_wizard(request, active=False):
+def profile_wizard(request):
     profile = Profile.objects.get_or_create(user=request.user)[0]
     if request.method == "POST":
         form = ProfileForm(request.POST, instance=profile)
@@ -88,7 +88,7 @@ def profile_wizard(request, active=False):
             return redirect('home')
     else:
         form = ProfileForm(instance=profile)
-    return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form, 'active': active})
+    return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form})
 
 
 def check_badges(user):
