@@ -2,9 +2,13 @@
 {% block content %}
 {% load render_table from django_tables2 %}
 
-<div class="header-bar__main">
-    <div class="header-heading ">
-        <h1 class="page-title">My Workouts
+<div class="panel panel--loose panel--raised base-margin-bottom">
+    <h2 class="subtitle">My Workouts</h2>
+    <hr>
+    <div class="section no-padding"> 
+
+
+
 
             {% if active %}
             <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a>
@@ -14,10 +18,10 @@
                     <div class="alert__message">The challenge is not active yet! Stay tuned (Dec 12th)!</div>
                 </div>
             {% endif %}
-        </h1>
-    </div>
-</div>
+
+
 <div class="divider divider--thick divider--accent-blue divider--compressed"></div>
+
 
 {% comment %}
 TODO[sarifern] include table for all the workouts with link to image, and ability to see one workout
@@ -47,3 +51,6 @@ TODO[sarifern] include table for all the workouts with link to image, and abilit
 
 </script>
 {% endblock javascript %}
+
+</div>
+</div>
