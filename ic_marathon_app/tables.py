@@ -1,4 +1,5 @@
 import django_tables2 as tables
+from django_tables2 import TemplateColumn
 from django.utils.html import format_html
 from .models import Workout, Profile
 
@@ -17,6 +18,9 @@ class ProfileTable(tables.Table):
 
 
 class WorkoutTable(tables.Table):
+    delete = TemplateColumn(
+        template_name='tables/workout_delete_column.html')
+
     def render_time(self, value):
         return format_html("{} min.", value.hour*60+value.minute)
 
@@ -30,4 +34,4 @@ class WorkoutTable(tables.Table):
         model = Workout
 
         attrs = {"class": "table table--striped"}
-        fields = ("distance", "time", "photo_evidence")
+        fields = ("distance", "time", "photo_evidence", "delete")

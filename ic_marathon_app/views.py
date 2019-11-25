@@ -1,9 +1,8 @@
-from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import ProfileForm, Profile, Workout, WorkoutForm
 from badgify.models import Award, Badge
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render, get_object_or_404
 from .tables import WorkoutTable, ProfileTable
 from datetime import datetime
 # TODO[sarifern] document every function
@@ -11,6 +10,15 @@ from datetime import datetime
 # Create your views here.
 DATE_START = datetime(2019, 12, 12, 0, 0, 0)
 DATE_END = datetime(2020, 1, 7, 0, 0, 0)
+DATE = datetime.now()
+# TODO CHANGE when pushing to github
+
+#DATE = datetime(2019, 12, 12, 0, 0, 0)
+# Check time period DIC 12 to Jan 6
+if DATE >= DATE_START and DATE <= DATE_END:
+    ACTIVE = True
+else:
+    ACTIVE = False
 
 
 def login(request):
@@ -19,21 +27,14 @@ def login(request):
 
 @login_required
 def home(request):
-    date = datetime.now()
-    # Check time period DIC 12 to Jan 6
-    if date >= DATE_START and date <= DATE_END:
-        active = True
-    else:
-        active = False
-
     if request.user.profile.cec:
-        return my_workouts(request, active)
+        return my_workouts(request)
     else:
         return profile_wizard(request)
 
 
 @login_required
-def my_workouts(request, active=False):
+def my_workouts(request):
     try:
         workouts = Workout.objects.filter(belongs_to=request.user.profile)
         workouts_table = WorkoutTable(workouts)
@@ -45,7 +46,7 @@ def my_workouts(request, active=False):
         awards = {}
     return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts_table,
                                                                 'awards': awards,
-                                                                'active': active})
+                                                                'active': ACTIVE})
 
 
 @login_required
@@ -65,6 +66,16 @@ def add_workout(request):
     else:
         form = WorkoutForm()
         return render(request, 'ic_marathon_app/add_workout.html', {'form': form})
+
+
+@login_required
+def delete_workout(request, uuid):
+    if uuid:
+        workout = get_object_or_404(Workout, uuid=uuid)
+        workout.delete()
+        request.user.profile.save()
+        strip_badges(request.user)
+        return redirect('home')
 
 
 @login_required
@@ -122,6 +133,25 @@ def check_badges(user):
     return new_badges
 
 
+def strip_badges(user):
+    """
+    Strip badges if workouts are deleted (if applicable)
+    """
+    distance = user.profile.distance
+    if distance < 168.0 and get_award(user, slug='168K'):
+        get_award(user, slug='168K').delete()
+    if distance < 126.0 and get_award(user, slug='126K'):
+        get_award(user, slug='126K').delete()
+    if distance < 84.0 and get_award(user, slug='84K'):
+        get_award(user, slug='84K').delete()
+    if distance < 42.0 and get_award(user, slug='42K'):
+        get_award(user, slug='42K').delete()
+    if distance < 21.0 and get_award(user, slug='21K'):
+        get_award(user, slug='21K').delete()
+    if distance < 10.0 and get_award(user, slug='10K'):
+        get_award(user, slug='10K').delete()
+
+
 def award_badge(user, slug):
     new_badge = Badge.objects.get(slug=slug)
     obj, created = Award.objects.get_or_create(
@@ -129,4 +159,13 @@ def award_badge(user, slug):
     if created:
         return new_badge
     else:
+        return None
+
+
+def get_award(user, slug):
+    try:
+        old_badge = Badge.objects.get(slug=slug)
+        return Award.objects.get(user=user, badge=old_badge)
+    except:
+        #Award not granted
         return None

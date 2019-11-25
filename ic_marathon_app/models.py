@@ -102,7 +102,7 @@ def save_workout(sender, instance, **kwargs):
     # update personal distance
     profile = instance.belongs_to
     profile.distance += instance.distance
-    if profile.distance >= 80.0 and profile.category == "beginnerrunner":
+    if profile.distance >= 70.0 and profile.category == "beginnerrunner":
         profile.category = "runner"
     if profile.distance >= 42.0:
         profile.user_goal = True

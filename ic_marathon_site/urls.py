@@ -24,6 +24,7 @@ urlpatterns = [
     path("profile_wizard/", views.profile_wizard, name="profile_wizard"),
     path("my_workouts/", views.my_workouts, name="my_workouts"),
     path("add_workout/", views.add_workout, name="add_workout"),
+    path("delete_workout/<uuid>/", views.delete_workout, name="delete_workout"),
     path("leaderboard/", views.leaderboard, name="leaderboard"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path('social-auth/', include('social_django.urls', namespace="social")),
