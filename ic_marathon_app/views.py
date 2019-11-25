@@ -70,7 +70,7 @@ def add_workout(request):
 @login_required
 def leaderboard(request):
     leaders_br = Profile.objects.filter(
-        category="beginnerrunner").order_by('distance')
+        category="beginnerrunner").order_by('-distance')
     leaders_r = Profile.objects.filter(category="runner").order_by('-distance')
     leaders_b = Profile.objects.filter(category="biker").order_by('-distance')
     return render(request, 'ic_marathon_app/leaderboard.html',
