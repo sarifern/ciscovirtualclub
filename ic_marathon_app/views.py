@@ -5,6 +5,9 @@ from badgify.models import Award, Badge
 from django.shortcuts import redirect, render, get_object_or_404
 from .tables import WorkoutTable, ProfileTable
 from datetime import datetime
+
+
+
 # TODO[sarifern] document every function
 
 # Create your views here.
@@ -169,3 +172,14 @@ def get_award(user, slug):
     except:
         #Award not granted
         return None
+
+
+from social_core.actions import do_auth, do_complete, do_disconnect
+from social_django.views import _do_login
+NAMESPACE = 'social'
+REDIRECT_FIELD_NAME = 'next'
+def complete(request, backend, *args, **kwargs):
+    """Authentication complete view"""
+    return do_complete(request.backend, _do_login, user=None,
+                       redirect_name=REDIRECT_FIELD_NAME, request=request,
+                       *args, **kwargs)
