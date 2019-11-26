@@ -71,14 +71,13 @@
         <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
         {{ form.media.js }}
     </div>
-</div>
-</div>
+
 {% if activation %}
 {% comment %}
 TODO put the badge and ok boton (and maybe transparency) in the center of the modal
 {% endcomment %}
 
-<div class="modal modal--full show fade" id="modal--full">
+<div class="modal modal--small show fade" id="modal--full">
     <div class="modal__dialog">
         <div class="modal__content">
             <a class="modal__close" onclick="closeModal()"><span class="icon-close"></span></a>
@@ -91,7 +90,7 @@ TODO put the badge and ok boton (and maybe transparency) in the center of the mo
                     See you next Dec 12th!
             </div>
             <div class="modal__footer">
-                <button class="btn" onclick="closeModal()">Ok</button>
+                <button class="btn btn--success" onclick="closeModal()">Ok</button>
             </div>
         </div>
     </div>
@@ -100,3 +99,6 @@ TODO put the badge and ok boton (and maybe transparency) in the center of the mo
 
 
 {% endblock %}
+
+</div>
+</div>
