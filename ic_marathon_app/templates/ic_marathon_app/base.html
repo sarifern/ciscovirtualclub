@@ -1,9 +1,6 @@
 <!-- templates/ic_marathon_app/base.html -->
 
-{% load static %}
-{% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
-{% bootstrap_css %} {# Embed Bootstrap CSS #}
-{% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
+{% load static %} {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #} {% bootstrap_css %} {# Embed Bootstrap CSS #} {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +23,7 @@
 
 <script>
     function wires() {
-        $('body .btn-group .btn').click(function () {
+        $('body .btn-group .btn').click(function() {
             event.preventDefault();
 
             $(this).siblings().removeClass('selected');
@@ -54,8 +51,7 @@
 
                 <div class="badges">
                     {% for award in awards %}
-                    <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}">
-                    {% endfor %}
+                    <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}"> {% endfor %}
                 </div>
                 {% endif %}
 
@@ -67,9 +63,7 @@
                             <span>My Workouts</span>
                         </a>
                     </li>
-                    {% endif %}
-
-                    {% comment %}
+                    {% endif %} {% comment %}
                     <li class="sidebar__item">
                         <a href="{% url 'leaderboard' %}">
                             <span class="icon-software-suggested-md"></span>
@@ -85,21 +79,28 @@
                         </a>
                     </li>
                     <li class="sidebar__item">
-                        <a href="{% url 'logout'%}"">
-                        <span class=" icon-leave-meeting"></span>
+                        <a href="{% url 'logout'%}" ">
+                        <span class=" icon-leave-meeting "></span>
                             <span>Logout</span>
                         </a>
                     </li>
                 </ul>
             </nav>
-            <div class="col-18 col-lg-10 col-xl-10">
+            <div class="col-18 col-lg-10 col-xl-10 ">
 
-                <div class="section">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
+                <div class="section ">
+                    <div class="flex flex-right ">
+                            <a href="{% url 'logout'%} " >
+                                    <span class=" icon-leave-meeting icon-size-20 "></span>
+        
+                                </a>
+                    </div>
+                    <br>
+                       
+                        {% block content %} {% endblock %}
         </div>
+    </div>
+    </div>
 
     </div>
 </body>
