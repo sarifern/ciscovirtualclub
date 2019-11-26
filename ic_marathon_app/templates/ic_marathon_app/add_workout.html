@@ -18,49 +18,43 @@
     }
 
 </script>
-</br>
 
-<h1 class="display-3">Add a workout</h1>
-<div class="divider divider--thick divider--accent-blue divider--compressed"></div>
+<div class="panel panel--loose panel--raised base-margin-bottom">
+        <div class="text-uppercase text-size-14 no-padding">Add a workout</div>
+        <hr>
 
-
-<form method="POST" id="workoutForm" class="dbl-padding-bottom" enctype="multipart/form-data">
+        <div class="section no-padding"> 
+            
+<form method="POST" id="workoutForm" enctype="multipart/form-data">
     {% csrf_token %}
 
     {{ form.non_field_errors }}
-    <div class="row">
-        <div class="col-6">
+    
             <div class="form-group">
-                <div class="form-group__text">
+                <div class="form-group__text qtr-padding-bottom">
                     <label>Distance</label>
                     {{ form.distance }}
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-6">
+
             <div class="form-group">
-                <div class="form-group__text">
+                <div class="form-group__text qtr-padding-bottom">
                     <label>Time</label>
                     {{ form.time }}
                     {{form.time.errors}}
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
+
+    
             <div class="form-group">
-                <div class="form-group__text">
+                <div class="form-group__text qtr-padding-bottom"">
                     <label>Screenshot</label>
                     {{ form.photo_evidence }}
                     {{form.photo_evidence.errors}}
                 </div>
             </div>
-        </div>
-    </div>
+
 
     <div class="row">
         <div class="col-6">
@@ -69,6 +63,8 @@
     </div>
 
 </form>
+
+
 {% if new_badges %}
 
 {% comment %}
@@ -104,4 +100,4 @@ TODO put the badge and ok boton (and maybe transparency) in the center of the mo
 </div>
 {% endif %}
 
-{% endblock %}
+{% endblock %}</div></div>

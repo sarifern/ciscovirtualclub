@@ -26,13 +26,13 @@
 </script>
 </br>
 <div class="panel panel--loose panel--raised base-margin-bottom">
-    <h2 class="subtitle">Edit your profile</h2>
+    <div class="text-uppercase text-size-14">Save your profile</div>
     <hr>
-    <div class="section">
+    <div class="section no-padding">
 
 
         {{ form.media.css }}
-        <form method="POST" id="categoryForm" class="dbl-padding-bottom">{% csrf_token %}
+        <form method="POST" id="categoryForm">{% csrf_token %}
 
             <div class="form-group">
                 <div class="form-group__text">
@@ -64,7 +64,8 @@
 
 
             <div class="flex flex-center">
-                <button name="save" type="submit" class="save btn btn--success padding" value="Save">Save</button></div>
+                <button name="save" type="submit" class="save btn btn--success" value="Save">Save</button>
+            </div>
 
         </form>
         <script src="https://code.jquery.com/jquery-3.1.0.js"></script>

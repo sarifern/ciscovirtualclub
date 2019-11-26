@@ -3,51 +3,37 @@
 {% load render_table from django_tables2 %}
 
 <div class="panel panel--loose panel--raised base-margin-bottom">
-    <h2 class="subtitle">My Workouts</h2>
+    <div class="text-uppercase text-size-14">My Workouts
+        {% if active %}
+            <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a>
+        {% else %}
+            <div class="alert alert--info">
+                <div class="alert__icon icon-info-outline"></div>
+                <div class="alert__message">The challenge is not active yet! Stay tuned (Dec 12th)!</div>
+            </div>
+        {% endif %}
+    </div>
     <hr>
     <div class="section no-padding"> 
-
-
-
-
-            {% if active %}
-            <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a>
-            {% else %}
-            <div class="alert alert--info">
-                    <div class="alert__icon icon-info-outline"></div>
-                    <div class="alert__message">The challenge is not active yet! Stay tuned (Dec 12th)!</div>
-                </div>
-            {% endif %}
-
-
-<div class="divider divider--thick divider--accent-blue divider--compressed"></div>
+    <div class="divider divider--thick divider--accent-blue divider--compressed"></div>
 
 
 {% comment %}
 TODO[sarifern] include table for all the workouts with link to image, and ability to see one workout
 {% endcomment %}
 
-
-
-
-
 {% if workouts %}
 {% render_table workouts %}
-
 
 {% else %}
 <p>No workouts yet! Bring it!</p>
 {% endif %}
 
 
-
-
-
 {% endblock %}
 {% block javascript %}
 {{ block.super }}
 <script type="application/javascript">
-
 
 </script>
 {% endblock javascript %}
