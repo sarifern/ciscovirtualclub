@@ -48,11 +48,11 @@
                     <div class="text-size-16 ">Welcome {{user.first_name}}</div>
                 </div>
                 {% if awards%}
-
-                <div class="badges">
-                    {% for award in awards %}
-                    <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}"> {% endfor %}
-                </div>
+                    <div class="badges">
+                        {% for award in awards %}
+                        <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}"> 
+                        {% endfor %}
+                    </div>
                 {% endif %}
 
                 <ul>
@@ -79,29 +79,50 @@
                         </a>
                     </li>
                     <li class="sidebar__item">
-                        <a href="{% url 'logout'%}" ">
+                        <a href="{% url 'logout'%}">
                         <span class=" icon-leave-meeting "></span>
                             <span>Logout</span>
                         </a>
                     </li>
                 </ul>
             </nav>
-            <div class="col-18 col-lg-10 col-xl-10 ">
-
+            <div class="col-18 col-lg-10 col-xl-10">
                 <div class="section ">
-                    <div class="flex flex-right ">
-                            <a href="{% url 'logout'%} " >
-                                    <span class=" icon-leave-meeting icon-size-20 "></span>
-        
-                                </a>
-                    </div>
-                    <br>
-                       
-                        {% block content %} {% endblock %}
-        </div>
-    </div>
-    </div>
 
+                    <!-- Nav for Medium devices and lower -->
+
+                        <div class="navbar hidden-lg-up">
+                                            {%if user.profile.cec %}
+                                    <a href="{% url 'my_workouts' %}">
+                                        <span class="icon-manage-cable"></span>
+                                        <span>My Workouts</span>
+                                    </a>
+
+                                {% endif %} {% comment %}
+                                    <a href="{% url 'leaderboard' %}">
+                                        <span class="icon-software-suggested-md"></span>
+                                        <span>Leaderboard</span>
+                                    </a>
+                                {% endcomment %}
+
+                                    <a href="/badges/">
+                                        <span class="icon-software-certified"></span>
+                                        <span>Badges</span>
+                                    </a>
+
+                                    <a href="{% url 'logout'%}">
+                                    <span class=" icon-leave-meeting "></span>
+                                        <span>Logout</span>
+                                    </a>
+                              </div>
+
+                    <!-- End of Nav -->
+
+
+                    {% block content %} {% endblock %}
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
