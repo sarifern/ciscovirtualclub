@@ -46,6 +46,18 @@
                 <div class="base-margin">
                     <img class="image-size-64" src={{user.profile.avatar}}>
                     <div class="text-size-16 ">Welcome {{user.first_name}}</div>
+                    {% if user.profile.category == "beginnerrunner" %}
+                
+                    {%elif user.profile.category == "runner" %}
+
+
+                    {% elif user.profile.category == "biker" %}
+
+                    <!-- <img src="{% static 'img/biker.svg' %}" alt="Kiwi standing on oval"> -->
+
+
+                    {% endif %}
+
                 </div>
                 {% if awards%}
                     <div class="badges">
