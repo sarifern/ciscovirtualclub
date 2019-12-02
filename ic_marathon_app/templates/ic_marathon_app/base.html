@@ -45,10 +45,21 @@
             <nav class="col-lg-1 col-lg-2 sidebar hidden-md-down sidebar--light" role="navigation">
                 <div class="base-margin">
                     <img class="image-size-64" src={{user.profile.avatar}}>
-                    <div class="text-size-16 ">Welcome {{user.first_name}}</div>
-                    {% if user.profile.category == "beginnerrunner" %} {%elif user.profile.category == "runner" %} {% elif user.profile.category == "biker" %}
+                    <div class="text-size-16 ">Welcome {{user.first_name}}
 
-                    <!-- <img src="{% static 'img/biker.svg' %}" alt="Kiwi standing on oval"> -->
+                    {% if user.profile.category == "beginnerrunner" %} 
+
+                    <span tabindex="0" data-balloon="Beginner Runner" data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 25px"> </div></span>
+
+                    
+                    {%elif user.profile.category == "runner" %} 
+
+                    <span tabindex="0" data-balloon="Runner" data-balloon-pos="up"><img src="{% static 'img/running.svg' %}" style="width: 25px"> </div></span>
+
+                    
+                    {% elif user.profile.category == "biker" %}
+
+                    <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 25px"> </div></span>
 
 
                     {% endif %}
