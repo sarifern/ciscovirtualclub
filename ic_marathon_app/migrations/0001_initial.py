@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('uploaded_at', models.DateTimeField(auto_now_add=True)),
                 ('distance', models.DecimalField(decimal_places=2, default=0.0, max_digits=4)),
                 ('photo_evidence', models.ImageField(upload_to='')),
-                ('time', models.IntegerField(help_text='Workout in minutes')),
+                ('time', models.TimeField(help_text='Workout in minutes')),
                 ('belongs_to', models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='ic_marathon_app.Profile')),
             ],
         ),
