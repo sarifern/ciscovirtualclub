@@ -345,24 +345,3 @@ font-size: 15px;
 tr[user-goal="True"] {
   background-color: #fbab18;
 }
-
-.no-break {
-  display: inline-block;
-}
-
-@media screen and (max-width: 700px) {
-  .sidebar-mini {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidebar-mini a {float: left;}
-  div.content {margin-left: 0;}
-}
-
-@media screen and (max-width: 400px) {
-  .sidebar-mini a {
-    text-align: center;
-    float: none;
-  }
-}
