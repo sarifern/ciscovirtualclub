@@ -64,11 +64,12 @@
 
                     {% endif %}
 
+                    
                 </div>
                 {% if awards%}
                 <div class="badges">
-                    {% for award in awards %}
-                    <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}"> {% endfor %}
+                    
+                        <img src="{% static 'img/reward.svg' %}" style="width: 25px">
                 </div>
                 {% endif %}
 
