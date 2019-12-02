@@ -69,14 +69,15 @@
                             <span>My Workouts</span>
                         </a>
                     </li>
-                    {% endif %}
+                    {% endif %} {% comment %}
+
                     <li class="sidebar__item">
                         <a href="{% url 'leaderboard' %}">
                             <span class="icon-software-suggested-md"></span>
                             <span>Leaderboard</span>
                         </a>
                     </li>
-
+                    {% endcomment %}
 
                     <li class="sidebar__item">
                         <a href="/badges/">
