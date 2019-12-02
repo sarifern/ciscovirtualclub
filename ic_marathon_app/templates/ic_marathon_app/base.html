@@ -46,12 +46,7 @@
                 <div class="base-margin">
                     <img class="image-size-64" src={{user.profile.avatar}}>
                     <div class="text-size-16 ">Welcome {{user.first_name}}</div>
-                    {% if user.profile.category == "beginnerrunner" %}
-                
-                    {%elif user.profile.category == "runner" %}
-
-
-                    {% elif user.profile.category == "biker" %}
+                    {% if user.profile.category == "beginnerrunner" %} {%elif user.profile.category == "runner" %} {% elif user.profile.category == "biker" %}
 
                     <!-- <img src="{% static 'img/biker.svg' %}" alt="Kiwi standing on oval"> -->
 
@@ -60,11 +55,10 @@
 
                 </div>
                 {% if awards%}
-                    <div class="badges">
-                        {% for award in awards %}
-                        <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}"> 
-                        {% endfor %}
-                    </div>
+                <div class="badges">
+                    {% for award in awards %}
+                    <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}"> {% endfor %}
+                </div>
                 {% endif %}
 
                 <ul>
@@ -75,14 +69,14 @@
                             <span>My Workouts</span>
                         </a>
                     </li>
-                    {% endif %} {% comment %}
+                    {% endif %}
                     <li class="sidebar__item">
                         <a href="{% url 'leaderboard' %}">
                             <span class="icon-software-suggested-md"></span>
                             <span>Leaderboard</span>
                         </a>
                     </li>
-                    {% endcomment %}
+
 
                     <li class="sidebar__item">
                         <a href="/badges/">
@@ -92,7 +86,7 @@
                     </li>
                     <li class="sidebar__item">
                         <a href="{% url 'logout'%}">
-                        <span class="icon-leave-meeting"></span>
+                            <span class="icon-leave-meeting"></span>
                             <span>Logout</span>
                         </a>
                     </li>
@@ -103,30 +97,30 @@
 
                     <!-- Nav for Medium devices and lower -->
 
-                        <div class="navbar hidden-lg-up">
-                                            {%if user.profile.cec %}
-                                    <a href="{% url 'my_workouts' %}">
-                                        <span class="icon-manage-cable"></span>
-                                        <span>My Workouts</span>
-                                    </a>
+                    <div class="navbar hidden-lg-up">
+                        {%if user.profile.cec %}
+                        <a href="{% url 'my_workouts' %}">
+                            <span class="icon-manage-cable"></span>
+                            <span>My Workouts</span>
+                        </a>
 
-                                {% endif %} {% comment %}
-                                    <a href="{% url 'leaderboard' %}">
-                                        <span class="icon-software-suggested-md"></span>
-                                        <span>Leaderboard</span>
-                                    </a>
-                                {% endcomment %}
+                        {% endif %} {% comment %}
+                        <a href="{% url 'leaderboard' %}">
+                            <span class="icon-software-suggested-md"></span>
+                            <span>Leaderboard</span>
+                        </a>
+                        {% endcomment %}
 
-                                    <a href="/badges/">
-                                        <span class="icon-software-certified"></span>
-                                        <span>Badges</span>
-                                    </a>
+                        <a href="/badges/">
+                            <span class="icon-software-certified"></span>
+                            <span>Badges</span>
+                        </a>
 
-                                    <a href="{% url 'logout'%}">
-                                    <span class="icon-leave-meeting"></span>
-                                        <span>Logout</span>
-                                    </a>
-                              </div>
+                        <a href="{% url 'logout'%}">
+                            <span class="icon-leave-meeting"></span>
+                            <span>Logout</span>
+                        </a>
+                    </div>
 
                     <!-- End of Nav -->
 
