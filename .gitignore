@@ -165,3 +165,4 @@ dmypy.json
 .history
 
 # End of https://www.gitignore.io/api/git,django,visualstudiocode
+config.txt
