@@ -3,27 +3,23 @@
 </script>
 
 
-<div class="header-bar__main">
-    <div class="header-heading ">
-        <h1 class="page-title">Leaderboard</h1>
-    </div>
-</div>
-<div class="divider divider--thick divider--accent-blue divider--compressed"></div>
+<div class="panel panel--loose panel--raised base-margin-bottom">
+        <div class="text-uppercase text-size-14">Leaderboard</div>
+        <hr>
+        <div class="section no-padding">
+
 
 {% if leaders_br %}
-<div class="header-heading ">
-    <h1 class="page-title">Beginner Runners</h1>
-</div>
+<div class="text-uppercase text-size-12">Beginner Runners</div>
 {% render_table leaders_br %} {% endif %} {% if leaders_r %}
-<div class="header-heading ">
-    <h1 class="page-title">Runners</h1>
-</div>
+<div class="text-uppercase text-size-12">Runners</div>
 {% render_table leaders_r %} {% endif %} {% if leaders_b %}
-<div class="header-heading ">
-    <h1 class="page-title">Bikers</h1>
-</div>
+<div class="text-uppercase text-size-12">Bikers</div>
 {% render_table leaders_b %} {% endif %}
 
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+</div>
+</div>
 
 {% endblock %}
