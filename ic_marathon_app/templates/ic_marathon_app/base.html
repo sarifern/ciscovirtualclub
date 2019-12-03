@@ -43,8 +43,8 @@
             <nav class="col-lg-1 col-lg-2 sidebar hidden-md-down sidebar--light" role="navigation">
                 <div class="base-margin">
                     <img class="image-size-64" src={{user.profile.avatar}}>
-                    <div class="text-size-16 ">Welcome {{user.first_name}} {% if awards %}
-                        <span tabindex="0" data-balloon="Earned&#10;Awards" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/reward.svg' %}" style="width: 25px"></span> {% endif %} {% if user.profile.category == "beginnerrunner" %}
+                    <div class="text-size-16 ">Welcome {{user.first_name}} {% if earned_awards %}
+                        <span tabindex="0" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/reward.svg' %}" style="width: 25px"></span> {% endif %} {% if user.profile.category == "beginnerrunner" %}
                         <span tabindex="0" data-balloon="Beginner&#10;Runner" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 25px"> </div></span> {% elif user.profile.category == "runner" %}
                         <span tabindex="0" data-balloon="Runner" data-balloon-pos="up"><img src="{% static 'img/running.svg' %}" style="width: 25px"> </div></span> {% elif user.profile.category == "biker" %}
                         <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 25px"> </div></span> {% endif %}
@@ -72,14 +72,6 @@
                             <a href="{% url 'leaderboard' %}">
                                 <span class="icon-software-suggested-md"></span>
                                 <span>Leaderboard</span>
-                            </a>
-                        </li>
-
-
-                        <li class="sidebar__item">
-                            <a href="/badges/">
-                                <span class="icon-software-certified"></span>
-                                <span>Badges Rank</span>
                             </a>
                         </li>
                         <li class="sidebar__item">
@@ -113,11 +105,6 @@
                         <a href="{% url 'leaderboard' %}">
                             <span class="icon-software-suggested-md"></span>
                             <span>Leaderboard</span>
-                        </a>
-
-                        <a href="/badges/">
-                            <span class="icon-software-certified"></span>
-                            <span>Badges</span>
                         </a>
 
                         <a href="{% url 'logout'%}">

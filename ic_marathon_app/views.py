@@ -54,7 +54,7 @@ def my_profile(request):
         rendered template -- Rendered template (my_profile.html) with Profile information as dict
         variables
         {
-        'awards': awards,
+        'earned_awards': awards,
         'active': ACTIVE,
         'workout_count': len(workouts),
         'aggr_distance': request.user.profile.distance,
@@ -71,7 +71,7 @@ def my_profile(request):
         workouts = {}
         awards = {}
     return render(request, 'ic_marathon_app/my_profile.html', {
-        'awards': awards,
+        'earned_awards': awards,
         'active': ACTIVE,
         'workout_count': len(workouts),
         'aggr_distance': request.user.profile.distance,
@@ -93,7 +93,7 @@ def my_workouts(request):
 
         {
         'workouts': workouts_table,
-        'awards': awards,
+        'earned_awards': awards,
         'active': ACTIVE,
         }
     """
@@ -107,7 +107,7 @@ def my_workouts(request):
         workouts = {}
         awards = {}
     return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts_table,
-                                                                'awards': awards,
+                                                                'earned_awards': awards,
                                                                 'active': ACTIVE,
                                                                 })
 
@@ -168,9 +168,9 @@ def leaderboard(request):
         rendered template -- Rendered templates with 3 tables (sorted by descending distance)
     """
     try:
-        awards = Award.objects.filter(user=request.user)
+        earned_awards = Award.objects.filter(user=request.user)
     except ObjectDoesNotExist:
-        awards = {}
+        earned_awards = {}
     leaders_br = Profile.objects.filter(
         category="beginnerrunner").order_by('-distance')
     leaders_r = Profile.objects.filter(category="runner").order_by('-distance')
@@ -179,7 +179,7 @@ def leaderboard(request):
                   {'leaders_br': ProfileTable(leaders_br), 'leaders_br_c': len(leaders_br),
                    'leaders_r': ProfileTable(leaders_r), 'leaders_r_c': len(leaders_r),
                    'leaders_b': ProfileTable(leaders_b), 'leaders_b_c': len(leaders_b),
-                   'awards': awards})
+                   'earned_awards': earned_awards})
 
 
 @login_required

@@ -7,8 +7,19 @@
     <div class="section no-padding">
         <div class="row">
             <div class="col-6 col-lg-3 base-margin-bottom">
-                <img class="image-size-96" src={{user.profile.avatar}}>
+                <div class="panel ">
+                    <div class="row flex-center">
+                        <img class="image-size-96" src={{user.profile.avatar}}>
+                    </div>
+                    {% if earned_awards%}
+                    <div class="row flex-center">
+                        {% for award in earned_awards %}
+                        <img class="w3-round no-padding" height="42" width="42" src="{{ award.badge.image.url }}"> {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
             </div>
+
             <div class="col-6 col-lg-3 base-margin-bottom">
                 <div class="panel">
                     <h2>Workouts</h2>
