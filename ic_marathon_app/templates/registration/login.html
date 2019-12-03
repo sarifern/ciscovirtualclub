@@ -6,7 +6,7 @@
 {% load staticfiles %}
 
 <div class="flex flex-center">
-    <img style="width: 30%; height:50%;" src="{% static 'img/CR_Logo.png' %}"/>
+    <img style="width: 30%; height:40%;" src="{% static 'img/CR_Logo.png' %}"/>
 </div>
 
 
@@ -16,12 +16,10 @@
 <div class="panel panel--loose panel--raised base-margin-bottom">
     <h2 class="subtitle no-margin no-padding">It's time for "Maraton Guadalupe-Reyes"</h2>
     <hr>
-    <div class="section no-padding">
+    <div>
 
-
-   
-        <div>
-            <a href="{% url 'social:begin' 'google-oauth2' %}"><button class="button-loggin ">Login with Google</button></a>
+        <div class="no-padding">
+            <a href="{% url 'social:begin' 'google-oauth2' %}"><button class="button-loggin">Login with Google</button></a>
         </div>
         <div>
             <a href="{% url 'social:begin' 'facebook' %}"><button class="button-loggin">Login with Facebook</button></a>

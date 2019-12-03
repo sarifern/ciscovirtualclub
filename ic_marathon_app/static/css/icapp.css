@@ -327,11 +327,10 @@ font-size: 15px;
 .button-loggin {
   cursor: pointer;
   background: #00bceb;
-  width: 350px;
-  padding: 15px 35px 45px;
+  width: 363.08px;
+  padding: 15px 35px 35px;
   color: #fff;
   font-size: 14px;
-  font-weight: 400;
   border-radius: 5px;
   padding-bottom: 13px;
   padding-top: 13px;
@@ -340,6 +339,7 @@ font-size: 15px;
 .button-loggin:hover {
   background: #0d274d;
   border-radius: 5px;
+  text-decoration: none;
 }
 
 tr[user-goal="True"] {
