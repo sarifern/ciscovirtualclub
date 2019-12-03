@@ -21,7 +21,7 @@ class ProfileTable(tables.Table):
 
     class Meta:
         model = Profile
-        attrs = {"class": "table "}
+        attrs = {"class": "table table--striped"}
         fields = ("avatar", "cec", "distance","awards")
         row_attrs = {
             'user-goal': lambda record: record.user_goal
