@@ -4,22 +4,22 @@
 
 
 <div class="panel panel--loose panel--raised base-margin-bottom">
-        <div class="text-uppercase text-size-14">Leaderboard</div>
-        <hr>
-        <div class="section no-padding">
+    <div class="text-uppercase text-size-14">Leaderboard</div>
+    <hr>
+    <div class="section no-padding">
 
 
-{% if leaders_br %}
-<div class="text-uppercase text-size-12">Beginner Runners</div>
-{% render_table leaders_br %} {% endif %} {% if leaders_r %}
-<div class="text-uppercase text-size-12">Runners</div>
-{% render_table leaders_r %} {% endif %} {% if leaders_b %}
-<div class="text-uppercase text-size-12">Bikers</div>
-{% render_table leaders_b %} {% endif %}
+        {% if leaders_br %}
+        <div class="text-uppercase text-size-12">Beginner Runners ({{leaders_br_c}})</div>
+        {% render_table leaders_br %} {% endif %} {% if leaders_r %}
+        <div class="text-uppercase text-size-12">Runners ({{leaders_r_c}})</div>
+        {% render_table leaders_r %} {% endif %} {% if leaders_b %}
+        <div class="text-uppercase text-size-12">Bikers ({{leaders_b_c}})</div>
+        {% render_table leaders_b %} {% endif %}
 
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
-</div>
+    </div>
 </div>
 
 {% endblock %}
