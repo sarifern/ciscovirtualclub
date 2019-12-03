@@ -1,0 +1,50 @@
+<!-- my_profile.html -->
+
+{% extends 'ic_marathon_app/base.html' %} {% block title %} My Profile {% endblock %} {% block content %}
+<div class="panel panel--loose panel--raised base-margin-bottom">
+    <div class="text-uppercase text-size-14">My Profile</div>
+    <hr>
+    <div class="section no-padding">
+        <div class="row">
+            <div class="col-6 col-lg-3 base-margin-bottom">
+                <img class="image-size-96" src={{user.profile.avatar}}>
+            </div>
+            <div class="col-6 col-lg-3 base-margin-bottom">
+                <div class="panel">
+                    <h2>Workouts</h2>
+                    <h1>{{workout_count}}</h1>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3 base-margin-bottom">
+                <div class="panel">
+                    <h2>Kilometers</h2>
+                    <h1>{{aggr_distance}}</h1>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3 base-margin-bottom">
+                <div class="gauge gauge--large" data-percentage={{remaining_days_per}}>
+                    <div class="gauge__circle">
+                        <div class="mask full">
+                            <div class="fill"></div>
+                        </div>
+                        <div class="mask half">
+                            <div class="fill"></div>
+                            <div class="fill fix"></div>
+                        </div>
+                    </div>
+                    <div class="gauge__inset">
+                        <div class="gauge__percentage">{{remaining_days}}</div>
+                    </div>
+                </div>
+                <div class="gauge__label">Remaining Days</div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+</div>
+
+{% endblock %}

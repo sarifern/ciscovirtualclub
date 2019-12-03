@@ -1,9 +1,5 @@
-{% extends 'ic_marathon_app/base.html' %}
-{% block content %}
-{% load render_table from django_tables2 %}
+{% extends 'ic_marathon_app/base.html' %} {% block content %} {% load render_table from django_tables2 %}
 <script>
-
-
 </script>
 
 
@@ -13,32 +9,20 @@
     </div>
 </div>
 <div class="divider divider--thick divider--accent-blue divider--compressed"></div>
-{% comment %}
-TODO[sarifern] include tables per category
-{% endcomment %}
 
 {% if leaders_br %}
 <div class="header-heading ">
     <h1 class="page-title">Beginner Runners</h1>
 </div>
-{% render_table leaders_br %}
-{% endif %}
-
-
-{% if leaders_r %}
+{% render_table leaders_br %} {% endif %} {% if leaders_r %}
 <div class="header-heading ">
     <h1 class="page-title">Runners</h1>
 </div>
-{% render_table leaders_r %}
-{% endif %}
-
-
-{% if leaders_b %}
+{% render_table leaders_r %} {% endif %} {% if leaders_b %}
 <div class="header-heading ">
     <h1 class="page-title">Bikers</h1>
 </div>
-{% render_table leaders_b %}
-{% endif %}
+{% render_table leaders_b %} {% endif %}
 
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 

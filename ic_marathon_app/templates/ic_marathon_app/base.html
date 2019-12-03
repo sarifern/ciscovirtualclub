@@ -43,65 +43,56 @@
             <nav class="col-lg-1 col-lg-2 sidebar hidden-md-down sidebar--light" role="navigation">
                 <div class="base-margin">
                     <img class="image-size-64" src={{user.profile.avatar}}>
-                    <div class="text-size-16 ">Welcome {{user.first_name}}
+                    <div class="text-size-16 ">Welcome {{user.first_name}} {% if awards%}
 
-                    {% if awards%} 
-                    
-                    <span tabindex="0" data-balloon="Badges&#10;Earned" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/reward.svg' %}" style="width: 25px"></span>
-                    
-                    {% endif %}
+                        <span tabindex="0" data-balloon="Badges&#10;Earned" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/reward.svg' %}" style="width: 25px"></span> {% endif %} {% if user.profile.category == "beginnerrunner" %}
 
-                    {% if user.profile.category == "beginnerrunner" %} 
+                        <span tabindex="0" data-balloon="Beginner&#10;Runner" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 25px"> </div></span> {%elif user.profile.category == "runner" %}
 
-                    <span tabindex="0" data-balloon="Beginner&#10;Runner" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 25px"> </div></span>
+                        <span tabindex="0" data-balloon="Runner" data-balloon-pos="up"><img src="{% static 'img/running.svg' %}" style="width: 25px"> </div></span> {% elif user.profile.category == "biker" %}
 
-                    
-                    {%elif user.profile.category == "runner" %} 
-
-                    <span tabindex="0" data-balloon="Runner" data-balloon-pos="up"><img src="{% static 'img/running.svg' %}" style="width: 25px"> </div></span>
-
-                    
-                    {% elif user.profile.category == "biker" %}
-
-                    <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 25px"> </div></span>
+                        <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 25px"> </div></span> {% endif %}
 
 
-                    {% endif %}
+                    </div>
 
-                    
-                </div>
+                    <ul>
+                        {%if user.profile.cec %}
+                        <li class="sidebar__item">
+                            <a href="{% url 'my_profile' %}">
+                                <span class="icon-user"></span>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar__item">
+                            <a href="{% url 'my_workouts' %}">
+                                <span class="icon-manage-cable"></span>
+                                <span>My Workouts</span>
+                            </a>
+                        </li>
+                        {% endif %}
 
-                <ul>
-                    {%if user.profile.cec %}
-                    <li class="sidebar__item">
-                        <a href="{% url 'my_workouts' %}">
-                            <span class="icon-manage-cable"></span>
-                            <span>My Workouts</span>
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    <li class="sidebar__item">
-                        <a href="{% url 'leaderboard' %}">
-                            <span class="icon-software-suggested-md"></span>
-                            <span>Leaderboard</span>
-                        </a>
-                    </li>
+                        <li class="sidebar__item">
+                            <a href="{% url 'leaderboard' %}">
+                                <span class="icon-software-suggested-md"></span>
+                                <span>Leaderboard</span>
+                            </a>
+                        </li>
 
 
-                    <li class="sidebar__item">
-                        <a href="/badges/">
-                            <span class="icon-software-certified"></span>
-                            <span>Badges</span>
-                        </a>
-                    </li>
-                    <li class="sidebar__item">
-                        <a href="{% url 'logout'%}">
-                            <span class="icon-leave-meeting"></span>
-                            <span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
+                        <li class="sidebar__item">
+                            <a href="/badges/">
+                                <span class="icon-software-certified"></span>
+                                <span>Badges</span>
+                            </a>
+                        </li>
+                        <li class="sidebar__item">
+                            <a href="{% url 'logout'%}">
+                                <span class="icon-leave-meeting"></span>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
             </nav>
             <div class="col-18 col-lg-10 col-xl-10">
                 <div class="section ">
@@ -139,8 +130,8 @@
                     {% block content %} {% endblock %}
                 </div>
             </div>
+            </div>
         </div>
-    </div>
 </body>
 
 

@@ -23,6 +23,7 @@ urlpatterns = [
     path("login/", views.login, name="login"),
     path("profile_wizard/", views.profile_wizard, name="profile_wizard"),
     path("my_workouts/", views.my_workouts, name="my_workouts"),
+    path("my_profile/", views.my_profile, name="my_profile"),
     path("add_workout/", views.add_workout, name="add_workout"),
     path("delete_workout/<uuid>/", views.delete_workout, name="delete_workout"),
     path("leaderboard/", views.leaderboard, name="leaderboard"),

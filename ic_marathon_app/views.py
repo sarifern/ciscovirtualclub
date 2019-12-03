@@ -1,3 +1,5 @@
+from social_django.views import _do_login
+from social_core.actions import do_auth, do_complete, do_disconnect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import ProfileForm, Profile, Workout, WorkoutForm
@@ -5,7 +7,6 @@ from badgify.models import Award, Badge
 from django.shortcuts import redirect, render, get_object_or_404
 from .tables import WorkoutTable, ProfileTable
 from datetime import datetime
-
 
 
 # TODO[sarifern] document every function
@@ -16,7 +17,7 @@ DATE_END = datetime(2020, 1, 7, 0, 0, 0)
 DATE = datetime.now()
 # TODO CHANGE when pushing to github
 
-DATE = datetime(2019, 12, 12, 0, 0, 0)
+DATE = datetime(2019, 12, 14, 0, 0, 0)
 # Check time period DIC 12 to Jan 6
 if DATE >= DATE_START and DATE <= DATE_END:
     ACTIVE = True
@@ -31,13 +32,33 @@ def login(request):
 @login_required
 def home(request):
     if request.user.profile.cec:
-        return my_workouts(request)
+        return my_profile(request)
     else:
         return profile_wizard(request)
 
 
 @login_required
+def my_profile(request):
+    # need workouts count, distance count, remaining days
+    try:
+        workouts = Workout.objects.filter(belongs_to=request.user.profile)
+        awards = Award.objects.filter(user=request.user)
+        remaining_days = DATE_END-DATE
+    except ObjectDoesNotExist:
+        workouts = {}
+        awards = {}
+    return render(request, 'ic_marathon_app/my_profile.html', {
+        'awards': awards,
+        'active': ACTIVE,
+        'workout_count': len(workouts),
+        'aggr_distance': request.user.profile.distance,
+        'remaining_days_per': int(((remaining_days.days)/26)*100),
+        'remaining_days': remaining_days.days})
+
+
+@login_required
 def my_workouts(request):
+
     try:
         workouts = Workout.objects.filter(belongs_to=request.user.profile)
         workouts_table = WorkoutTable(workouts)
@@ -49,7 +70,10 @@ def my_workouts(request):
         awards = {}
     return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts_table,
                                                                 'awards': awards,
-                                                                'active': ACTIVE})
+                                                                'active': ACTIVE,
+                                                                'workout_count': len(workouts),
+                                                                'aggr_distance': request.user.profile.distance,
+                                                                })
 
 
 @login_required
@@ -170,14 +194,14 @@ def get_award(user, slug):
         old_badge = Badge.objects.get(slug=slug)
         return Award.objects.get(user=user, badge=old_badge)
     except:
-        #Award not granted
+        # Award not granted
         return None
 
 
-from social_core.actions import do_auth, do_complete, do_disconnect
-from social_django.views import _do_login
 NAMESPACE = 'social'
 REDIRECT_FIELD_NAME = 'next'
+
+
 def complete(request, backend, *args, **kwargs):
     """Authentication complete view"""
     return do_complete(request.backend, _do_login, user=None,
