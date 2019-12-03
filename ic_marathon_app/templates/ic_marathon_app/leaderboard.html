@@ -1,25 +1,23 @@
-{% extends 'ic_marathon_app/base.html' %} {% block content %} {% load render_table from django_tables2 %}
-<script>
-</script>
+{% extends 'ic_marathon_app/base.html' %} 
+{% block content %} 
+{% load render_table from django_tables2 %}
 
 
 <div class="panel panel--loose panel--raised base-margin-bottom">
-    <div class="text-uppercase text-size-14">Leaderboard</div>
-    <hr>
-    <div class="section no-padding">
+        <div class="text-uppercase text-size-14">Leaderboard</div>
+        <hr>
+   <div class="section no-padding">
+        {% if leaders_br %}
+        <div class="text-size-12 half-padding-bottom">Beginner Runners ({{leaders_br_c}}) </div>
+        {% render_table leaders_br %} {% endif %} {% if leaders_r %}
+        <div class="text-size-12 half-padding-bottom">Runners ({{leaders_r_c}})</div>
+        {% render_table leaders_r %} {% endif %} {% if leaders_b %}
+        <div class="text-size-12 half-padding-bottom">Bikers ({{leaders_b_c}})</div>
+        {% render_table leaders_b %} {% endif %}
 
+        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
-        {% if leaders_br %}
-        <div class="text-uppercase text-size-12">Beginner Runners ({{leaders_br_c}})</div>
-        {% render_table leaders_br %} {% endif %} {% if leaders_r %}
-        <div class="text-uppercase text-size-12">Runners ({{leaders_r_c}})</div>
-        {% render_table leaders_r %} {% endif %} {% if leaders_b %}
-        <div class="text-uppercase text-size-12">Bikers ({{leaders_b_c}})</div>
-        {% render_table leaders_b %} {% endif %}
-
-        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-
-    </div>
+</div>
 </div>
 
 {% endblock %}
