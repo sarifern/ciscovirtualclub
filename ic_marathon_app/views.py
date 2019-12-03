@@ -8,7 +8,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from .tables import WorkoutTable, ProfileTable
 from datetime import datetime
 # TODO CHANGE when pushing to github
-ENV = "PROD"
+ENV = "STAGE"
 
 # TODO[sarifern] document every function
 
