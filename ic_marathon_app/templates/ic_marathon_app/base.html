@@ -43,30 +43,23 @@
             <nav class="col-lg-1 col-lg-2 sidebar hidden-md-down sidebar--light" role="navigation">
                 <div class="base-margin">
                     <img class="image-size-64" src={{user.profile.avatar}}>
-                    <div class="text-size-16 ">Welcome {{user.first_name}} {% if awards and ENV == "STAGE" %}
-
+                    <div class="text-size-16 ">Welcome {{user.first_name}} {% if awards %}
                         <span tabindex="0" data-balloon="Earned&#10;Awards" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/reward.svg' %}" style="width: 25px"></span> {% endif %} {% if user.profile.category == "beginnerrunner" %}
-
-                        <span tabindex="0" data-balloon="Beginner&#10;Runner" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 25px"> </div></span> {%elif user.profile.category == "runner" %}
-
+                        <span tabindex="0" data-balloon="Beginner&#10;Runner" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 25px"> </div></span> {% elif user.profile.category == "runner" %}
                         <span tabindex="0" data-balloon="Runner" data-balloon-pos="up"><img src="{% static 'img/running.svg' %}" style="width: 25px"> </div></span> {% elif user.profile.category == "biker" %}
-
                         <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 25px"> </div></span> {% endif %}
 
 
                     </div>
 
                     <ul>
-                        {%if user.profile.cec %} {% if ENV == "STAGE" %}
+                        {%if user.profile.cec %}
                         <li class="sidebar__item">
                             <a href="{% url 'my_profile' %}">
                                 <span class="icon-user"></span>
                                 <span>My Profile</span>
                             </a>
                         </li>
-                        {% endif%}
-
-
                         <li class="sidebar__item">
                             <a href="{% url 'my_workouts' %}">
                                 <span class="icon-manage-cable"></span>
@@ -104,17 +97,23 @@
 
                     <div class="navbar hidden-lg-up">
                         {%if user.profile.cec %}
+
+                        <a href="{% url 'my_profile' %}">
+                            <span class="icon-user"></span>
+                            <span>My Profile</span>
+                        </a>
+
                         <a href="{% url 'my_workouts' %}">
                             <span class="icon-manage-cable"></span>
                             <span>My Workouts</span>
                         </a>
 
-                        {% endif %} {% comment %}
+                        {% endif %}
+
                         <a href="{% url 'leaderboard' %}">
                             <span class="icon-software-suggested-md"></span>
                             <span>Leaderboard</span>
                         </a>
-                        {% endcomment %}
 
                         <a href="/badges/">
                             <span class="icon-software-certified"></span>
