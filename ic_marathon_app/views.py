@@ -7,17 +7,19 @@ from badgify.models import Award, Badge
 from django.shortcuts import redirect, render, get_object_or_404
 from .tables import WorkoutTable, ProfileTable
 from datetime import datetime
-
+# TODO CHANGE when pushing to github
+ENV = "PROD"
 
 # TODO[sarifern] document every function
 
 # Create your views here.
 DATE_START = datetime(2019, 12, 12, 0, 0, 0)
 DATE_END = datetime(2020, 1, 7, 0, 0, 0)
-DATE = datetime.now()
-# TODO CHANGE when pushing to github
 
-# DATE = datetime(2019, 12, 14, 0, 0, 0)
+if ENV == "STAGE":
+    DATE = datetime(2019, 12, 14, 0, 0, 0)
+else:
+    DATE = datetime.now()
 # Check time period DIC 12 to Jan 6
 if DATE >= DATE_START and DATE <= DATE_END:
     ACTIVE = True
@@ -32,7 +34,7 @@ def login(request):
 @login_required
 def home(request):
     if request.user.profile.cec:
-        return my_profile(request)
+        return my_workouts(request)
     else:
         return profile_wizard(request)
 
@@ -71,6 +73,7 @@ def my_workouts(request):
     return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts_table,
                                                                 'awards': awards,
                                                                 'active': ACTIVE,
+                                                                'ENV': ENV,
                                                                 'workout_count': len(workouts),
                                                                 'aggr_distance': request.user.profile.distance,
                                                                 })
