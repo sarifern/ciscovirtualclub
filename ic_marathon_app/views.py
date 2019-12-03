@@ -176,8 +176,10 @@ def leaderboard(request):
     leaders_r = Profile.objects.filter(category="runner").order_by('-distance')
     leaders_b = Profile.objects.filter(category="biker").order_by('-distance')
     return render(request, 'ic_marathon_app/leaderboard.html',
-                  {'leaders_br': ProfileTable(leaders_br), 'leaders_r': ProfileTable(leaders_r),
-                   'leaders_b': ProfileTable(leaders_b), 'awards': awards})
+                  {'leaders_br': ProfileTable(leaders_br), 'leaders_br_c': len(leaders_br),
+                   'leaders_r': ProfileTable(leaders_r), 'leaders_r_c': len(leaders_r),
+                   'leaders_b': ProfileTable(leaders_b), 'leaders_b_c': len(leaders_b),
+                   'awards': awards})
 
 
 @login_required
