@@ -66,7 +66,7 @@ class Workout(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     distance = models.DecimalField(
         default=0.00, max_digits=4, decimal_places=2)
-    photo_evidence = models.ImageField(validators=[validate_file_size])
+    photo_evidence = models.ImageField(verbose_name="Evidence",validators=[validate_file_size])
     time = models.TimeField(help_text='Workout in minutes', validators=[
         validate_workout_time], default='00:00')
 
