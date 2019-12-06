@@ -44,13 +44,13 @@
                 <div class="base-margin">
                     <img class="image-size-64" src={{user.profile.avatar}}>
                     <div class="text-size-16 ">Welcome {{user.first_name}} {% if earned_awards %}
-                        <span tabindex="0" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/reward.svg' %}" style="width: 25px"></span> {% endif %} 
+                        <span tabindex="0" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/reward.svg' %}" style="width: 22px"></span> {% endif %} 
                         {% if user.profile.user_goal %}
-                        <span tabindex="0" data-balloon="42K reached!" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/reward.svg' %}" style="width: 25px"></span> {% endif %}
+                        <span tabindex="0" data-balloon="42K reached!" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/trophy.svg' %}" style="width: 22px"></span> {% endif %}
                         {% if user.profile.category == "beginnerrunner" %}
-                        <span tabindex="0" data-balloon="Beginner&#10;Runner" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 25px"> </div></span> {% elif user.profile.category == "runner" %}
-                        <span tabindex="0" data-balloon="Runner" data-balloon-pos="up"><img src="{% static 'img/running.svg' %}" style="width: 25px"> </div></span> {% elif user.profile.category == "biker" %}
-                        <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 25px"> </div></span> {% endif %}
+                        <span tabindex="0" data-balloon="Beginner&#10;Runner" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 22px"> </div></span> {% elif user.profile.category == "runner" %}
+                        <span tabindex="0" data-balloon="Runner" data-balloon-pos="up"><img src="{% static 'img/running.svg' %}" style="width: 22px"> </div></span> {% elif user.profile.category == "biker" %}
+                        <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 22px"> </div></span> {% endif %}
 
 
                     </div>
