@@ -345,3 +345,11 @@ font-size: 15px;
 tr[user-goal="True"] {
   background-color: #fbab18;
 }
+
+.info { 
+  position: absolute; 
+  bottom: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+
+}

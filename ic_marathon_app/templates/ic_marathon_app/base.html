@@ -40,7 +40,7 @@
 
         <div class="content-fluid">
 
-            <nav class="col-lg-1 col-lg-2 sidebar hidden-md-down sidebar--light" role="navigation">
+            <nav class="col-lg-3 col-xl-2 sidebar hidden-md-down sidebar--light" role="navigation">
                 <div class="base-margin">
                     <img class="image-size-64" src={{user.profile.avatar}}>
                     <div class="text-size-16 ">Welcome {{user.first_name}} {% if earned_awards %}
@@ -81,9 +81,15 @@
                             </a>
                         </li>
                     </ul>
+
+                        <div class="flex flex-center">
+                            <div class="info">
+                    <span class="text-bold text-gray-600">v1.5 | <a href="mailto:gpe-reyes-marathon@cisco.com">Feedback</a></span>
+                </div>
+                </div>
             </nav>
-            <div class="col-18 col-lg-10 col-xl-10">
-                <div class="section ">
+            <div class="col-12 col-lg-9 col-xl-10">
+                <div class="section">
 
                     <!-- Nav for Medium devices and lower -->
 
@@ -111,9 +117,11 @@
                             <span class="icon-leave-meeting"></span>
                             <span>Logout</span>
                         </a>
+
+                        
                     </div>
 
-                    <!-- End of Nav -->
+                    <!-- End of Nav mobile-->
 
 
                     {% block content %} {% endblock %}
