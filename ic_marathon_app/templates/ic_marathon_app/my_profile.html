@@ -5,26 +5,35 @@
 
 <div class="row">
     <div class="col-xl-8">
-        <div class="panel panel--loose panel--raised base-margin-bottom">
 
-            <div class="text-uppercase text-size-14">My Profile</div>
-            <hr>
-            <div class="section no-padding">
+            <div class="panel panel--loose panel--raised base-margin-bottom">
+         
+                       
+                                <div class="text-uppercase text-size-14">My Profile</div>
+                                <hr>
+                                <div class="section no-padding">
+            
+            
+                                    <div class="flex flex-center">
+                                        <img class="image-size-96" src={{user.profile.avatar}}><br>
+                                    </div>
+                                    <div class="flex flex-center">
+                                        <span class="text-size-18">{{user.first_name}} {{user.last_name}} | {{user.profile.cec}}</span>
+                                    </div>
+                                    <div class="flex flex-center">
+                                        <span class="text-size-14 text-gray-700 text-capitalize">Category - {% if user.profile.category == "beginnerrunner"%} Beginner Runner{% else %} {{user.profile.category }} {% endif %}
+                                        </span>
+                                    </div>
+            
+                                </div>
+                   
+                             
+            </div> 
+        
+            
 
+                   
 
-                <div class="flex flex-center">
-                    <img class="image-size-96" src={{user.profile.avatar}}><br>
-                </div>
-                <div class="flex flex-center">
-                    <div class="">{{user.first_name}} {{user.last_name}} | {{user.profile.cec}}</div>
-                </div>
-                <div class="flex flex-center">
-                    <div class="">Category - {% if user.profile.category == "beginnerrunner"%} BEGINNER RUNNER {% else %} {{user.profile.category }} {% endif %}
-                    </div>
-                </div>
-
-            </div>
-        </div>
 
     </div>
 
@@ -63,11 +72,6 @@
                     <div class="progressbar__label">{{workout_count}}</div>
                 </div>
 
-                <div class="subheader">Remaining Days</div>
-                <div class="progressbar progressbar--warning-alt" data-percentage="{{remaining_days_per}}">
-                    <div class="progressbar__fill"></div>
-                    <div class="progressbar__label">{{remaining_days}}</div>
-                </div>
 
 
 
@@ -75,6 +79,44 @@
             </div>
 
         </div>
+        <div class="panel panel--loose panel--raised base-margin-bottom">
+
+                <div class="text-uppercase text-size-14">REMAINING DAYS </div>
+ <hr>
+ <div class="section no-padding">
+
+
+ <div class="flex flex-center">
+
+
+ <div class="gauge gauge--primary" data-percentage="{{remaining_days_per}}">
+ <div class="gauge__circle">
+ <div class="mask full">
+ <div class="fill"></div>
+ </div>
+ <div class="mask half">
+ <div class="fill"></div>
+ <div class="fill fix"></div>
+ </div>
+ </div>
+ <div class="gauge__inset">
+ <div class="gauge__percentage">{{remaining_days}}</div>
+ </div>
+ </div>
+
+
+
+ </div>
+
+
+ </div>
+
+
+        </div>
+
+
+
+
 
 
     </div>
