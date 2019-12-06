@@ -1,7 +1,6 @@
 <!-- my_profile.html -->
 
-{% extends 'ic_marathon_app/base.html' %} {% block title %} My Profile {% endblock %} {% block content %}
-{% load static %} 
+{% extends 'ic_marathon_app/base.html' %} {% block title %} My Profile {% endblock %} {% block content %} {% load static %}
 
 <div class="row">
     <div class="col-xl-8">
@@ -44,8 +43,7 @@
             <div class="text-uppercase text-size-14">My Awards</div>
             <hr>
             <div class="row flex-center">
-                {% if user.profile.user_goal %}
-                <img class="w3-round no-padding" height="92" width="92" src="{% static 'img/reward.svg' %}"> {% endif %} {% if earned_awards%} {% for award in earned_awards %}
+                {% if earned_awards%} {% for award in earned_awards %}
                 <img class="w3-round no-padding" height="92" width="92" src="{{ award.badge.image.url }}"> {% endfor %} {% endif %}
 
             </div>

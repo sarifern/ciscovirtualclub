@@ -19,10 +19,7 @@ class ProfileTable(tables.Table):
         return format_html(awards_html)
 
     def render_avatar(self, value, record):
-        if record.user.profile.user_goal:
-            return format_html('<div class="row flex flex-middle"><span class="icon-star icon-size-12"></span><img src="{}" height="42" width="42"/></div>', value)
-        else:
-            return format_html('<img src="{}" height="42" width="42"/>', value)
+        return format_html('<img src="{}" height="42" width="42"/>', value)
 
     class Meta:
         model = Profile
