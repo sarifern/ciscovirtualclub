@@ -11,7 +11,7 @@ class ProfileTable(tables.Table):
 
     def render_awards(self, value,record):
         awards_html = ""
-        earned_awards = Award.objects.filter(user=record.user)
+        earned_awards = Award.objects.filter(user=record.user).order_by('-awarded_at')
         for award in earned_awards:
             awards_html += '<img src="{}" height="42" width="42"/>'.format(award.badge.image.url)
         return format_html(awards_html)
