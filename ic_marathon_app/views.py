@@ -12,7 +12,7 @@ from datetime import datetime
 DATE_START = datetime(2019, 12, 12, 0, 0, 0)
 DATE_END = datetime(2020, 1, 7, 0, 0, 0)
 
-DATE = datetime(2019, 12, 14, 0, 0, 0)
+DATE = datetime(2019, 12, 12, 0, 0, 0)
 #DATE = datetime.now()
 # Check time period DIC 12 to Jan 6
 if DATE >= DATE_START and DATE <= DATE_END:
@@ -75,6 +75,7 @@ def my_profile(request):
         'active': ACTIVE,
         'workout_count': len(workouts),
         'aggr_distance': request.user.profile.distance,
+        'aggr_distance_per': int((request.user.profile.distance/168)*100),
         'remaining_days_per': int(((remaining_days.days)/26)*100),
         'remaining_days': remaining_days.days,
     })

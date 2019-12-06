@@ -4,81 +4,80 @@
 
 
 <div class="row">
-<div class="col-xl-8">
-    <div class="panel panel--loose panel--raised base-margin-bottom">
-        
-        <div class="text-uppercase text-size-14">My Profile</div>
-        <hr>
-        <div class="section no-padding">
+    <div class="col-xl-8">
+        <div class="panel panel--loose panel--raised base-margin-bottom">
+
+            <div class="text-uppercase text-size-14">My Profile</div>
+            <hr>
+            <div class="section no-padding">
 
 
-            <div class="flex flex-center">
+                <div class="flex flex-center">
                     <img class="image-size-96" src={{user.profile.avatar}}><br>
-            </div>
-            <div class="flex flex-center">
-                    <div class="">Name | CEC</div>
-            </div>
-            <div class="flex flex-center">
-                    <div class="">Category - </div>
-            </div>
+                </div>
+                <div class="flex flex-center">
+                    <div class="">{{user.first_name}} {{user.last_name}} | {{user.profile.cec}}</div>
+                </div>
+                <div class="flex flex-center">
+                    <div class="">Category - {% if user.profile.category == "beginnerrunner"%} BEGINNER RUNNER {% else %} {{user.profile.category }} {% endif %}
+                    </div>
+                </div>
 
+            </div>
         </div>
+
     </div>
 
-</div>
-
-<div class="col-xl-4">
+    <div class="col-xl-4">
 
         <div class="panel panel--loose panel--raised base-margin-bottom">
-        
+
             <div class="text-uppercase text-size-14">My Awards</div>
-            <hr>
+            <hr> {% if earned_awards%}
+            <div class="row flex-center">
+                {% for award in earned_awards %}
+                <img class="w3-round no-padding" height="92" width="92" src="{{ award.badge.image.url }}"> {% endfor %}
+            </div>
+            {% endif %}
 
-            {% if earned_awards%}
-                        <div class="row flex-center">
-                            {% for award in earned_awards %}
-                            <img class="w3-round no-padding" height="92" width="92" src="{{ award.badge.image.url }}"> {% endfor %}
-                        </div>
-                        {% endif %}
+        </div>
 
-                    </div>
-
-                    <div class="panel panel--loose panel--raised base-margin-bottom">
+        <div class="panel panel--loose panel--raised base-margin-bottom">
 
             <div class="text-uppercase text-size-14">My Statistics</div>
             <hr>
 
             <div>
-     
-  
-
-                    <div class="subheader">Kilometers</div>
-                    <div class="progressbar progressbar--secondary" data-percentage="{{aggr_distance}}">
-                        <div class="progressbar__fill"></div>
-                        <div class="progressbar__label">{{aggr_distance}}</div>
-                    </div>
-
-                    <div class="subheader">Workouts</div>
-                    <div class="progressbar" data-percentage="{{workout_count}}">
-                        <div class="progressbar__fill"></div>
-                        <div class="progressbar__label">{{workout_count}}</div>
-                    </div>
-
-                    <div class="subheader">Remaining Days</div>
-                    <div class="progressbar progressbar--warning-alt" data-percentage="{{remaining_days_per}}">
-                        <div class="progressbar__fill"></div>
-                        <div class="progressbar__label">{{remaining_days}}</div>
-                    </div>
-
-                
 
 
+
+                <div class="subheader">Kilometers</div>
+                <div class="progressbar progressbar--secondary" data-percentage="{{aggr_distance_per}}">
+                    <div class="progressbar__fill"></div>
+                    <div class="progressbar__label">{{aggr_distance}}</div>
                 </div>
+
+                <div class="subheader">Workouts</div>
+                <div class="progressbar" data-percentage="{{workout_count}}">
+                    <div class="progressbar__fill"></div>
+                    <div class="progressbar__label">{{workout_count}}</div>
+                </div>
+
+                <div class="subheader">Remaining Days</div>
+                <div class="progressbar progressbar--warning-alt" data-percentage="{{remaining_days_per}}">
+                    <div class="progressbar__fill"></div>
+                    <div class="progressbar__label">{{remaining_days}}</div>
+                </div>
+
+
+
+
+            </div>
 
         </div>
 
 
-</div>
+    </div>
 
 
-{% endblock %}
+    {% endblock %}
