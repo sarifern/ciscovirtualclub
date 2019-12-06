@@ -69,27 +69,29 @@
 TODO put the badge and ok boton (and maybe transparency) in the center of the modal
 {% endcomment %}
 
-<div class="modal modal--fluid show fade" id="modal-fluid">
+<div class="modal modal-default show fade" id="modal-fluid">
     <div class="modal__dialog">
         <div class="modal__content">
             <a class="modal__close" onclick="closeModal()"><span class="icon-close"></span></a>
-            <div class="modal__header">
-                <div class="modal__title">
-                    {% for new_badge in new_badges %}
-                    <p>{{new_badge.name}}</p>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="modal__body">
-                <div class="row">
-                    {% for new_badge in new_badges %}
-                    <div class="">
-                        <img class="w3-round no-padding" height="250" width="250" src="{{ new_badge.image.url }}">
-                        <p class="subtitle">{{new_badge.description}}</p>
+
+                    <div class="modal__header">
+                        <div class="modal__title">
+                            {% for new_badge in new_badges %}
+                            <p>{{new_badge.name}}</p>
+                            {% endfor %}
+                        </div>
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
+                    <div class="modal__body flex flex-center">
+                        <div class="row">
+                            {% for new_badge in new_badges %}
+                            <div class="">
+                                <img class="w3-round no-padding" height="250" width="250" src="{{ new_badge.image.url }}"><br>
+                                <span class="text-center">{{new_badge.description}}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
             <div class="modal__footer">
                 <button class="btn" onclick="closeModal()">Ok</button>
             </div>
