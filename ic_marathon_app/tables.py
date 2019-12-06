@@ -9,23 +9,26 @@ from django.contrib.auth.models import User
 class ProfileTable(tables.Table):
     awards = tables.Column(empty_values=())
 
-    def render_awards(self, value,record):
+    def render_awards(self, value, record):
         awards_html = ""
-        earned_awards = Award.objects.filter(user=record.user).order_by('-awarded_at')
+        earned_awards = Award.objects.filter(
+            user=record.user).order_by('-awarded_at')
         for award in earned_awards:
-            awards_html += '<img src="{}" height="42" width="42"/>'.format(award.badge.image.url)
+            awards_html += '<img src="{}" height="42" width="42"/>'.format(
+                award.badge.image.url)
         return format_html(awards_html)
 
-    def render_avatar(self, value):
-        return format_html('<img src="{}" height="42" width="42"/>', value)
+    def render_avatar(self, value, record):
+        if record.user.profile.user_goal:
+            return format_html('<div class="row flex flex-middle"><span class="icon-star icon-size-12"></span><img src="{}" height="42" width="42"/></div>', value)
+        else:
+            return format_html('<img src="{}" height="42" width="42"/>', value)
 
     class Meta:
         model = Profile
-        attrs = {"class": "table table--striped"}
-        fields = ("avatar", "cec", "distance","awards")
-        row_attrs = {
-            'user-goal': lambda record: record.user_goal
-        }
+        attrs = {"class": "table table--striped table--wrapped"}
+        fields = ("avatar", "cec", "distance", "awards")
+
 
 
 class WorkoutTable(tables.Table):

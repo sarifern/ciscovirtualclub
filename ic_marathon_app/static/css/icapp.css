@@ -342,9 +342,7 @@ font-size: 15px;
   text-decoration: none;
 }
 
-tr[user-goal="True"] {
-  background-color: #fbab18;
-}
+
 
 .info { 
   position: absolute; 
