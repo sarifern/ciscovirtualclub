@@ -51,7 +51,7 @@
 
 
                     {% for choice in form.fields.category.choices %}
-                    <button type="submit" name="category" value={{choice.0}} {% if form.initial.category==c hoice.0 %} class="btn btn--ghost selected" {%else %} class="btn btn--ghost" {% endif %} onclick="select_hidden_category('{{choice.0}}')">{{choice.1}}</button>                    {% endfor %}
+                    <button type="submit" name="category" value={{choice.0}} {% if form.initial.category == choice.0 %} class="btn btn--ghost selected" {%else %} class="btn btn--ghost" {% endif %} onclick="select_hidden_category('{{choice.0}}')">{{choice.1}}</button>                    {% endfor %}
 
                 </div>
             </div>
