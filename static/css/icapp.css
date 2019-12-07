@@ -1,218 +1,246 @@
-
 /* index.css */
 
-#input-cancel::-webkit-search-cancel-button{
-  position:relative;
-  right:10px;
+#input-cancel::-webkit-search-cancel-button {
+    position: relative;
+    right: 10px;
 }
 
 .django-select2 {
-width: 350px;
+    width: 350px;
 }
+
 .page-header {
-background-color: #ff9400;
-margin-top: 0;
-padding: 20px 20px 20px 40px;
+    background-color: #ff9400;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
 }
-.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
-color: #ffffff;
-font-size: 36pt;
-text-decoration: none;
+
+.page-header h1,
+.page-header h1 a,
+.page-header h1 a:visited,
+.page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: none;
 }
+
 .date {
-color: #828282;
+    color: #828282;
 }
+
 .save {
-float: right;
+    float: right;
 }
-.post-form textarea, .post-form input {
-width: 100%;
+
+.post-form textarea,
+.post-form input {
+    width: 100%;
 }
-.top-menu, .top-menu:hover, .top-menu:visited {
-color: #ffffff;
-float: right;
-font-size: 26pt;
-margin-right: 20px;
+
+.top-menu,
+.top-menu:hover,
+.top-menu:visited {
+    color: #ffffff;
+    float: right;
+    font-size: 26pt;
+    margin-right: 20px;
 }
+
 .post {
-margin-bottom: 10px;
+    margin-bottom: 10px;
 }
-.post h1 a, .post h1 a:visited {
-color: #000000;
+
+.post h1 a,
+.post h1 a:visited {
+    color: #000000;
 }
+
 .idea_title {
-display: inline;
+    display: inline;
 }
-.idea_desc { /* Can be used just for top padding */
-padding-top: 20px;
+
+.idea_desc {
+    /* Can be used just for top padding */
+    padding-top: 20px;
 }
+
 .img_com {
-height: auto;
-width: 65px;
-padding: auto;
+    height: auto;
+    width: 65px;
+    padding: auto;
 }
+
 .com_pad {
-padding-top: 10px;
-padding-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
+
 .com_date {
-font-size: 12px;
-color: #7f7f86;
+    font-size: 12px;
+    color: #7f7f86;
 }
+
 .ul_w_style {
-list-style-type: none;
-padding: 0;
-margin: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
+
 .ul_w_style li {
-padding-bottom: 18px;
+    padding-bottom: 18px;
 }
+
 .edit_pad {
-padding-bottom: 9px;
+    padding-bottom: 9px;
 }
+
 .com_area {
-padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 #imageWrapper {
-position: relative;
-
+    position: relative;
 }
+
 .bottomImage {
-position: absolute;
-bottom: 10;
-width: 100%;
-height: auto;
-margin-left: 10px;
+    position: absolute;
+    bottom: 10;
+    width: 100%;
+    height: auto;
+    margin-left: 10px;
 }
-
 
 .bottomImage-2 {
-position: absolute;
-bottom: 30;
-width: 100%;
-height: auto;
-margin-left: 10px;
+    position: absolute;
+    bottom: 30;
+    width: 100%;
+    height: auto;
+    margin-left: 10px;
 }
 
-.con-form{
-  width: 500px;
-  alignment: center;
-  align-content: center;
-  margin-top: 25px;
+.con-form {
+    width: 500px;
+    alignment: center;
+    align-content: center;
+    margin-top: 25px;
 }
 
 .box_com {
-  border: black;
-  border-width: 1px;
-  padding: 5px;
+    border: black;
+    border-width: 1px;
+    padding: 5px;
 }
 
-
 #fot_fixed {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
 
 .logo_header {
     width: auto;
-height: 90%;
-
+    height: 90%;
 }
 
 .footer_main ul {
-
-list-style-type: none;
-  margin: 0;
-  padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .footer_main li {
-
-  display: inline;
-
+    display: inline;
 }
 
-.footer_main{
-
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-
+.footer_main {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
+
 
 /* CSS for slider */
 
 
 /* carousel */
-#quote-carousel
-{
-padding: 0 10px 10px 10px;
-margin-top: 20px;
+
+#quote-carousel {
+    padding: 0 10px 10px 10px;
+    margin-top: 20px;
 }
 
+
 /* Control buttons  */
-#quote-carousel .carousel-control
-{
-background: none;
-color: #222;
-font-size: 2.3em;
-text-shadow: none;
-margin-top: 65px;
+
+#quote-carousel .carousel-control {
+    background: none;
+    color: #222;
+    font-size: 2.3em;
+    text-shadow: none;
+    margin-top: 65px;
 }
+
+
 /* Previous button  */
-#quote-carousel .carousel-control.left
-{
-left: -12px;
+
+#quote-carousel .carousel-control.left {
+    left: -12px;
 }
+
+
 /* Next button  */
-#quote-carousel .carousel-control.right
-{
-right: -28px !important;
+
+#quote-carousel .carousel-control.right {
+    right: -28px !important;
 }
+
+
 /* Changes the position of the indicators */
-#quote-carousel .carousel-indicators
-{
-right: 10%;
-top: auto;
-bottom: 0px;
-margin-right: -19px;
+
+#quote-carousel .carousel-indicators {
+    right: 10%;
+    top: auto;
+    bottom: 0px;
+    margin-right: -19px;
 }
+
+
 /* Changes the color of the indicators */
-#quote-carousel .carousel-indicators li
-{
-background: #c0c0c0;
+
+#quote-carousel .carousel-indicators li {
+    background: #c0c0c0;
 }
-#quote-carousel .carousel-indicators .active
-{
-background: #333333;
+
+#quote-carousel .carousel-indicators .active {
+    background: #333333;
 }
-#quote-carousel img
-{
-width: 250px;
-height: 100px
+
+#quote-carousel img {
+    width: 250px;
+    height: 100px
 }
+
+
 /* End carousel */
 
 .item blockquote {
-  border-left: none;
-  margin: 0;
+    border-left: none;
+    margin: 0;
 }
 
 .item blockquote img {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .item blockquote p:before {
-  content: "\f10d";
-  font-family: 'Fontawesome';
-  float: left;
-  margin-right: 10px;
+    content: "\f10d";
+    font-family: 'Fontawesome';
+    float: left;
+    margin-right: 10px;
 }
 
 
@@ -220,128 +248,127 @@ height: 100px
 MEDIA QUERIES
 */
 
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  #quote-carousel
-  {
-    margin-bottom: 0;
-    padding: 0 40px 30px 40px;
-  }
 
+/* Small devices (tablets, 768px and up) */
+
+@media (min-width: 768px) {
+    #quote-carousel {
+        margin-bottom: 0;
+        padding: 0 40px 30px 40px;
+    }
 }
+
 
 /* Small devices (tablets, up to 768px) */
+
 @media (max-width: 768px) {
-
-  /* Make the indicators larger for easier clicking with fingers/thumb on mobile */
-
-  #quote-carousel .carousel-indicators {
-      bottom: -20px !important;
-  }
-  #quote-carousel .carousel-indicators li {
-      display: inline-block;
-      margin: 0px 5px;
-      width: 15px;
-      height: 15px;
-  }
-  #quote-carousel .carousel-indicators li.active {
-      margin: 0px 5px;
-      width: 20px;
-      height: 20px;
-  }
+    /* Make the indicators larger for easier clicking with fingers/thumb on mobile */
+    #quote-carousel .carousel-indicators {
+        bottom: -20px !important;
+    }
+    #quote-carousel .carousel-indicators li {
+        display: inline-block;
+        margin: 0px 5px;
+        width: 15px;
+        height: 15px;
+    }
+    #quote-carousel .carousel-indicators li.active {
+        margin: 0px 5px;
+        width: 20px;
+        height: 20px;
+    }
 }
+
 
 /** END of CSS for slider **/
 
 .video_st {
-  padding-top: 15px;
-  padding-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .center_404 {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 .pad-top {
-  padding-top: 10px;
+    padding-top: 10px;
 }
 
-::-webkit-scrollbar-track
-{
--webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-background-color: #F5F5F5;
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
 }
 
-::-webkit-scrollbar
-{
-width: 10px;
-background-color: #F5F5F5;
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
 }
 
-::-webkit-scrollbar-thumb
-{
-background-color: #017CAD;
-
+::-webkit-scrollbar-thumb {
+    background-color: #017CAD;
 }
 
 #pad-right {
-  padding-right: 10px;
+    padding-right: 10px;
 }
 
 #demo {
-font-size: 15px;
+    font-size: 15px;
 }
 
 .social-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .avatar {
-  vertical-align: middle;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
-.form-header{
-  margin-bottom: 30px;
-  margin-top: 30px;
-  font-size: large;
+.form-header {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: large;
 }
 
-.form-signin{
-  text-align: center;
-  width: 450px;
-  height: 300px;
-  word-wrap: break-word;
-  background-color:#dee2e6 !important;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+.form-signin {
+    text-align: center;
+    width: 450px;
+    height: 300px;
+    word-wrap: break-word;
+    background-color: #dee2e6 !important;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
-
 
 .button-loggin {
-  cursor: pointer;
-  background: #00bceb;
-  width: 363.08px;
-  padding: 15px 35px 35px;
-  color: #fff;
-  font-size: 14px;
-  border-radius: 5px;
-  padding-bottom: 13px;
-  padding-top: 13px;
-
+    cursor: pointer;
+    background: #00bceb;
+    width: 363.08px;
+    padding: 15px 35px 35px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    padding-bottom: 13px;
+    padding-top: 13px;
 }
+
 .button-loggin:hover {
-  background: #0d274d;
-  border-radius: 5px;
-  text-decoration: none;
+    background: #0d274d;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
-tr[user-goal="True"] {
-  background-color: #fbab18;
+.info {
+    position: absolute;
+    bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
 }
