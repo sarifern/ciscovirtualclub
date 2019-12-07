@@ -45,7 +45,7 @@
             <hr>
             <div class="row flex-center">
                 {% if earned_awards%} {% for award in earned_awards %}
-                <img class="w3-round no-padding" height="92" width="92" src="{{ award.badge.image.url }}"> {% endfor %} {% endif %}
+                <img class="w3-round no-padding" height="125" width="125" src="{{ award.badge.image.url }}"> {% endfor %} {% endif %}
 
             </div>
         </div>
@@ -60,13 +60,13 @@
 
 
                 <div class="subheader">Kilometers</div>
-                <div class="progressbar progressbar--secondary" data-percentage="{{aggr_distance_per}}">
+                <div class="progressbar progressbar--secondary progressbar--large" data-percentage="{{aggr_distance_per}}">
                     <div class="progressbar__fill"></div>
                     <div class="progressbar__label">{{aggr_distance}}</div>
                 </div>
 
                 <div class="subheader">Workouts</div>
-                <div class="progressbar" data-percentage="{{workout_count}}">
+                <div class="progressbar progressbar--large progressbar--success" data-percentage="{{workout_count}}">
                     <div class="progressbar__fill"></div>
                     <div class="progressbar__label">{{workout_count}}</div>
                 </div>
