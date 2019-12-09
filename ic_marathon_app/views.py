@@ -12,8 +12,8 @@ from datetime import datetime
 DATE_START = datetime(2019, 12, 12, 0, 0, 0)
 DATE_END = datetime(2020, 1, 7, 0, 0, 0)
 
-#DATE = datetime(2019, 12, 12, 0, 0, 0)
-DATE = datetime.now()
+DATE = datetime(2019, 12, 12, 0, 0, 0)
+#DATE = datetime.now()
 # Check time period DIC 12 to Jan 6
 if DATE >= DATE_START and DATE <= DATE_END:
     ACTIVE = True
