@@ -7,6 +7,8 @@ from badgify.models import Award, Badge
 from django.shortcuts import redirect, render, get_object_or_404
 from .tables import WorkoutTable, ProfileTable
 from datetime import datetime
+from django_tables2.config import RequestConfig
+from django_tables2.paginators import LazyPaginator
 
 
 DATE_START = datetime(2019, 12, 12, 0, 0, 0)
@@ -176,10 +178,20 @@ def leaderboard(request):
         category="beginnerrunner").order_by('-distance')
     leaders_r = Profile.objects.filter(category="runner").order_by('-distance')
     leaders_b = Profile.objects.filter(category="biker").order_by('-distance')
+    table_leaders_br = ProfileTable(leaders_br)
+    table_leaders_r = ProfileTable(leaders_r)
+    table_leaders_b = ProfileTable(leaders_b)
+    RequestConfig(request, paginate={"per_page": 15}).configure(
+        table_leaders_br)
+    RequestConfig(request, paginate={"per_page": 15}).configure(
+        table_leaders_r)
+    RequestConfig(request, paginate={"per_page": 15}).configure(
+        table_leaders_b)
+
     return render(request, 'ic_marathon_app/leaderboard.html',
-                  {'leaders_br': ProfileTable(leaders_br), 'leaders_br_c': len(leaders_br),
-                   'leaders_r': ProfileTable(leaders_r), 'leaders_r_c': len(leaders_r),
-                   'leaders_b': ProfileTable(leaders_b), 'leaders_b_c': len(leaders_b),
+                  {'leaders_br': table_leaders_br, 'leaders_br_c': len(leaders_br),
+                   'leaders_r': table_leaders_r, 'leaders_r_c': len(leaders_r),
+                   'leaders_b': table_leaders_b, 'leaders_b_c': len(leaders_b),
                    'earned_awards': earned_awards})
 
 
