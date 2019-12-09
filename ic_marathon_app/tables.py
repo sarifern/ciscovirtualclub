@@ -32,6 +32,8 @@ class WorkoutTable(tables.Table):
     delete = TemplateColumn(
         template_name='tables/workout_delete_column.html')
 
+    def render_date_time(self,value):
+        return format_html("{}",value.strftime("%Y-%m-%d"))
     def render_time(self, value):
         return format_html("{} min.", value.hour*60+value.minute)
 
@@ -45,4 +47,4 @@ class WorkoutTable(tables.Table):
         model = Workout
 
         attrs = {"class": "table table--striped"}
-        fields = ("distance", "time", "photo_evidence", "delete")
+        fields = ("date_time","distance", "time", "photo_evidence", "delete")

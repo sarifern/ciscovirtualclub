@@ -8,7 +8,7 @@ from django.forms import ModelForm
 from django import forms
 from django.dispatch import receiver
 from django_select2.forms import Select2Widget
-from bootstrap_datepicker_plus import TimePickerInput,DateTimePickerInput
+from bootstrap_datepicker_plus import TimePickerInput, DateTimePickerInput
 import uuid
 from .validators import validate_file_size, validate_workout_time
 import q
@@ -66,16 +66,17 @@ class Workout(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     distance = models.DecimalField(
         default=0.00, max_digits=4, decimal_places=2)
-    photo_evidence = models.ImageField(verbose_name="Evidence",validators=[validate_file_size])
-    date_time = models.DateTimeField()
-    time = models.TimeField(help_text='Workout in minutes', validators=[
+    photo_evidence = models.ImageField(
+        verbose_name="Evidence", validators=[validate_file_size])
+    date_time = models.DateTimeField(verbose_name="Date")
+    time = models.TimeField(verbose_name="Duration", help_text='Workout in minutes', validators=[
         validate_workout_time], default='00:00')
 
 
 class WorkoutForm(ModelForm):
     class Meta:
         model = Workout
-        fields = ['distance', 'photo_evidence', 'date_time','time']
+        fields = ['distance', 'photo_evidence', 'date_time', 'time']
         widgets = {
             'date_time': DateTimePickerInput(),
             'time': TimePickerInput(),
@@ -87,7 +88,7 @@ def delete_workout(sender, instance, **kwargs):
     # update personal distance
     profile = instance.belongs_to
     profile.distance -= instance.distance
-    
+
     if profile.distance < 42.0:
         profile.user_goal = False
     profile.save()
