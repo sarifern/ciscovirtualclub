@@ -47,4 +47,4 @@ class WorkoutTable(tables.Table):
         model = Workout
 
         attrs = {"class": "table table--striped"}
-        fields = ("date_time","distance", "time", "photo_evidence", "delete")
+        fields = ("date_time","distance", "time", "delete")
