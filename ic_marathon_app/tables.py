@@ -25,7 +25,7 @@ class ProfileTable(tables.Table):
         model = Profile
         template = "django_tables2/bootstrap-responsive.html"
         attrs = {"class": "table table--striped table--wrapped"}
-        fields = ("avatar", "cec", "km", "award")
+        fields = ("avatar", "cec", "distance", "award")
 
 
 
