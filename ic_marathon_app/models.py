@@ -44,20 +44,6 @@ class ProfileForm(ModelForm):
         fields = ['cec', 'category']
 
 
-'''
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    if instance.username != "lurifern":
-        instance.profile.save()
-'''
-
-
 class Workout(models.Model):
     belongs_to = models.ForeignKey(
         Profile, on_delete=models.CASCADE, default=None, unique=False)
@@ -76,7 +62,7 @@ class Workout(models.Model):
 class WorkoutForm(ModelForm):
     class Meta:
         model = Workout
-        fields = ['distance', 'date_time', 'time','photo_evidence']
+        fields = ['distance', 'date_time', 'time', 'photo_evidence']
         widgets = {
             'date_time': DateTimePickerInput(),
             'time': TimePickerInput(),

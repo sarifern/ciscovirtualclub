@@ -9,7 +9,7 @@ from .tables import WorkoutTable, ProfileTable
 from datetime import datetime
 from django_tables2.config import RequestConfig
 from django_tables2.paginators import LazyPaginator
-
+import itertools
 
 DATE_START = datetime(2019, 12, 12, 0, 0, 0)
 DATE_END = datetime(2020, 1, 7, 0, 0, 0)
@@ -47,7 +47,8 @@ def home(request):
 
 @login_required
 def my_profile(request):
-    """Returns My Profile information (workouts, distance, remaining days from the Marathon)
+    """Returns My Profile information (workouts, distance, remaining days from the Marathon, current position
+    in leaderboard)
 
     Arguments:
         request {Request} -- Request from browser
@@ -58,6 +59,7 @@ def my_profile(request):
         {
         'earned_awards': awards,
         'active': ACTIVE,
+        'position': position,
         'workout_count': len(workouts),
         'aggr_distance': request.user.profile.distance,
         'remaining_days_per': int(((remaining_days.days)/26)*100), <<percentage for gauge
@@ -69,12 +71,19 @@ def my_profile(request):
         workouts = Workout.objects.filter(belongs_to=request.user.profile)
         awards = Award.objects.filter(user=request.user)
         remaining_days = DATE_END-DATE
+        list_in_category = Profile.objects.filter(
+            category=request.user.profile.category).order_by('-distance')
+        list_cec_in_category = list(
+            existing_profile for existing_profile in list_in_category)
+        index = list_cec_in_category.index(request.user.profile)
+
     except ObjectDoesNotExist:
         workouts = {}
         awards = {}
     return render(request, 'ic_marathon_app/my_profile.html', {
         'earned_awards': awards,
         'active': ACTIVE,
+        'position': index,
         'workout_count': len(workouts),
         'aggr_distance': request.user.profile.distance,
         'aggr_distance_per': int((request.user.profile.distance/168)*100),
