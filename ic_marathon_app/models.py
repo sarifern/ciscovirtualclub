@@ -76,7 +76,7 @@ class Workout(models.Model):
 class WorkoutForm(ModelForm):
     class Meta:
         model = Workout
-        fields = ['distance', 'date_time', 'time']
+        fields = ['distance', 'date_time', 'time','photo_evidence']
         widgets = {
             'date_time': DateTimePickerInput(),
             'time': TimePickerInput(),
