@@ -13,7 +13,7 @@
     <hr>
     <div class="section no-padding">
         <div class="divider divider--thick divider--accent-blue divider--compressed"></div>
-        {% if workouts %} {% render_table workouts %} {% else %}
+        {% if workouts %} <div style="overflow-x:auto;">{% render_table workouts %}</div> {% else %}
         <p>No workouts yet! Bring it!</p>
         {% endif %}
     </div>

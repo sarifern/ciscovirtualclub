@@ -7,15 +7,15 @@ from django.contrib.auth.models import User
 
 
 class ProfileTable(tables.Table):
-    awards = tables.Column(empty_values=())
+    award = tables.Column(empty_values=())
 
-    def render_awards(self, value, record):
+    def render_award(self, value, record):
         awards_html = ""
         earned_awards = Award.objects.filter(
             user=record.user).order_by('-awarded_at')
-        for award in earned_awards:
+        if earned_awards:
             awards_html += '<img src="{}" height="42" width="42"/>'.format(
-                award.badge.image.url)
+                earned_awards[0].badge.image.url)
         return format_html(awards_html)
 
     def render_avatar(self, value, record):
@@ -23,8 +23,9 @@ class ProfileTable(tables.Table):
 
     class Meta:
         model = Profile
+        template = "django_tables2/bootstrap-responsive.html"
         attrs = {"class": "table table--striped table--wrapped"}
-        fields = ("avatar", "cec", "distance", "awards")
+        fields = ("avatar", "cec", "km", "award")
 
 
 
@@ -45,6 +46,6 @@ class WorkoutTable(tables.Table):
 
     class Meta:
         model = Workout
-
+        template = "django_tables2/bootstrap-responsive.html"
         attrs = {"class": "table table--striped"}
         fields = ("date_time","distance", "time", "delete")

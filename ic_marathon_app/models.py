@@ -50,7 +50,7 @@ class Workout(models.Model):
     uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    distance = models.DecimalField(
+    distance = models.DecimalField(verbose_name="KM",
         default=0.00, max_digits=4, decimal_places=2)
     photo_evidence = models.ImageField(
         verbose_name="Evidence", validators=[validate_file_size])
