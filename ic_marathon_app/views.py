@@ -75,7 +75,7 @@ def my_profile(request):
             category=request.user.profile.category).order_by('-distance')
         list_cec_in_category = list(
             existing_profile for existing_profile in list_in_category)
-        index = list_cec_in_category.index(request.user.profile)
+        index = list_cec_in_category.index(request.user.profile)+1
 
     except ObjectDoesNotExist:
         workouts = {}
