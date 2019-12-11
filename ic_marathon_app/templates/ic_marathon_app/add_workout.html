@@ -25,27 +25,27 @@
         <form method="POST" id="workoutForm" enctype="multipart/form-data">
             {% csrf_token %} {{ form.non_field_errors }}
 
-            <div class="form-group">
-                <div class="form-group__text qtr-padding-bottom">
+            <div class="form-group text-font text-font ">
+                <div class="form-group__text qtr-padding-bottom text-font">
                     <label>Distance(km)</label> {{ form.distance }}
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="form-group__text qtr-padding-bottom">
+            <div class="form-group text-font ">
+                <div class="form-group__text qtr-padding-bottom text-font">
                     <label>Date of workout</label> {{ form.date_time }} {{form.date_time.errors}}
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="form-group__text qtr-padding-bottom">
+            <div class="form-group text-font ">
+                <div class="form-group__text qtr-padding-bottom text-font">
                     <label>Time(hrs/min)</label> {{ form.time }} {{form.time.errors}}
                 </div>
             </div>
 
 
-            <div class="form-group">
-                <div class="form-group__text qtr-padding-bottom" >
+            <div class="form-group text-font ">
+                <div class="form-group__text qtr-padding-bottom text-font" >
                     <label>Screenshot</label>
                     {{ form.photo_evidence }}
                     {{form.photo_evidence.errors}}

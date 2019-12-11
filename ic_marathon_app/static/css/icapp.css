@@ -372,3 +372,7 @@ MEDIA QUERIES
     font-family: 'Courier New', Courier, monospace;
     font-size: 11px;
 }
+
+.text-font {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
