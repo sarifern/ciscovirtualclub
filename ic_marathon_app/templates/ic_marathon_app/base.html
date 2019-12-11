@@ -40,30 +40,29 @@
 
         <div class="content-fluid">
 
-            <nav class="col-lg-3 col-xl-2 sidebar sidebar--primary hidden-md-down " role="navigation">
+            <nav class="col-lg-3 col-xl-2 sidebar sidebar--primary hidden-md-down" role="navigation">
                 <div class="base-margin">
-                    <img class="image-size-64" src={{user.profile.avatar}}>
-                    <div class="text-size-14">{{user.first_name}} {{user.last_name}} {% if earned_awards %}
+                    <div class="flex flex-center flex-middle"><img class="w3-round w3-image" src={{user.profile.avatar}} style="width:50%"></div>
+                    <div class="flex flex-center flex-middle half-padding-top"><div class="text-size-16">{{user.first_name}} {{user.last_name}} {% if earned_awards %}
                         <span tabindex="0" data-balloon-break data-balloon-pos="up" data-balloon="Awards Received"><img src="{% static 'img/reward.svg' %}" style="width: 20px"></span> {% endif %} 
                         {% if user.profile.user_goal %}
                         <span tabindex="0" data-balloon="42K Reached!" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/trophy.svg' %}" style="width: 20px"></span> {% endif %}
                         {% if user.profile.category == "beginnerrunner" %}
                         <span tabindex="0" data-balloon="Beginner&#10;Runner" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 20px"> </div></span> {% elif user.profile.category == "runner" %}
                         <span tabindex="0" data-balloon="Runner" data-balloon-pos="up"><img src="{% static 'img/running.svg' %}" style="width: 20px"> </div></span> {% elif user.profile.category == "biker" %}
-                        <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 20px"> </div></span> {% endif %}
-
+                        <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 20px"> </div></span> {% endif %}</div>
 
                     </div>
 
                     <ul>
                         {%if user.profile.cec %}
-                        <li class="sidebar__item">
+                        <li class="sidebar__item text-size-12">
                             <a href="{% url 'my_profile' %}">
                                 <span class="icon-contact"></span>
                                 <span>My Profile</span>
                             </a>
                         </li>
-                        <li class="sidebar__item">
+                        <li class="sidebar__item text-size-12">
                             <a href="{% url 'my_workouts' %}">
                                 <span class="icon-manage-cable"></span>
                                 <span>My Workouts</span>
@@ -71,13 +70,13 @@
                         </li>
                         {% endif %}
 
-                        <li class="sidebar__item">
+                        <li class="sidebar__item text-size-12">
                             <a href="{% url 'leaderboard' %}">
                                 <span class="icon-software-suggested-md"></span>
                                 <span>Leaderboard</span>
                             </a>
                         </li>
-                        <li class="sidebar__item">
+                        <li class="sidebar__item text-size-12">
                             <a href="{% url 'logout'%}">
                                 <span class="icon-leave-meeting"></span>
                                 <span>Logout</span>
@@ -87,7 +86,7 @@
 
                         <div class="flex flex-center">
                             <div class="info">
-                    <span class="text-bold text-gray-600">v1.6 | <a href="mailto:gpe-reyes-marathon@cisco.com">Feedback</a></span>
+                    <span class="text-bold text-gray-600">v2.0 | <a href="mailto:gpe-reyes-marathon@cisco.com">Feedback</a></span>
                 </div>
                 </div>
             </nav>
