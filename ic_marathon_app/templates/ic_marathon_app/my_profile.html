@@ -53,7 +53,7 @@
 
             <div class="text-uppercase text-size-14">My Awards</div>
             <hr>
-            <div class="row flex-center">
+            <div class="row flex-center flex-middle">
                 {% if earned_awards%} {% for award in earned_awards %}
                 <img class="w3-round no-padding" height="125" width="125" src="{{ award.badge.image.url }}"> {% endfor %} {% endif %}
 
