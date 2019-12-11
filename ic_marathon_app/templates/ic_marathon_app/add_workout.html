@@ -77,9 +77,9 @@ TODO put the badge and ok boton (and maybe transparency) in the center of the mo
                     <div class="modal__body ">
 
                         {% for new_badge in new_badges %}
-                                <div class="panel ">
+                                <div class="panel content-fluid ">
                                     <div class="text-center text-center-xs-down text-size-14 ">{{new_badge.name}}</div>
-                                    <div class="flex flex-center content-fluid"><img class="w3-round no-padding " height="210 " width="210 " src="{{ new_badge.image.url }} "></div>
+                                    <div class="flex flex-center"><img class="w3-round no-padding " height="210 " width="210 " src="{{ new_badge.image.url }} "></div>
                                     <div class="text-center text-center-xs-down ">{{new_badge.description}}</div>
                                 </div>
 
