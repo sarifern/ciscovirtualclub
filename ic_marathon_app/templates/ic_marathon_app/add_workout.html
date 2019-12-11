@@ -1,15 +1,15 @@
 {% extends 'ic_marathon_app/base.html' %} {% block content %} {{ form.media }}
 <script>
     function openModal() {
-        var modal = document.getElementById('modal-fluid ');
-        var overlay = document.getElementById('modal-overlay ');
+        var modal = document.getElementById('modal-fluid');
+        var overlay = document.getElementById('modal-overlay');
         modal.className = "modal show";
 
     }
 
     function closeModal() {
-        var overlay = document.getElementById('modal-overlay ');
-        var modal = document.getElementById('modal-fluid ');
+        var overlay = document.getElementById('modal-overlay');
+        var modal = document.getElementById('modal-fluid');
         modal.className = "modal fade";
 
         window.location.href = "/";
@@ -66,10 +66,10 @@
 TODO put the badge and ok boton (and maybe transparency) in the center of the modal
 {% endcomment %}
 
-<div class="modal modal-default show fade " id="modal-fluid ">
+<div class="modal modal-default show fade " id="modal-fluid">
     <div class="modal__dialog ">
         <div class="modal__content ">
-            <a class="modal__close " onclick="closeModal() "><span class="icon-close "></span></a>
+            <a class="modal__close " onclick="closeModal()"><span class="icon-close "></span></a>
 
 
                     <div class="modal__body ">
@@ -86,7 +86,7 @@ TODO put the badge and ok boton (and maybe transparency) in the center of the mo
                     </div>
 
             <div class="modal__footer ">
-                <button class="btn " onclick="closeModal() ">Ok</button>
+                <button class="btn " onclick="closeModal()">Ok</button>
             </div>
         </div>
     </div>
