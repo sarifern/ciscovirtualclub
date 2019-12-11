@@ -13,9 +13,53 @@
     <hr>
     <div class="section no-padding">
         <div class="divider divider--thick divider--accent-blue divider--compressed"></div>
-        {% if workouts %} <div style="overflow-x:auto;">{% render_table workouts %}</div> {% else %}
+        {% if workouts %}
+        <div style="overflow-x:auto;">{% render_table workouts %}</div> {% else %}
         <p>No workouts yet! Bring it!</p>
         {% endif %}
     </div>
 </div>
-{% endblock %}
+<div class="modal modal--small "  role="dialog" id="delete-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="modal-btn-si">Yes</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block javascript %} {{ block.super }}
+<script>
+    var modalConfirm = function(callback) {
+        var trigger_delete = ""
+        $('*[id^="btn-delete-"]').on("click", function() {
+            trigger_delete = $(this).attr('id');
+            $("#delete-modal").addClass('show fade');
+        });
+
+        $("#modal-btn-si").on("click", function() {
+            $("#delete-modal").removeClass('show');
+            callback(trigger_delete);
+            
+        });
+
+        $("#modal-btn-no").on("click", function() {
+            $("#delete-modal").removeClass('show');
+            callback(false);
+            
+        });
+    };
+
+    modalConfirm(function(trigger_delete) {
+        if (trigger_delete) {
+            var url = "{% url 'delete_workout' 123%}";
+            document.location.href = url.replace('123', trigger_delete.replace('btn-delete-',''));
+        } 
+    });
+</script>
+{% endblock javascript %} {% endblock %}
