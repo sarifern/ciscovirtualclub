@@ -6423,8 +6423,8 @@ body.cui .btn {
   line-height: 2.8rem;
   padding: 0 25px;
   font-size: var(--cui-font-size);
-  background-color: var(--cui-theme-primary);
-  border-color: var(--cui-theme-primary);
+
+  
   color: var(--cui-theme-primary-color); }
   body.cui .btn::-moz-focus-inner {
     border: 0;
