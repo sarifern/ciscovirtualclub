@@ -1,6 +1,13 @@
 from django.core.exceptions import ValidationError
-
-
+from datetime import datetime,timezone
+import pytz as tz
+def validate_date(value):
+    current_date = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
+    if (value - current_date).seconds > 0 and (value - current_date).days >= 0:
+        raise ValidationError(
+            "You cannot submit workouts in the future!")
+    else:
+        return value
 
 def validate_file_size(value):
     filesize = value.size

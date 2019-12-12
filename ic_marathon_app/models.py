@@ -10,7 +10,7 @@ from django.dispatch import receiver
 from django_select2.forms import Select2Widget
 from bootstrap_datepicker_plus import TimePickerInput, DateTimePickerInput
 import uuid
-from .validators import validate_file_size, validate_workout_time, validate_distance
+from .validators import validate_file_size, validate_workout_time, validate_distance, validate_date
 import q
 
 # Create your models here.
@@ -54,7 +54,7 @@ class Workout(models.Model):
         default=0.00, max_digits=4, decimal_places=2, validators=[validate_distance])
     photo_evidence = models.ImageField(
         verbose_name="Evidence", validators=[validate_file_size])
-    date_time = models.DateTimeField(verbose_name="Date")
+    date_time = models.DateTimeField(verbose_name="Date", validators=[validate_date])
     time = models.TimeField(verbose_name="Duration", help_text='Workout in minutes', validators=[
         validate_workout_time], default='00:00')
 
