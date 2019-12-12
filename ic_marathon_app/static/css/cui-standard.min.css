@@ -6438,8 +6438,7 @@ body.cui .btn {
     padding: 0 40px;
     font-size: var(--cui-font-size-lg); }
   body.cui .btn.hover, body.cui .btn:hover {
-    background-color: var(--cui-theme-primary-lighter);
-    color: var(--cui-theme-primary-color);
+    
     transition: all .15s ease-in; }
   body.cui .btn.focus, body.cui .btn:focus {
     box-shadow: 0 0 0 var(--cui-focus-thickness) rgba(var(--cui-theme-primary-rgb), var(--cui-focus-opacity));
