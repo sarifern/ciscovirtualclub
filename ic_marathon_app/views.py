@@ -191,11 +191,11 @@ def leaderboard(request):
     table_leaders_br = ProfileTable(leaders_br)
     table_leaders_r = ProfileTable(leaders_r)
     table_leaders_b = ProfileTable(leaders_b)
-    RequestConfig(request, paginate={"per_page": 15}).configure(
+    RequestConfig(request, paginate={"per_page": 10}).configure(
         table_leaders_br)
-    RequestConfig(request, paginate={"per_page": 15}).configure(
+    RequestConfig(request, paginate={"per_page": 10}).configure(
         table_leaders_r)
-    RequestConfig(request, paginate={"per_page": 15}).configure(
+    RequestConfig(request, paginate={"per_page": 10}).configure(
         table_leaders_b)
 
     return render(request, 'ic_marathon_app/leaderboard.html',
