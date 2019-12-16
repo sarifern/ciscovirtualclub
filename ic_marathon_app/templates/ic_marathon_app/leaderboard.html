@@ -5,6 +5,12 @@
     <div class="text-uppercase text-size-14">Leaderboard</div>
     <hr>
     <div class="section no-padding">
+        <div class="text-size-12 half-padding-bottom text-bold">Total KMs = {{total_kms}} </div>
+    </div>
+</div>
+
+<div class="panel panel--loose panel--raised base-margin-bottom">
+    <div class="section no-padding">
         {% if leaders_br %}
         <div class="text-size-12 half-padding-bottom text-bold">Beginner Runners ({{leaders_br_c}}) </div>
         <div style="overflow-x:auto;">{% render_table leaders_br %}</div> {% endif %} 
@@ -13,7 +19,6 @@
 
     </div>
 </div>
-
 
 <div class="panel panel--loose panel--raised base-margin-bottom">
     <div class="section no-padding">

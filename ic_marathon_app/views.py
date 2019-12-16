@@ -12,8 +12,10 @@ from django_tables2.paginators import LazyPaginator
 import itertools
 import pytz as tz
 
-DATE_START = datetime(2019, 12, 12, 0, 0, 0).replace(tzinfo=tz.timezone('America/Mexico_City'))
-DATE_END = datetime(2020, 1, 7, 0, 0, 0).replace(tzinfo=tz.timezone('America/Mexico_City'))
+DATE_START = datetime(2019, 12, 12, 0, 0, 0).replace(
+    tzinfo=tz.timezone('America/Mexico_City'))
+DATE_END = datetime(2020, 1, 7, 0, 0, 0).replace(
+    tzinfo=tz.timezone('America/Mexico_City'))
 
 #DATE = datetime(2019, 12, 12, 0, 0, 0)
 DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
@@ -188,6 +190,10 @@ def leaderboard(request):
         category="beginnerrunner").order_by('-distance')
     leaders_r = Profile.objects.filter(category="runner").order_by('-distance')
     leaders_b = Profile.objects.filter(category="biker").order_by('-distance')
+    total_workouts = Workout.objects.all()
+    total_kms = 0
+    for workout in total_workouts:
+        total_kms += workout.distance
     table_leaders_br = ProfileTable(leaders_br)
     table_leaders_r = ProfileTable(leaders_r)
     table_leaders_b = ProfileTable(leaders_b)
@@ -202,7 +208,8 @@ def leaderboard(request):
                   {'leaders_br': table_leaders_br, 'leaders_br_c': len(leaders_br),
                    'leaders_r': table_leaders_r, 'leaders_r_c': len(leaders_r),
                    'leaders_b': table_leaders_b, 'leaders_b_c': len(leaders_b),
-                   'earned_awards': earned_awards})
+                   'earned_awards': earned_awards,
+                   'total_kms': total_kms})
 
 
 @login_required
