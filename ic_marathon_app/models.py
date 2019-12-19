@@ -28,7 +28,7 @@ CATEGORY_CHOICES = (
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_goal = models.BooleanField(default=False)
-    avatar = models.CharField(max_length=200, blank=False)
+    avatar = models.CharField(max_length=400, blank=False)
     cec = models.CharField(max_length=30, blank=True)
     distance = models.DecimalField(
         default=0.00, max_digits=10, decimal_places=2)
