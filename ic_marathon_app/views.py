@@ -113,7 +113,7 @@ def my_workouts(request):
         }
     """
     try:
-        workouts = Workout.objects.filter(belongs_to=request.user.profile)
+        workouts = Workout.objects.filter(belongs_to=request.user.profile).order_by('date_time')
         workouts_table = WorkoutTable(workouts)
 
         awards = Award.objects.filter(user=request.user)
