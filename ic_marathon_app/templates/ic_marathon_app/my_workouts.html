@@ -1,14 +1,12 @@
 {% extends 'ic_marathon_app/base.html' %} {% block content %} {% load render_table from django_tables2 %}
 
 <div class="panel panel--loose panel--raised base-margin-bottom">
-    <div class="text-uppercase text-size-14">My Workouts {% if active %}
-        <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a>
-        {% else %}
+    <div class="text-uppercase text-size-14">My Workouts 
         <div class="alert alert--info">
             <div class="alert__icon icon-info-outline"></div>
-            <div class="alert__message">The challenge is not active yet! Stay tuned (Dec 12th)!</div>
+            <div class="alert__message">The challenge has ended for this year!</div>
         </div>
-        {% endif %}
+        
     </div>
     <hr>
     <div class="section no-padding">
