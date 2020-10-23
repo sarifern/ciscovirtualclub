@@ -51,6 +51,13 @@ xcode-select --install
 ``` 
 python3.7 -m virtualenv env
 ``` 
+
+6. a. Activate your environment
+
+``` 
+source env/bin/activate
+```
+
 7. install the packages
 
 ``` 
