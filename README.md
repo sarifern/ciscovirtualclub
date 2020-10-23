@@ -27,6 +27,8 @@ git config --global user.email "<Your email>"
 4. Install PostgreSQL 
 
 ``` 
+brew reinstall openssl
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 brew install postgresql
 ``` 
 
