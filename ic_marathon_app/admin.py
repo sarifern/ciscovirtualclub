@@ -4,8 +4,8 @@ from .models import Workout, Profile
 
 
 class WorkoutAdmin(admin.ModelAdmin):
-    list_display = ('uuid', 'belongs_to', 'distance')
-    list_filter = ['uuid']
+    list_display = ('uuid', 'belongs_to', 'distance', "photo_evidence")
+    list_filter = ['belongs_to']
 
 
 admin.site.register(Workout, WorkoutAdmin)
@@ -17,4 +17,3 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Profile, ProfileAdmin)
-
