@@ -24,7 +24,7 @@ CATEGORY_CHOICES = (
     (RUNNER, 'Runner'),
     (BIKER, 'Biker'),
 )
-
+#TODO add Duathlon and Freestyle Categories
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -49,7 +49,7 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ['cec', 'category']
 
-
+#Expand the model for the special WorkoutForm (free style)
 class Workout(models.Model):
     belongs_to = models.ForeignKey(
         Profile, on_delete=models.CASCADE, default=None, unique=False)

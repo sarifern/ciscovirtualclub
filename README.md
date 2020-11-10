@@ -140,6 +140,12 @@ To set environment variables, use the heroku config command
 heroku config:set <variable name>=############ -a ciscorunning
 ``` 
 
+To run bash in the app, use the command
+
+``` 
+heroku run bash -a <name of the app>
+``` 
+
 Since the app is already configured in Heroku (ciscorunning), there is no further configuration.
 
 Once the changes are committed and push to the repo, Heroku will automatically build the new app and deploy it.

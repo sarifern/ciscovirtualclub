@@ -17,7 +17,7 @@ DATE_START = datetime(2020, 12, 12, 0, 0, 0).replace(
 DATE_END = datetime(2021, 1, 7, 0, 0, 0).replace(
     tzinfo=tz.timezone('America/Mexico_City'))
 
-DATE = datetime(2020, 12, 14, 0, 0, 0).replace(tzinfo=tz.timezone('America/Mexico_City'))
+DATE = datetime(2020, 12, 15, 0, 0, 0).replace(tzinfo=tz.timezone('America/Mexico_City'))
 #DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
 # Check time period DIC 12 to Jan 6
 if DATE >= DATE_START and DATE <= DATE_END:
@@ -144,6 +144,7 @@ def add_workout(request):
             form.save()
             new_badges = check_badges(request.user)
             if new_badges:
+                #TODO send webex teams notification for badge award
                 return render(request, 'ic_marathon_app/add_workout.html', {'form': form, 'new_badges': new_badges, })
             else:
                 return redirect('home')
@@ -227,6 +228,7 @@ def profile_wizard(request):
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
+            #TODO add cec to webex teams room, and send a greeting message
             return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form, 'activation': True, })
     else:
         form = ProfileForm(instance=profile)
