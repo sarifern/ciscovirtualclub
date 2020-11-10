@@ -2,11 +2,14 @@
 
 <div class="panel panel--loose panel--raised base-margin-bottom">
     <div class="text-uppercase text-size-14">My Workouts 
+        {% if active == True %}
+        <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a>
+        {% else %}
         <div class="alert alert--info">
             <div class="alert__icon icon-info-outline"></div>
-            <div class="alert__message">The challenge has ended for this year!</div>
+            <div class="alert__message">The challenge is not active yet! Stay tuned (Dec 12th)!</div>
         </div>
-        
+        {% endif %}
     </div>
     <hr>
     <div class="section no-padding">
