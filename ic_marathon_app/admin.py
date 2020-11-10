@@ -1,11 +1,17 @@
 from django.contrib import admin
 from .models import Workout, Profile
+from django.utils.html import format_html
 # Register your models here.
 
 
 class WorkoutAdmin(admin.ModelAdmin):
-    list_display = ('uuid', 'belongs_to', 'distance', "photo_evidence")
+    list_display = ('uuid', 'belongs_to', 'distance', 'image_tag')
     list_filter = ['belongs_to']
+
+    def image_tag(self, obj):
+        return format_html(
+            '<img src="{}" width="600px" height="600px"/>'.format(
+                obj.photo_evidence.url))
 
 
 admin.site.register(Workout, WorkoutAdmin)
