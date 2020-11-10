@@ -190,12 +190,20 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-'''
-AWS_LOCATION = 'static'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-'''
+
+# a custom storage file, so we can easily put static and media in one bucket
+STATICFILES_STORAGE = 'ic_marathon_site.storage_backends.StaticStorage'
 DEFAULT_FILE_STORAGE = 'ic_marathon_site.storage_backends.MediaStorage'
+
+STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
+AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
+# the regular Django file settings but with the custom S3 URLs
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
+PRIVATE_FILE_STORAGE = 'ic_marathon_site.storage_backends.PrivateMediaStorage'
+
 
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('FB_APP_KEY')        # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('FB_APP_SECRET')  # App Secret

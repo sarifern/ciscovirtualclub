@@ -12,17 +12,17 @@ from django_tables2.paginators import LazyPaginator
 import itertools
 import pytz as tz
 
-DATE_START = datetime(2019, 12, 12, 0, 0, 0).replace(
+DATE_START = datetime(2020, 12, 12, 0, 0, 0).replace(
     tzinfo=tz.timezone('America/Mexico_City'))
-DATE_END = datetime(2020, 1, 7, 0, 0, 0).replace(
+DATE_END = datetime(2021, 1, 7, 0, 0, 0).replace(
     tzinfo=tz.timezone('America/Mexico_City'))
 
-#DATE = datetime(2019, 12, 12, 0, 0, 0)
-DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
+DATE = datetime(2020, 12, 14, 0, 0, 0).replace(tzinfo=tz.timezone('America/Mexico_City'))
+#DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
 # Check time period DIC 12 to Jan 6
 if DATE >= DATE_START and DATE <= DATE_END:
     ACTIVE = True
-else:
+else: 
     ACTIVE = False
 
 # Create your views here.

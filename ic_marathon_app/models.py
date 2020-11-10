@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save, post_delete
 from django.core.files.storage import default_storage
 from django.contrib.staticfiles.storage import staticfiles_storage
+from ic_marathon_site.storage_backends import PrivateMediaStorage
 from django.forms import ModelForm
 from django import forms
 from django.dispatch import receiver
@@ -36,6 +37,11 @@ class Profile(models.Model):
     category = models.CharField(
         max_length=20, choices=CATEGORY_CHOICES, blank=False, default=BEGINNERRUNNER)
 
+    def __str__(self):
+        return self.cec
+
+
+
 
 class ProfileForm(ModelForm):
 
@@ -53,7 +59,7 @@ class Workout(models.Model):
     distance = models.DecimalField(verbose_name="KM",
         default=0.00, max_digits=4, decimal_places=2, validators=[validate_distance])
     photo_evidence = models.ImageField(
-        verbose_name="Evidence", validators=[validate_file_size])
+        verbose_name="Evidence", validators=[validate_file_size],storage=PrivateMediaStorage())
     date_time = models.DateTimeField(verbose_name="Date", validators=[validate_date])
     time = models.TimeField(verbose_name="Duration", help_text='Workout in minutes', validators=[
         validate_workout_time], default='00:00')
