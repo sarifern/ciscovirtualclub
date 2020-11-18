@@ -1,13 +1,16 @@
 from django.core.exceptions import ValidationError
-from datetime import datetime,timezone
+from datetime import datetime, timezone
 import pytz as tz
+
+
 def validate_date(value):
-    current_date = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
+    current_date = datetime.now().replace(
+        tzinfo=tz.timezone('America/Mexico_City'))
     if (value - current_date).seconds > 0 and (value - current_date).days >= 0:
-        raise ValidationError(
-            "You cannot submit workouts in the future!")
+        raise ValidationError("You cannot submit workouts in the future!")
     else:
         return value
+
 
 def validate_file_size(value):
     filesize = value.size
@@ -20,15 +23,16 @@ def validate_file_size(value):
 
 
 def validate_workout_time(value):
-    total_min = value.hour*60+value.minute
+    total_min = value.hour * 60 + value.minute
     if total_min < 14:
         raise ValidationError("The minimum time value for a workout is 15 min")
     else:
         return value
 
+
 def validate_distance(value):
     if float(value.real) > 99.99:
-        raise ValidationError("The maximum distance value for a workout is 99.99 km")
+        raise ValidationError(
+            "The maximum distance value for a workout is 99.99 km")
     else:
         return value
-    

@@ -18,57 +18,78 @@ import q
 BEGINNERRUNNER = "beginnerrunner"
 RUNNER = "runner"
 BIKER = "biker"
+DUATHLONER = "duathloner"
+FREESTYLER = "freestyler"
 
-CATEGORY_CHOICES = (
-    (BEGINNERRUNNER, 'Beginner Runner'),
-    (RUNNER, 'Runner'),
-    (BIKER, 'Biker'),
-)
-#TODO add Duathlon and Freestyle Categories
+CATEGORY_CHOICES = ((BEGINNERRUNNER,
+                     'Beginner Runner'), (RUNNER, 'Runner'), (BIKER, 'Biker'),
+                    (DUATHLONER, 'Duathloner'), (FREESTYLER, 'Freestyler'))
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_goal = models.BooleanField(default=False)
     avatar = models.CharField(max_length=400, blank=False)
     cec = models.CharField(max_length=30, blank=True)
-    distance = models.DecimalField(
-        default=0.00, max_digits=10, decimal_places=2)
+    distance = models.DecimalField(default=0.00,
+                                   max_digits=10,
+                                   decimal_places=2)
 
-    category = models.CharField(
-        max_length=20, choices=CATEGORY_CHOICES, blank=False, default=BEGINNERRUNNER)
+    category = models.CharField(max_length=20,
+                                choices=CATEGORY_CHOICES,
+                                blank=False,
+                                default=BEGINNERRUNNER)
 
     def __str__(self):
         return self.cec
 
 
-
-
 class ProfileForm(ModelForm):
-
     class Meta:
         model = Profile
         fields = ['cec', 'category']
 
+
 #Expand the model for the special WorkoutForm (free style)
 class Workout(models.Model):
-    belongs_to = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, default=None, unique=False)
-    uuid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
+    belongs_to = models.ForeignKey(Profile,
+                                   on_delete=models.CASCADE,
+                                   default=None,
+                                   unique=False)
+    uuid = models.UUIDField(primary_key=True,
+                            default=uuid.uuid4,
+                            editable=False)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     distance = models.DecimalField(verbose_name="KM",
-        default=0.00, max_digits=4, decimal_places=2, validators=[validate_distance])
-    photo_evidence = models.ImageField(
-        verbose_name="Evidence", validators=[validate_file_size],storage=PrivateMediaStorage())
-    date_time = models.DateTimeField(verbose_name="Date", validators=[validate_date])
-    time = models.TimeField(verbose_name="Duration", help_text='Workout in minutes', validators=[
-        validate_workout_time], default='00:00')
+                                   default=0.00,
+                                   max_digits=4,
+                                   decimal_places=2,
+                                   validators=[validate_distance])
+    photo_evidence = models.ImageField(verbose_name="Evidence",
+                                       validators=[validate_file_size],
+                                       storage=PrivateMediaStorage())
+    date_time = models.DateTimeField(verbose_name="Date",
+                                     validators=[validate_date])
+    time = models.TimeField(verbose_name="Duration",
+                            help_text='Workout in minutes',
+                            validators=[validate_workout_time],
+                            default='00:00')
 
 
 class WorkoutForm(ModelForm):
     class Meta:
         model = Workout
         fields = ['distance', 'date_time', 'time', 'photo_evidence']
+        widgets = {
+            'date_time': DateTimePickerInput(),
+            'time': TimePickerInput(),
+        }
+
+
+class FSWorkoutForm(ModelForm):
+    class Meta:
+        model = Workout
+        fields = ['date_time', 'time', 'photo_evidence']
         widgets = {
             'date_time': DateTimePickerInput(),
             'time': TimePickerInput(),
@@ -89,7 +110,8 @@ def delete_workout(sender, instance, **kwargs):
     try:
         default_storage.delete(instance.photo_evidence.name)
     except Exception:
-        q("Can't delete the file {} in S3".format(instance.photo_evidence.name))
+        q("Can't delete the file {} in S3".format(
+            instance.photo_evidence.name))
 
 
 @receiver(post_save, sender=Workout)

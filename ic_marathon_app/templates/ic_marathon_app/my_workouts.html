@@ -2,8 +2,11 @@
 
 <div class="panel panel--loose panel--raised base-margin-bottom">
     <div class="text-uppercase text-size-14">My Workouts 
-        {% if active == True %}
+        {% if active == True and category != "freestyler" %}
+        
         <a href="{% url 'add_workout' %}"> <i class="fa fa-plus-square"></i></a>
+        {% elif active == True and category == "freestyler" %}
+        <a href="{% url 'add_workout_fs' %}"> <i class="fa fa-plus-square"></i></a>
         {% else %}
         <div class="alert alert--info">
             <div class="alert__icon icon-info-outline"></div>

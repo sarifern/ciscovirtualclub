@@ -2,7 +2,7 @@ from social_django.views import _do_login
 from social_core.actions import do_auth, do_complete, do_disconnect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-from .models import ProfileForm, Profile, Workout, WorkoutForm
+from .models import ProfileForm, Profile, Workout, WorkoutForm, FSWorkoutForm
 from badgify.models import Award, Badge
 from django.shortcuts import redirect, render, get_object_or_404
 from .tables import WorkoutTable, ProfileTable
@@ -11,23 +11,25 @@ from django_tables2.config import RequestConfig
 from django_tables2.paginators import LazyPaginator
 from webexteamssdk import WebexTeamsAPI
 from webexteamssdk import ApiError
+from decimal import *
 import itertools
 import os
 import pytz as tz
 
 WTAPI = WebexTeamsAPI(access_token=os.environ.get('WT_TOKEN'))
 
-DATE_START = datetime(2020, 12, 12, 0, 0, 0).replace(
-    tzinfo=tz.timezone('America/Mexico_City'))
-DATE_END = datetime(2021, 1, 7, 0, 0, 0).replace(
-    tzinfo=tz.timezone('America/Mexico_City'))
+DATE_START = datetime(2020, 12, 12, 0, 0,
+                      0).replace(tzinfo=tz.timezone('America/Mexico_City'))
+DATE_END = datetime(2021, 1, 7, 0, 0,
+                    0).replace(tzinfo=tz.timezone('America/Mexico_City'))
 
-DATE = datetime(2020, 12, 15, 0, 0, 0).replace(tzinfo=tz.timezone('America/Mexico_City'))
+DATE = datetime(2020, 12, 15, 0, 0,
+                0).replace(tzinfo=tz.timezone('America/Mexico_City'))
 #DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
 # Check time period DIC 12 to Jan 6
 if DATE >= DATE_START and DATE <= DATE_END:
     ACTIVE = True
-else: 
+else:
     ACTIVE = False
 
 # Create your views here.
@@ -78,26 +80,28 @@ def my_profile(request):
     try:
         workouts = Workout.objects.filter(belongs_to=request.user.profile)
         awards = Award.objects.filter(user=request.user)
-        remaining_days = DATE_END-DATE
+        remaining_days = DATE_END - DATE
         list_in_category = Profile.objects.filter(
             category=request.user.profile.category).order_by('-distance')
-        list_cec_in_category = list(
-            existing_profile for existing_profile in list_in_category)
-        index = list_cec_in_category.index(request.user.profile)+1
+        list_cec_in_category = list(existing_profile
+                                    for existing_profile in list_in_category)
+        index = list_cec_in_category.index(request.user.profile) + 1
 
     except ObjectDoesNotExist:
         workouts = {}
         awards = {}
-    return render(request, 'ic_marathon_app/my_profile.html', {
-        'earned_awards': awards,
-        'active': ACTIVE,
-        'position': index,
-        'workout_count': len(workouts),
-        'aggr_distance': request.user.profile.distance,
-        'aggr_distance_per': int((request.user.profile.distance/168)*100),
-        'remaining_days_per': int(((remaining_days.days)/26)*100),
-        'remaining_days': remaining_days.days,
-    })
+    return render(
+        request, 'ic_marathon_app/my_profile.html', {
+            'earned_awards': awards,
+            'active': ACTIVE,
+            'position': index,
+            'workout_count': len(workouts),
+            'aggr_distance': request.user.profile.distance,
+            'aggr_distance_per': int(
+                (request.user.profile.distance / 168) * 100),
+            'remaining_days_per': int(((remaining_days.days) / 26) * 100),
+            'remaining_days': remaining_days.days,
+        })
 
 
 @login_required
@@ -118,7 +122,8 @@ def my_workouts(request):
         }
     """
     try:
-        workouts = Workout.objects.filter(belongs_to=request.user.profile).order_by('date_time')
+        workouts = Workout.objects.filter(
+            belongs_to=request.user.profile).order_by('date_time')
         workouts_table = WorkoutTable(workouts)
 
         awards = Award.objects.filter(user=request.user)
@@ -126,10 +131,58 @@ def my_workouts(request):
     except ObjectDoesNotExist:
         workouts = {}
         awards = {}
-    return render(request, 'ic_marathon_app/my_workouts.html', {'workouts': workouts_table,
-                                                                'earned_awards': awards,
-                                                                'active': ACTIVE,
-                                                                })
+    return render(
+        request, 'ic_marathon_app/my_workouts.html', {
+            'workouts': workouts_table,
+            'earned_awards': awards,
+            'active': ACTIVE,
+            'category': request.user.profile.category
+        })
+
+
+@login_required
+def add_workout_fs(request):
+    """View to handle the Add Workout form for freestyle category
+
+    Arguments:
+        request {Request} -- The Request from the browser
+
+    Returns:
+        rendered template -- Rendered template regarding successful or failed workout add
+    """
+    if request.method == "POST":
+        form = FSWorkoutForm(request.POST, request.FILES)
+        form.instance.belongs_to = request.user.profile
+        if form.is_valid():
+            form.instance.distance = float_to_decimal(
+                (form.instance.time.hour * 60 + form.instance.time.minute) / 6)
+            form.save()
+            new_badges = check_badges(request.user)
+            if new_badges:
+                try:
+                    WTAPI.messages.create(
+                        roomId=os.environ.get('WT_ROOMID'),
+                        text="Congratulations " + request.user.first_name +
+                        " (" + request.user.profile.cec +
+                        ") for achieving a new badge!\n Keep it up!",
+                        files=[new_badges[0].image.url])
+                except ApiError:
+                    pass
+                return render(request, 'ic_marathon_app/add_workoutfs.html', {
+                    'form': form,
+                    'new_badges': new_badges,
+                })
+            else:
+                return redirect('home')
+        else:
+            return render(request, 'ic_marathon_app/add_workoutfs.html', {
+                'form': form,
+            })
+    else:
+        form = FSWorkoutForm()
+        return render(request, 'ic_marathon_app/add_workoutfs.html', {
+            'form': form,
+        })
 
 
 @login_required
@@ -150,18 +203,29 @@ def add_workout(request):
             new_badges = check_badges(request.user)
             if new_badges:
                 try:
-                    WTAPI.messages.create(roomId=os.environ.get('WT_ROOMID'), 
-                    text="Congratulations " + request.user.first_name + " ("+ request.user.profile.cec +") for achieving a new badge!\n Keep it up!", files=[new_badges[0].image.url])
+                    WTAPI.messages.create(
+                        roomId=os.environ.get('WT_ROOMID'),
+                        text="Congratulations " + request.user.first_name +
+                        " (" + request.user.profile.cec +
+                        ") for achieving a new badge!\n Keep it up!",
+                        files=[new_badges[0].image.url])
                 except ApiError:
                     pass
-                return render(request, 'ic_marathon_app/add_workout.html', {'form': form, 'new_badges': new_badges, })
+                return render(request, 'ic_marathon_app/add_workout.html', {
+                    'form': form,
+                    'new_badges': new_badges,
+                })
             else:
                 return redirect('home')
         else:
-            return render(request, 'ic_marathon_app/add_workout.html', {'form': form, })
+            return render(request, 'ic_marathon_app/add_workout.html', {
+                'form': form,
+            })
     else:
         form = WorkoutForm()
-        return render(request, 'ic_marathon_app/add_workout.html', {'form': form, })
+        return render(request, 'ic_marathon_app/add_workout.html', {
+            'form': form,
+        })
 
 
 @login_required
@@ -200,6 +264,11 @@ def leaderboard(request):
         category="beginnerrunner").order_by('-distance')
     leaders_r = Profile.objects.filter(category="runner").order_by('-distance')
     leaders_b = Profile.objects.filter(category="biker").order_by('-distance')
+    leaders_d = Profile.objects.filter(
+        category="duathloner").order_by('-distance')
+    leaders_f = Profile.objects.filter(
+        category="freestyler").order_by('-distance')
+
     total_workouts = Workout.objects.all()
     total_kms = 0
     for workout in total_workouts:
@@ -207,19 +276,39 @@ def leaderboard(request):
     table_leaders_br = ProfileTable(leaders_br)
     table_leaders_r = ProfileTable(leaders_r)
     table_leaders_b = ProfileTable(leaders_b)
-    RequestConfig(request, paginate={"per_page": 10}).configure(
-        table_leaders_br)
-    RequestConfig(request, paginate={"per_page": 10}).configure(
-        table_leaders_r)
-    RequestConfig(request, paginate={"per_page": 10}).configure(
-        table_leaders_b)
+    table_leaders_d = ProfileTable(leaders_d)
+    table_leaders_f = ProfileTable(leaders_f)
+    RequestConfig(request, paginate={
+        "per_page": 10
+    }).configure(table_leaders_br)
+    RequestConfig(request, paginate={
+        "per_page": 10
+    }).configure(table_leaders_r)
+    RequestConfig(request, paginate={
+        "per_page": 10
+    }).configure(table_leaders_b)
+    RequestConfig(request, paginate={
+        "per_page": 10
+    }).configure(table_leaders_d)
+    RequestConfig(request, paginate={
+        "per_page": 10
+    }).configure(table_leaders_f)
 
-    return render(request, 'ic_marathon_app/leaderboard.html',
-                  {'leaders_br': table_leaders_br, 'leaders_br_c': len(leaders_br),
-                   'leaders_r': table_leaders_r, 'leaders_r_c': len(leaders_r),
-                   'leaders_b': table_leaders_b, 'leaders_b_c': len(leaders_b),
-                   'earned_awards': earned_awards,
-                   'total_kms': total_kms})
+    return render(
+        request, 'ic_marathon_app/leaderboard.html', {
+            'leaders_br': table_leaders_br,
+            'leaders_br_c': len(leaders_br),
+            'leaders_r': table_leaders_r,
+            'leaders_r_c': len(leaders_r),
+            'leaders_b': table_leaders_b,
+            'leaders_b_c': len(leaders_b),
+            'leaders_d': table_leaders_d,
+            'leaders_d_c': len(leaders_d),
+            'leaders_f': table_leaders_f,
+            'leaders_f_c': len(leaders_f),
+            'earned_awards': earned_awards,
+            'total_kms': total_kms
+        })
 
 
 @login_required
@@ -239,15 +328,27 @@ def profile_wizard(request):
             form.save()
             wtFlag = False
             try:
-                WTAPI.memberships.create(roomId=os.environ.get('WT_ROOMID'), personEmail=profile.cec+"@cisco.com", isModerator=False)
-                WTAPI.messages.create(roomId=os.environ.get('WT_ROOMID'), 
-                text="Let's welcome "+ request.user.first_name +" ("+ profile.cec +") to the challenge! \nGive your best!", markdown=None)
+                WTAPI.memberships.create(roomId=os.environ.get('WT_ROOMID'),
+                                         personEmail=profile.cec +
+                                         "@cisco.com",
+                                         isModerator=False)
+                WTAPI.messages.create(
+                    roomId=os.environ.get('WT_ROOMID'),
+                    text="Let's welcome " + request.user.first_name + " (" +
+                    profile.cec + ") to the challenge! \nGive your best!",
+                    markdown=None)
             except ApiError:
-                wtFlag = True            
-            return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form, 'activation': True, 'wtFlag' : wtFlag})
+                wtFlag = True
+            return render(request, 'ic_marathon_app/profile_wizard.html', {
+                'form': form,
+                'activation': True,
+                'wtFlag': wtFlag
+            })
     else:
         form = ProfileForm(instance=profile)
-    return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form, })
+    return render(request, 'ic_marathon_app/profile_wizard.html', {
+        'form': form,
+    })
 
 
 def check_badges(user):
@@ -321,8 +422,7 @@ def award_badge(user, slug):
         new_badge -- New Award for the User, if it is created return new_badge, if not return None
     """
     new_badge = Badge.objects.get(slug=slug)
-    obj, created = Award.objects.get_or_create(
-        user=user, badge=new_badge)
+    obj, created = Award.objects.get_or_create(user=user, badge=new_badge)
     if created:
         return new_badge
     else:
@@ -359,6 +459,23 @@ def complete(request, backend, *args, **kwargs):
         backend {string} -- Authentication Backend
 
     """
-    return do_complete(request.backend, _do_login, user=None,
-                       redirect_name=REDIRECT_FIELD_NAME, request=request,
-                       *args, **kwargs)
+    return do_complete(request.backend,
+                       _do_login,
+                       user=None,
+                       redirect_name=REDIRECT_FIELD_NAME,
+                       request=request,
+                       *args,
+                       **kwargs)
+
+
+def float_to_decimal(f):
+    "Convert a floating point number to a Decimal with no loss of information"
+    n, d = f.as_integer_ratio()
+    numerator, denominator = Decimal(n), Decimal(d)
+    ctx = Context(prec=60)
+    result = ctx.divide(numerator, denominator)
+    while ctx.flags[Inexact]:
+        ctx.flags[Inexact] = False
+        ctx.prec *= 2
+        result = ctx.divide(numerator, denominator)
+    return result

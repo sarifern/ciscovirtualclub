@@ -25,6 +25,7 @@ urlpatterns = [
     path("my_workouts/", views.my_workouts, name="my_workouts"),
     path("my_profile/", views.my_profile, name="my_profile"),
     path("add_workout/", views.add_workout, name="add_workout"),
+    path("add_workout_fs/", views.add_workout_fs, name="add_workout_fs"),
     path("delete_workout/<uuid>/", views.delete_workout, name="delete_workout"),
     path("leaderboard/", views.leaderboard, name="leaderboard"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
