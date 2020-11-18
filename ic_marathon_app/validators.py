@@ -8,6 +8,8 @@ def validate_date(value):
         tzinfo=tz.timezone('America/Mexico_City'))
     if (value - current_date).seconds > 0 and (value - current_date).days >= 0:
         raise ValidationError("You cannot submit workouts in the future!")
+    elif (value - current_date).days < -3:
+        raise ValidationError("You cannot submit workouts older than two days!")
     else:
         return value
 
