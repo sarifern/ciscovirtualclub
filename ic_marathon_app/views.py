@@ -165,7 +165,7 @@ def add_workout_fs(request):
                         text="Congratulations " + request.user.first_name +
                         " (" + request.user.profile.cec +
                         ") for achieving a new badge!\n Keep it up!",
-                        files=[new_badges[0].image.url])
+                        files=[new_badges[-1].image.url])
                 except ApiError:
                     pass
                 return render(request, 'ic_marathon_app/add_workoutfs.html', {
@@ -208,7 +208,7 @@ def add_workout(request):
                         text="Congratulations " + request.user.first_name +
                         " (" + request.user.profile.cec +
                         ") for achieving a new badge!\n Keep it up!",
-                        files=[new_badges[0].image.url])
+                        files=[new_badges[-1].image.url])
                 except ApiError:
                     pass
                 return render(request, 'ic_marathon_app/add_workout.html', {
@@ -362,28 +362,28 @@ def check_badges(user):
     """
     distance = user.profile.distance
     new_badges = []
-    if distance >= 168.0:
-        new_badge = award_badge(user=user, slug='168K')
-        if new_badge:
-            new_badges.append(new_badge)
-    if distance >= 126.0:
-        new_badge = award_badge(user=user, slug='126K')
-        if new_badge:
-            new_badges.append(new_badge)
-    if distance >= 84.0:
-        new_badge = award_badge(user=user, slug='84K')
-        if new_badge:
-            new_badges.append(new_badge)
-    if distance >= 42.0:
-        new_badge = award_badge(user=user, slug='42K')
+    if distance >= 10.0:
+        new_badge = award_badge(user=user, slug='10K')
         if new_badge:
             new_badges.append(new_badge)
     if distance >= 21.0:
         new_badge = award_badge(user=user, slug='21K')
         if new_badge:
             new_badges.append(new_badge)
-    if distance >= 10.0:
-        new_badge = award_badge(user=user, slug='10K')
+    if distance >= 42.0:
+        new_badge = award_badge(user=user, slug='42K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 84.0:
+        new_badge = award_badge(user=user, slug='84K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 126.0:
+        new_badge = award_badge(user=user, slug='126K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 168.0:
+        new_badge = award_badge(user=user, slug='168K')
         if new_badge:
             new_badges.append(new_badge)
 
