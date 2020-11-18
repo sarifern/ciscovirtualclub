@@ -78,7 +78,10 @@
                     </div>
                 </div>
                 <div class="modal__body">
-                    Let's workout!
+                    <p>Let's workout!</p>
+                    {% if wtFlag %}
+                        <p>Something happened with the integration with WebexTeams. Please reach out to the admins. :(</p>
+                    {% endif %} 
                 </div>
                 <div class="modal__footer">
                     <button class="btn btn--success" onclick="closeModal()">Ok</button>

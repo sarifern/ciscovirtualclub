@@ -9,8 +9,13 @@ from .tables import WorkoutTable, ProfileTable
 from datetime import datetime
 from django_tables2.config import RequestConfig
 from django_tables2.paginators import LazyPaginator
+from webexteamssdk import WebexTeamsAPI
+from webexteamssdk import ApiError
 import itertools
+import os
 import pytz as tz
+
+WTAPI = WebexTeamsAPI(access_token=os.environ.get('WT_TOKEN'))
 
 DATE_START = datetime(2020, 12, 12, 0, 0, 0).replace(
     tzinfo=tz.timezone('America/Mexico_City'))
@@ -144,7 +149,11 @@ def add_workout(request):
             form.save()
             new_badges = check_badges(request.user)
             if new_badges:
-                #TODO send webex teams notification for badge award
+                try:
+                    WTAPI.messages.create(roomId=os.environ.get('WT_ROOMID'), 
+                    text="Congratulations " + request.user.first_name + " ("+ request.user.profile.cec +") for achieving a new badge!\n Keep it up!", files=[new_badges[0].image.url])
+                except ApiError:
+                    pass
                 return render(request, 'ic_marathon_app/add_workout.html', {'form': form, 'new_badges': new_badges, })
             else:
                 return redirect('home')
@@ -228,8 +237,14 @@ def profile_wizard(request):
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            #TODO add cec to webex teams room, and send a greeting message
-            return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form, 'activation': True, })
+            wtFlag = False
+            try:
+                WTAPI.memberships.create(roomId=os.environ.get('WT_ROOMID'), personEmail=profile.cec+"@cisco.com", isModerator=False)
+                WTAPI.messages.create(roomId=os.environ.get('WT_ROOMID'), 
+                text="Let's welcome "+ request.user.first_name +" ("+ profile.cec +") to the challenge! \nGive your best!", markdown=None)
+            except ApiError:
+                wtFlag = True            
+            return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form, 'activation': True, 'wtFlag' : wtFlag})
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'ic_marathon_app/profile_wizard.html', {'form': form, })
