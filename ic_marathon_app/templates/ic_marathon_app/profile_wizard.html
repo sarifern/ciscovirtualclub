@@ -24,6 +24,7 @@
         window.location.href = "/";
     }
 </script>
+
 <div class="panel panel--loose panel--raised base-margin-bottom">
     <div class="text-uppercase text-size-14">Save your profile</div>
     <hr>
@@ -35,7 +36,7 @@
 
             <div class="form-group text-normal">
                 <div class="form-group text-normal">
-                    <label for="input-layout-stacked-1" class="text-normal">CEC</label> 
+                    <label for="input-layout-stacked-1" class="text-normal">Enter your CEC:</label>
                     <br>{{ form.cec }}
                 </div>
             </div>
@@ -46,14 +47,16 @@
             </div><br>
             <div class="form-group">
 
-                <label for="input-layout-stacked-1">Category</label><br>
-
-                <div class="btn-group">
-
-
-                    {% for choice in form.fields.category.choices %}
-                    <button type="submit" name="category" value={{choice.0}} {% if form.initial.category == choice.0 %} class="btn btn--ghost selected" {%else %} class="btn btn--ghost" {% endif %} onclick="select_hidden_category('{{choice.0}}')">{{choice.1}}</button>                    {% endfor %}
-
+                <label for="input-layout-stacked-1">Select a Category:</label><br>
+                <div style="overflow-x:scroll">
+                    <div class="btn-group">
+                        {% for choice in form.fields.category.choices %}
+                        <button type="submit" name="category" value={{choice.0}}
+                            {% if form.initial.category == choice.0 %} class="btn btn--ghost selected" {%else %}
+                            class="btn btn--ghost" {% endif %}
+                            onclick="select_hidden_category('{{choice.0}}')">{{choice.1}}</button>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
 
@@ -80,8 +83,8 @@
                 <div class="modal__body">
                     <p>Let's workout!</p>
                     {% if wtFlag %}
-                        <p>Something happened with the integration with WebexTeams. Please reach out to the admins. :(</p>
-                    {% endif %} 
+                    <p>Something happened with the integration with WebexTeams. Please reach out to the admins. :(</p>
+                    {% endif %}
                 </div>
                 <div class="modal__footer">
                     <button class="btn btn--success" onclick="closeModal()">Ok</button>
