@@ -23,7 +23,7 @@ DATE_START = datetime(2020, 12, 12, 0, 0,
 DATE_END = datetime(2021, 1, 7, 0, 0,
                     0).replace(tzinfo=tz.timezone('America/Mexico_City'))
                     
-if os.environ.get('DEBUG_PREF'):
+if os.environ.get('DEBUG_PREF')!='False':
     DATE = datetime(2020, 12, 15, 0, 0,
                 0).replace(tzinfo=tz.timezone('America/Mexico_City'))
 else:
