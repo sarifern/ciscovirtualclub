@@ -22,10 +22,13 @@ DATE_START = datetime(2020, 12, 12, 0, 0,
                       0).replace(tzinfo=tz.timezone('America/Mexico_City'))
 DATE_END = datetime(2021, 1, 7, 0, 0,
                     0).replace(tzinfo=tz.timezone('America/Mexico_City'))
-
-DATE = datetime(2020, 12, 15, 0, 0,
+                    
+if os.environ.get('DEBUG_PREF'):
+    DATE = datetime(2020, 12, 15, 0, 0,
                 0).replace(tzinfo=tz.timezone('America/Mexico_City'))
-#DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
+else:
+    DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
+
 # Check time period DIC 12 to Jan 6
 if DATE >= DATE_START and DATE <= DATE_END:
     ACTIVE = True
