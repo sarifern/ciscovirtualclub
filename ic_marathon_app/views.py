@@ -158,7 +158,7 @@ def add_workout_fs(request):
         form.instance.belongs_to = request.user.profile
         if form.is_valid():
             form.instance.distance = float_to_decimal(
-                (form.instance.time.hour * 60 + form.instance.time.minute) / 6)
+                (form.instance.time.hour * 60 + form.instance.time.minute) / 3)
             form.save()
             new_badges = check_badges(request.user)
             if new_badges:
