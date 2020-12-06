@@ -22,10 +22,10 @@ DATE_START = datetime(2020, 12, 11, 8, 0,
                       0).replace(tzinfo=tz.timezone('America/Mexico_City'))
 DATE_END = datetime(2021, 1, 7, 0, 0,
                     0).replace(tzinfo=tz.timezone('America/Mexico_City'))
-                    
-if os.environ.get('DEBUG_PREF')!='False':
+
+if os.environ.get('DEBUG_PREF') != 'False':
     DATE = datetime(2020, 12, 15, 0, 0,
-                0).replace(tzinfo=tz.timezone('America/Mexico_City'))
+                    0).replace(tzinfo=tz.timezone('America/Mexico_City'))
 else:
     DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
 
@@ -158,7 +158,8 @@ def add_workout_fs(request):
         form.instance.belongs_to = request.user.profile
         if form.is_valid():
             form.instance.distance = float_to_decimal(
-                (form.instance.time.hour * 60 + form.instance.time.minute) / 12)
+                (form.instance.time.hour * 60 + form.instance.time.minute) /
+                12)
             form.save()
             new_badges = check_badges(request.user)
             if new_badges:
@@ -276,11 +277,11 @@ def leaderboard(request):
     total_kms = 0
     for workout in total_workouts:
         total_kms += workout.distance
-    table_leaders_br = ProfileTable(leaders_br)
-    table_leaders_r = ProfileTable(leaders_r)
-    table_leaders_b = ProfileTable(leaders_b)
-    table_leaders_d = ProfileTable(leaders_d)
-    table_leaders_f = ProfileTable(leaders_f)
+    table_leaders_br = ProfileTable(leaders_br, prefix="leaders-br-")
+    table_leaders_r = ProfileTable(leaders_r, prefix="leaders-r-")
+    table_leaders_b = ProfileTable(leaders_b, prefix="leaders-b-")
+    table_leaders_d = ProfileTable(leaders_d, prefix="leaders-d-")
+    table_leaders_f = ProfileTable(leaders_f, prefix="leaders-f-")
     RequestConfig(request, paginate={
         "per_page": 10
     }).configure(table_leaders_br)
