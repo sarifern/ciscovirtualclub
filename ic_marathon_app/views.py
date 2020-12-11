@@ -23,6 +23,11 @@ DATE_START = datetime(2020, 12, 11, 8, 0,
 DATE_END = datetime(2021, 1, 7, 0, 0,
                     0).replace(tzinfo=tz.timezone('America/Mexico_City'))
 
+if os.environ.get('DEBUG_PREF') != 'False':
+    DATE = datetime(2020, 12, 15, 0, 0,
+                    0).replace(tzinfo=tz.timezone('America/Mexico_City'))
+else:
+    DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
 
 # Check time period DIC 12 to Jan 6
 if os.environ.get('ACTIVE_ENV')=='True':
