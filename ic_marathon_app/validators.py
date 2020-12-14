@@ -33,8 +33,8 @@ def validate_workout_time(value):
 
 
 def validate_distance(value):
-    if float(value.real) > 99.99:
+    if float(value.real) > 250.00:
         raise ValidationError(
-            "The maximum distance value for a workout is 99.99 km")
+            "The maximum distance value for a workout is 250 km")
     else:
         return value

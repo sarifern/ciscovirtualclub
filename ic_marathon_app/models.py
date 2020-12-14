@@ -62,7 +62,7 @@ class Workout(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     distance = models.DecimalField(verbose_name="KM",
                                    default=0.00,
-                                   max_digits=4,
+                                   max_digits=5,
                                    decimal_places=2,
                                    validators=[validate_distance])
     photo_evidence = models.ImageField(verbose_name="Evidence",
