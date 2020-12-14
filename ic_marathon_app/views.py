@@ -30,7 +30,7 @@ else:
     DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
 
 # Check time period DIC 12 to Jan 6
-if os.environ.get('ACTIVE_ENV')=='True':
+if DATE >= DATE_START and DATE <= DATE_END:
     ACTIVE = True
 else:
     ACTIVE = False
