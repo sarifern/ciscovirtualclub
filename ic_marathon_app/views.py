@@ -36,6 +36,8 @@ if os.environ.get('ACTIVE_ENV') != 'False':
         ACTIVE = True
     else:
         ACTIVE = False
+else:
+    DATE = DATE_END
 
 # Create your views here.
 
