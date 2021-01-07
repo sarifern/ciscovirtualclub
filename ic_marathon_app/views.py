@@ -29,11 +29,13 @@ if os.environ.get('DEBUG_PREF') != 'False':
 else:
     DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
 
-# Check time period DIC 12 to Jan 6
-if DATE >= DATE_START and DATE <= DATE_END:
-    ACTIVE = True
-else:
-    ACTIVE = False
+ACTIVE = False
+if os.environ.get('ACTIVE_ENV') != 'False':
+    # Check time period DIC 12 to Jan 6
+    if DATE >= DATE_START and DATE <= DATE_END:
+        ACTIVE = True
+    else:
+        ACTIVE = False
 
 # Create your views here.
 
