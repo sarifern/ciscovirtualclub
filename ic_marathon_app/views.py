@@ -56,7 +56,7 @@ def my_profile(request):
         variables
         {
         'earned_awards': awards,
-        'active': ACTIVE,
+
         'position': position,
         'workout_count': len(workouts),
         'aggr_distance': request.user.profile.distance,
@@ -79,7 +79,6 @@ def my_profile(request):
     return render(
         request, 'ic_marathon_app/my_profile.html', {
             'earned_awards': awards,
-            'active': ACTIVE,
             'position': index,
             'workout_count': len(workouts),
             'aggr_distance': request.user.profile.distance,
