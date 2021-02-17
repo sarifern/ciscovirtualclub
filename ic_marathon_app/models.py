@@ -86,7 +86,18 @@ def delete_workout(sender, instance, **kwargs):
     profile.distance -= instance.distance
 
     profile.save()
-
+@receiver(post_save, sender=Profile)
+def save_profile(sender, instance, **kwargs):
+    # update personal distance
+    if profile.has_donated:
+        imagegif = 'https://media.giphy.com/media/LUPCYuP1GjmcF9tOL9/giphy.gif'
+        try:
+            WTAPI.messages.create(
+                roomId=os.environ.get('WT_ROOMID'),
+                text='Thank you so much! {username}  #Giveback Ambassador'.format(username=user.first_name),
+                files=[imagegif])
+            except Exception:
+                pass
 
 @receiver(post_save, sender=Workout)
 def save_workout(sender, instance, **kwargs):
@@ -95,13 +106,13 @@ def save_workout(sender, instance, **kwargs):
     profile.distance += instance.distance
     profile.save()
     user = User.objects.get(profile=profile)
-    new_badges = check_badges(user)
+    new_badges,imagegif = check_badges(user)
     if new_badges:
         try:
             WTAPI.messages.create(
                 roomId=os.environ.get('WT_ROOMID'),
                 text=new_badges[-1].description.format(username=user.first_name),
-                files=[new_badges[-1].imagegif])
+                files=[imagegif])
         except Exception:
             pass
     
@@ -117,32 +128,39 @@ def check_badges(user):
     """
     distance = user.profile.distance
     new_badges = []
+    imagegif=""
     if distance >= 5.0:
         new_badge = award_badge(user=user, slug='5K')
         if new_badge:
             new_badges.append(new_badge)
+            imagegif = 'https://media.giphy.com/media/007kAUpYBOw1XxOjhX/giphy.gif'
     if distance >= 10.0:
         new_badge = award_badge(user=user, slug='10K')
         if new_badge:
             new_badges.append(new_badge)
+            imagegif = 'https://media.giphy.com/media/xzBRnDRffHPerqTYs7/giphy.gif'
     if distance >= 15.0:
         new_badge = award_badge(user=user, slug='15K')
         if new_badge:
             new_badges.append(new_badge)
+            imagegif = 'https://media.giphy.com/media/aFObuJMBFeSsLWdr88/giphy.gif'
     if distance >= 21.0:
         new_badge = award_badge(user=user, slug='21K')
         if new_badge:
             new_badges.append(new_badge)
+            imagegif = 'https://media.giphy.com/media/Tqk01KcKQACjiPqSj4/giphy.gif'
     if distance >= 30.0:
         new_badge = award_badge(user=user, slug='30K')
         if new_badge:
             new_badges.append(new_badge)
+            imagegif='https://media.giphy.com/media/k15VLa8YnA5bYZU01H/giphy.gif'
     if distance >= 42.0:
         new_badge = award_badge(user=user, slug='42K')
         if new_badge:
             new_badges.append(new_badge)
+            imagegif='https://media.giphy.com/media/NHUUjBOPQEZIplDWGo/giphy.gif'
 
-    return new_badges
+    return new_badges,imagegif
 
 
 def strip_badges(user):
