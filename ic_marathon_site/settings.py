@@ -133,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.linkedin.LinkedinOAuth2',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
@@ -208,6 +208,15 @@ MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
 PRIVATE_FILE_STORAGE = 'ic_marathon_site.storage_backends.PrivateMediaStorage'
 
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = os.environ.get('LI_APP_KEY')
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = os.environ.get('LI_APP_SECRET')
+
+# Add email to requested authorizations.
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['r_liteprofile', 'r_emailaddress']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ['email-address']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [
+('picture-url', 'profile_picture')
+]
 
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('FB_APP_KEY')        # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('FB_APP_SECRET')  # App Secret
