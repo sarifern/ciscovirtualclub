@@ -86,6 +86,7 @@ def delete_workout(sender, instance, **kwargs):
     profile.distance -= instance.distance
 
     profile.save()
+
 @receiver(post_save, sender=Profile)
 def save_profile(sender, instance, **kwargs):
     # update personal distance
@@ -96,8 +97,8 @@ def save_profile(sender, instance, **kwargs):
                 roomId=os.environ.get('WT_ROOMID'),
                 text='Thank you so much! {username}  #Giveback Ambassador'.format(username=user.first_name),
                 files=[imagegif])
-            except Exception:
-                pass
+        except Exception:
+            pass
 
 @receiver(post_save, sender=Workout)
 def save_workout(sender, instance, **kwargs):
