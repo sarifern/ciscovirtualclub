@@ -18,26 +18,7 @@ import pytz as tz
 
 WTAPI = WebexTeamsAPI(access_token=os.environ.get('WT_TOKEN'))
 
-DATE_START = datetime(2021, 2, 18, 0, 0,
-                      0).replace(tzinfo=tz.timezone('America/Mexico_City'))
-DATE_END = datetime(2021, 3, 1, 8, 0,
-                    0).replace(tzinfo=tz.timezone('America/Mexico_City'))
 
-if os.environ.get('DEBUG_PREF') != 'False':
-    DATE = datetime(2021, 2, 19, 0, 0,
-                    0).replace(tzinfo=tz.timezone('America/Mexico_City'))
-else:
-    DATE = datetime.now().replace(tzinfo=tz.timezone('America/Mexico_City'))
-
-ACTIVE = False
-if os.environ.get('ACTIVE_ENV') != 'False':
-    # Check time period DIC 12 to Jan 6
-    if DATE >= DATE_START and DATE <= DATE_END:
-        ACTIVE = True
-    else:
-        ACTIVE = False
-else:
-    DATE = DATE_END
 
 # Create your views here.
 
@@ -79,8 +60,7 @@ def my_profile(request):
         'position': position,
         'workout_count': len(workouts),
         'aggr_distance': request.user.profile.distance,
-        'remaining_days_per': int(((remaining_days.days)/26)*100), <<percentage for gauge
-        'remaining_days': remaining_days.days,
+        
         }
     """
     # need workouts count, distance count, remaining days
@@ -106,8 +86,7 @@ def my_profile(request):
             'aggr_distance': request.user.profile.distance,
             'aggr_distance_per': int(
                 (request.user.profile.distance / 168) * 100),
-            'remaining_days_per': int(((remaining_days.days) / 26) * 100),
-            'remaining_days': remaining_days.days,
+           
         })
 
 

@@ -1,7 +1,6 @@
 <!-- my_profile.html -->
 
-{% extends 'ic_marathon_app/base.html' %} {% block title %} My Profile {% endblock %} {% block content %} {% load static
-%}
+{% extends 'ic_marathon_app/base.html' %} {% block title %} My Profile {% endblock %} {% block content %} {% load static %}
 
 <div class="row">
     <div class="col-xl-8">
@@ -55,8 +54,7 @@
             <hr>
             <div class="row flex-center flex-middle">
                 {% if earned_awards%} {% for award in earned_awards %}
-                <img class="w3-round no-padding" height="125" width="125" src="{{ award.badge.image.url }}"> {% endfor
-                %} {% endif %}
+                <img class="w3-round no-padding" height="125" width="125" src="{{ award.badge.image.url }}"> {% endfor %} {% endif %}
                 {% if user.profile.has_donated %}
                 <img class="w3-round no-padding" height="125" width="125" src="{% static 'img/giveback.png' %}">
 
@@ -84,40 +82,7 @@
             </div>
 
         </div>
-        <div class="panel panel--loose panel--raised base-margin-bottom">
-
-            <div class="text-uppercase text-size-14">REMAINING DAYS </div>
-            <hr>
-            <div class="section no-padding">
-
-
-                <div class="flex flex-center">
-
-
-                    <div class="gauge gauge--primary" data-percentage="{{remaining_days_per}}">
-                        <div class="gauge__circle">
-                            <div class="mask full">
-                                <div class="fill"></div>
-                            </div>
-                            <div class="mask half">
-                                <div class="fill"></div>
-                                <div class="fill fix"></div>
-                            </div>
-                        </div>
-                        <div class="gauge__inset">
-                            <div class="gauge__percentage">{{remaining_days}}</div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
+        
 
 
 
