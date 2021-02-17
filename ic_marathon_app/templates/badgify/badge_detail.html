@@ -16,7 +16,7 @@
       {% endcomment %}
         
         {% for user in awarded_users %}
-        <li>{{ user.profile.cec }}</li>
+        <li>{{ user.profile.email }}</li>
         {% endfor %}
     </ul>
     {% include "_pagination.html" %}
