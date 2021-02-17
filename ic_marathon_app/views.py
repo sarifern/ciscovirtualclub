@@ -67,7 +67,6 @@ def my_profile(request):
     try:
         workouts = Workout.objects.filter(belongs_to=request.user.profile)
         awards = Award.objects.filter(user=request.user)
-        remaining_days = DATE_END - DATE
         list_in_category = Profile.objects.filter(
             category=request.user.profile.category).order_by('-distance')
         list_cec_in_category = list(existing_profile
