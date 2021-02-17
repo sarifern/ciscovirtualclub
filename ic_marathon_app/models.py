@@ -90,6 +90,7 @@ def delete_workout(sender, instance, **kwargs):
 @receiver(post_save, sender=Profile)
 def save_profile(sender, instance, **kwargs):
     # update personal distance
+    profile= instance
     profile.save()
     if profile.has_donated:
         imagegif = 'https://media.giphy.com/media/LUPCYuP1GjmcF9tOL9/giphy.gif'
