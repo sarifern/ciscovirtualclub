@@ -1,6 +1,6 @@
-# Cisco Running
+# Cisco Mexico Running Club 3.0
 
-Repo for Web APP Cisco Running
+Repo for Web APP Cisco Mexico Running Club 3.0
 
 # Installation in MAC
 

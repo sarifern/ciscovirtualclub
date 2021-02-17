@@ -9,16 +9,6 @@
     </div>
 </div>
 
-<div class="panel panel--loose panel--raised base-margin-bottom">
-    <div class="section no-padding">
-        {% if leaders_br %}
-        <div class="text-size-12 half-padding-bottom text-bold">Beginner Runners ({{leaders_br_c}}) </div>
-        <div style="overflow-x:auto;">{% render_table leaders_br %}</div> {% endif %}
-
-        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-
-    </div>
-</div>
 
 <div class="panel panel--loose panel--raised base-margin-bottom">
     <div class="section no-padding">
@@ -33,37 +23,5 @@
 </div>
 
 
-<div class="panel panel--loose panel--raised base-margin-bottom">
-    <div class="section no-padding">
-        {% if leaders_b %}
-        <div class="text-size-12 half-padding-bottom text-bold	">Bikers ({{leaders_b_c}})</div>
-        <div style="overflow-x:auto;">{% render_table leaders_b %}</div> {% endif %}
-
-        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-
-    </div>
-</div>
-
-<div class="panel panel--loose panel--raised base-margin-bottom">
-    <div class="section no-padding">
-        {% if leaders_d %}
-        <div class="text-size-12 half-padding-bottom text-bold	">Duathloners ({{leaders_d_c}})</div>
-        <div style="overflow-x:auto;">{% render_table leaders_d %}</div> {% endif %}
-
-        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-
-    </div>
-</div>
-
-<div class="panel panel--loose panel--raised base-margin-bottom">
-    <div class="section no-padding">
-        {% if leaders_f %}
-        <div class="text-size-12 half-padding-bottom text-bold	">Freestylers ({{leaders_f_c}})</div>
-        <div style="overflow-x:auto;">{% render_table leaders_f %}</div> {% endif %}
-
-        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-
-    </div>
-</div>
 
 {% endblock %}

@@ -13,24 +13,22 @@ from bootstrap_datepicker_plus import TimePickerInput, DateTimePickerInput
 import uuid
 from .validators import validate_file_size, validate_workout_time, validate_distance, validate_date
 import q
-
+from badgify.models import Award, Badge
+from webexteamssdk import WebexTeamsAPI
+from webexteamssdk import ApiError
+import os
 # Create your models here.
-BEGINNERRUNNER = "beginnerrunner"
+WTAPI = WebexTeamsAPI(access_token=os.environ.get('WT_TOKEN'))
 RUNNER = "runner"
-BIKER = "biker"
-DUATHLONER = "duathloner"
-FREESTYLER = "freestyler"
 
-CATEGORY_CHOICES = ((BEGINNERRUNNER,
-                     'Beginner Runner'), (RUNNER, 'Runner'), (BIKER, 'Biker'),
-                    (DUATHLONER, 'Duathloner'), (FREESTYLER, 'Freestyler'))
+CATEGORY_CHOICES = ((RUNNER, 'Runner'), )
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user_goal = models.BooleanField(default=False)
+    has_donated = models.BooleanField(default=False)
     avatar = models.CharField(max_length=400, blank=False)
-    cec = models.CharField(max_length=30, blank=True)
+    email = models.CharField(max_length=30, blank=True)
     distance = models.DecimalField(default=0.00,
                                    max_digits=10,
                                    decimal_places=2)
@@ -38,16 +36,16 @@ class Profile(models.Model):
     category = models.CharField(max_length=20,
                                 choices=CATEGORY_CHOICES,
                                 blank=False,
-                                default=BEGINNERRUNNER)
+                                default=RUNNER)
 
     def __str__(self):
-        return self.cec
+        return self.email
 
 
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['cec', 'category']
+        fields = ['email']
 
 
 #Expand the model for the special WorkoutForm (free style)
@@ -65,35 +63,20 @@ class Workout(models.Model):
                                    max_digits=5,
                                    decimal_places=2,
                                    validators=[validate_distance])
-    photo_evidence = models.ImageField(verbose_name="Evidence",
-                                       validators=[validate_file_size],
-                                       storage=PrivateMediaStorage())
     date_time = models.DateTimeField(verbose_name="Date",
                                      validators=[validate_date])
-    time = models.TimeField(verbose_name="Duration",
-                            help_text='Workout in minutes',
-                            validators=[validate_workout_time],
-                            default='00:00')
+
 
 
 class WorkoutForm(ModelForm):
     class Meta:
         model = Workout
-        fields = ['distance', 'date_time', 'time', 'photo_evidence']
+        fields = ['distance', 'date_time']
         widgets = {
             'date_time': DateTimePickerInput(),
-            'time': TimePickerInput(),
         }
 
 
-class FSWorkoutForm(ModelForm):
-    class Meta:
-        model = Workout
-        fields = ['date_time', 'time', 'photo_evidence']
-        widgets = {
-            'date_time': DateTimePickerInput(),
-            'time': TimePickerInput(),
-        }
 
 
 @receiver(post_delete, sender=Workout)
@@ -102,16 +85,7 @@ def delete_workout(sender, instance, **kwargs):
     profile = instance.belongs_to
     profile.distance -= instance.distance
 
-    if profile.distance < 42.0:
-        profile.user_goal = False
     profile.save()
-
-    # delete image from S3
-    try:
-        default_storage.delete(instance.photo_evidence.name)
-    except Exception:
-        q("Can't delete the file {} in S3".format(
-            instance.photo_evidence.name))
 
 
 @receiver(post_save, sender=Workout)
@@ -119,8 +93,110 @@ def save_workout(sender, instance, **kwargs):
     # update personal distance
     profile = instance.belongs_to
     profile.distance += instance.distance
-    if profile.distance >= 84.0 and profile.category == "beginnerrunner":
-        profile.category = "runner"
-    if profile.distance >= 42.0:
-        profile.user_goal = True
     profile.save()
+    user = User.objects.get(profile=profile)
+    new_badges = check_badges(user)
+    if new_badges:
+        try:
+            WTAPI.messages.create(
+                roomId=os.environ.get('WT_ROOMID'),
+                text=new_badges[-1].description.format(username=user.first_name),
+                files=[new_badges[-1].imagegif])
+        except Exception:
+            pass
+    
+
+def check_badges(user):
+    """Check awarded badges for each user
+
+    Arguments:
+        user {User} -- Session user
+
+    Returns:
+        new_badges {[Award]} -- list of Award objects
+    """
+    distance = user.profile.distance
+    new_badges = []
+    if distance >= 5.0:
+        new_badge = award_badge(user=user, slug='5K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 10.0:
+        new_badge = award_badge(user=user, slug='10K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 15.0:
+        new_badge = award_badge(user=user, slug='15K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 21.0:
+        new_badge = award_badge(user=user, slug='21K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 30.0:
+        new_badge = award_badge(user=user, slug='30K')
+        if new_badge:
+            new_badges.append(new_badge)
+    if distance >= 42.0:
+        new_badge = award_badge(user=user, slug='42K')
+        if new_badge:
+            new_badges.append(new_badge)
+
+    return new_badges
+
+
+def strip_badges(user):
+    """Strip badges if workouts are deleted (if applicable)
+
+    Arguments:
+        user {User} -- Session User
+    """
+    distance = user.profile.distance
+    if distance < 42.0 and get_award(user, slug='42K'):
+        get_award(user, slug='42K').delete()
+    if distance < 30.0 and get_award(user, slug='30K'):
+        get_award(user, slug='30K').delete()
+    if distance < 21.0 and get_award(user, slug='21K'):
+        get_award(user, slug='21K').delete()
+    if distance < 15.0 and get_award(user, slug='15K'):
+        get_award(user, slug='15K').delete()
+    if distance < 10.0 and get_award(user, slug='10K'):
+        get_award(user, slug='10K').delete()
+    if distance < 5.0 and get_award(user, slug='5K'):
+        get_award(user, slug='5K').delete()
+
+
+def award_badge(user, slug):
+    """Award new badge if applicable
+
+    Arguments:
+        user {User} -- Request User
+        slug {string} -- Unique slug for each badge
+
+    Returns:
+        new_badge -- New Award for the User, if it is created return new_badge, if not return None
+    """
+    new_badge = Badge.objects.get(slug=slug)
+    obj, created = Award.objects.get_or_create(user=user, badge=new_badge)
+    if created:
+        return new_badge
+    else:
+        return None
+
+
+def get_award(user, slug):
+    """Get awarded badge for user and unique slug
+
+    Arguments:
+        user {Request} -- Session user
+        slug {string} -- Unique slug name of Badge
+
+    Returns:
+        award -- Award if found, if not return None
+    """
+    try:
+        old_badge = Badge.objects.get(slug=slug)
+        return Award.objects.get(user=user, badge=old_badge)
+    except:
+        # Award not granted
+        return None

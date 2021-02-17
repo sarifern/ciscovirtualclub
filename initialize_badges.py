@@ -1,15 +1,15 @@
 from django.contrib.staticfiles.storage import staticfiles_storage
 from badgify.models import Award, Badge
 
-Badge.objects.get_or_create(slug="168K", name="168K Milestone Achieved", description="Impossible is nothing! You set a four marathon record",
-                            image=staticfiles_storage.open('img/168k.jpg'))
-Badge.objects.get_or_create(slug="126K", name="126K Milestone Achieved", description="Insane! You set a three marathon record",
-                            image=staticfiles_storage.open('img/126k.jpg'))
-Badge.objects.get_or_create(slug="84K", name="84K Milestone Achieved", description="You’re on Fire!  You set a two marathon record",
-                            image=staticfiles_storage.open('img/84k.jpg'))
-Badge.objects.get_or_create(slug="42K", name="42K Milestone Achieved", description="You reached your goal! Give an extra mile!",
-                            image=staticfiles_storage.open('img/42k.jpg'))
-Badge.objects.get_or_create(slug="21K", name="21K Award Unlocked", description="Wow! You set a new half marathon personal record",
-                            image=staticfiles_storage.open('img/21k.jpg'))
-Badge.objects.get_or_create(slug="10K", name="10K Record Smashed", description="Congrats! You set a new 10k personal record",
-                            image=staticfiles_storage.open('img/10k.jpg'))
+Badge.objects.get_or_create(slug="42K", name="42K Milestone Achieved", description="You did it {username}! It's an Opportunity for more!",
+                            image=staticfiles_storage.open('img/42k.png'),imagegif='https://media.giphy.com/media/NHUUjBOPQEZIplDWGo/giphy.gif')
+Badge.objects.get_or_create(slug="30K", name="30K Milestone Achieved", description="Almost there {username}! Hold on your CONFIDENCE!",
+                            image=staticfiles_storage.open('img/30k.png'),imagegif='https://media.giphy.com/media/k15VLa8YnA5bYZU01H/giphy.gif')
+Badge.objects.get_or_create(slug="21K", name="21K Milestone Achieved", description="Let's do this {username}! SOLIDARITY now or never!",
+                            image=staticfiles_storage.open('img/21k.png'),imagegif='https://media.giphy.com/media/Tqk01KcKQACjiPqSj4/giphy.gif')
+Badge.objects.get_or_create(slug="15K", name="15K Milestone Achieved", description="Excellent {username}! keep INSPIRING others!",
+                            image=staticfiles_storage.open('img/15k.png'),imagegif='https://media.giphy.com/media/aFObuJMBFeSsLWdr88/giphy.gif')
+Badge.objects.get_or_create(slug="10K", name="10K Award Unlocked", description="Great {username}! COURAGE is your fuel!",
+                            image=staticfiles_storage.open('img/10k.png'),imagegif='https://media.giphy.com/media/xzBRnDRffHPerqTYs7/giphy.gif')
+Badge.objects.get_or_create(slug="5K", name="5K Record Smashed", description="Good effort {username}!, Give me more!",
+                            image=staticfiles_storage.open('img/5k.png'),imagegif='https://media.giphy.com/media/007kAUpYBOw1XxOjhX/giphy.gif')

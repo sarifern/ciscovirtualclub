@@ -1,6 +1,7 @@
 <!-- my_profile.html -->
 
-{% extends 'ic_marathon_app/base.html' %} {% block title %} My Profile {% endblock %} {% block content %} {% load static %}
+{% extends 'ic_marathon_app/base.html' %} {% block title %} My Profile {% endblock %} {% block content %} {% load static
+%}
 
 <div class="row">
     <div class="col-xl-8">
@@ -17,18 +18,17 @@
                     <img class="image-size-96" src={{user.profile.avatar}}><br>
                 </div>
                 <div class="flex flex-center">
-                    <span class="text-size-18 text-center-xs-down">{{user.first_name}} {{user.last_name}} | {{user.profile.cec}}</span>
+                    <span class="text-size-18 text-center-xs-down">{{user.first_name}} {{user.last_name}} |
+                        {{user.profile.email}}</span>
                 </div>
-                <div class="flex flex-center">
-                    <span class="text-size-14 text-gray-700 text-capitalize">Category - {% if user.profile.category == "beginnerrunner"%} Beginner Runner{% else %} {{user.profile.category }} {% endif %}
-                                        </span>
-                </div>
+
                 <br>
                 <div class="flex flex-center ">
                     <span class="badge-wrapper">
                         <span class="icon-acessibility icon-size-32"></span>
                         <span class="badge badge--tertiary">{{position}}</span>
                     </span>
+
                 </div>
                 <div class="flex flex-center ">
                     <span class="text-size-14 text-gray-700 text-capitalize">Current Position</span>
@@ -55,8 +55,12 @@
             <hr>
             <div class="row flex-center flex-middle">
                 {% if earned_awards%} {% for award in earned_awards %}
-                <img class="w3-round no-padding" height="125" width="125" src="{{ award.badge.image.url }}"> {% endfor %} {% endif %}
+                <img class="w3-round no-padding" height="125" width="125" src="{{ award.badge.image.url }}"> {% endfor
+                %} {% endif %}
+                {% if user.profile.has_donated %}
+                <img class="w3-round no-padding" height="125" width="125" src="{% static 'img/giveback.png' %}">
 
+                {% endif %}
             </div>
         </div>
 
@@ -70,19 +74,11 @@
 
 
                 <div class="subheader">Kilometers</div>
-                <div class="progressbar progressbar--secondary progressbar--large" data-percentage="{{aggr_distance_per}}">
+                <div class="progressbar progressbar--secondary progressbar--large"
+                    data-percentage="{{aggr_distance_per}}">
                     <div class="progressbar__fill"></div>
                     <div class="progressbar__label">{{aggr_distance}}</div>
                 </div>
-
-                <div class="subheader">Workouts</div>
-                <div class="progressbar progressbar--large progressbar--success" data-percentage="{{workout_count}}">
-                    <div class="progressbar__fill"></div>
-                    <div class="progressbar__label">{{workout_count}}</div>
-                </div>
-
-
-
 
 
             </div>

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/cui-standard.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <title>Cisco Running 2020</title>
+    <title>Cisco Mexico Running Club 3.0</title>
 </head>
 
 {% block javascript %}
@@ -40,58 +40,50 @@
 
         <div class="content-fluid">
 
-            <nav class="col-lg-3 col-xl-2 sidebar sidebar--primary hidden-md-down" role="navigation">
+            <nav class="col-lg-3 col-xl-2 sidebar sidebar--light hidden-md-down" role="navigation">
                 <div class="base-margin">
                     <div class="flex flex-center flex-middle"><img class="w3-round w3-image" src={{user.profile.avatar}} style="width:50%"></div>
                     <div class="flex flex-center flex-middle half-padding-top">
-                        
-                        <div class="text-size-16 text-center">{{user.first_name}} {{user.last_name}} <br>
-                        
-                        {% if earned_awards %}
-                        <span tabindex="0" data-balloon-break data-balloon-pos="up" data-balloon="Awards Received"><img src="{% static 'img/reward.svg' %}" style="width: 20px"></span> {% endif %} 
-                        {% if user.profile.user_goal %}
-                        <span tabindex="0" data-balloon="42K Reached!" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/trophy.svg' %}" style="width: 20px"></span> {% endif %}
-                        {% if user.profile.category == "beginnerrunner" %}
-                        <span tabindex="0" data-balloon="Beginner&#10;Runner" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/beg-running.svg' %}" style="width: 20px"> </div></span> {% elif user.profile.category == "runner" %}
-                        <span tabindex="0" data-balloon="Runner" data-balloon-pos="up"><img src="{% static 'img/running.svg' %}" style="width: 20px"> </div></span> {% elif user.profile.category == "biker" %}
-                        <span tabindex="0" data-balloon="Biker" data-balloon-pos="up"><img src="{% static 'img/biker.svg' %}" style="width: 20px"> </div></span> {% endif %}</div>
 
+                        <div class="text-size-16 text-center">{{user.first_name}} {{user.last_name}} <br> {% if earned_awards %}
+                            <span tabindex="0" data-balloon-break data-balloon-pos="up" data-balloon="Awards Received"><img src="{% static 'img/reward.svg' %}" style="width: 20px"></span> {% endif %} {% if user.profile.has_donated %}
+                            <span tabindex="0" data-balloon="Thank you for your donation!" data-balloon-break data-balloon-pos="up"><img src="{% static 'img/giveback.png' %}" style="width: 20px"></span> {% endif %}
+
+
+
+                        </div>
+                    </div>
+                    <div class="flex flex-center flex-middle half-padding-top">
+                        <ul>
+                            {%if user.profile.email %}
+                            <li class="sidebar__item text-size-12">
+                                <a href="{% url 'my_profile' %}">
+                                    <span class="icon-contact"></span>
+                                    <span>My Profile</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            <li class="sidebar__item text-size-12">
+                                <a href="{% url 'leaderboard' %}">
+                                    <span class="icon-software-suggested-md"></span>
+                                    <span>Leaderboard</span>
+                                </a>
+                            </li>
+                            <li class="sidebar__item text-size-12">
+                                <a href="{% url 'logout'%}">
+                                    <span class="icon-leave-meeting"></span>
+                                    <span>Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>  
+                    <div class="flex flex-center">
+                            <div class="info">
+                                <span class="text-bold text-gray-600">v3.0 | <a href="mailto:gpe-reyes-marathon@cisco.com">Feedback</a></span>
+                            </div>
                     </div>
 
-                    <ul>
-                        {%if user.profile.cec %}
-                        <li class="sidebar__item text-size-12">
-                            <a href="{% url 'my_profile' %}">
-                                <span class="icon-contact"></span>
-                                <span>My Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar__item text-size-12">
-                            <a href="{% url 'my_workouts' %}">
-                                <span class="icon-manage-cable"></span>
-                                <span>My Workouts</span>
-                            </a>
-                        </li>
-                        {% endif %}
-
-                        <li class="sidebar__item text-size-12">
-                            <a href="{% url 'leaderboard' %}">
-                                <span class="icon-software-suggested-md"></span>
-                                <span>Leaderboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar__item text-size-12">
-                            <a href="{% url 'logout'%}">
-                                <span class="icon-leave-meeting"></span>
-                                <span>Logout</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                        <div class="flex flex-center">
-                            <div class="info">
-                    <span class="text-bold text-gray-600">v3.0 | <a href="mailto:gpe-reyes-marathon@cisco.com">Feedback</a></span>
-                </div>
                 </div>
             </nav>
             <div class="col-12 col-lg-9 col-xl-10">
@@ -100,17 +92,13 @@
                     <!-- Nav for Medium devices and lower -->
 
                     <div class="navbar hidden-lg-up">
-                        {%if user.profile.cec %}
+                        {%if user.profile.email %}
 
                         <a href="{% url 'my_profile' %}">
                             <span class="icon-user"></span>
                             <span>My Profile</span>
                         </a>
 
-                        <a href="{% url 'my_workouts' %}">
-                            <span class="icon-manage-cable"></span>
-                            <span>My Workouts</span>
-                        </a>
 
                         {% endif %}
 
@@ -124,7 +112,7 @@
                             <span>Logout</span>
                         </a>
 
-                        
+
                     </div>
 
                     <!-- End of Nav mobile-->
@@ -134,7 +122,7 @@
                 </div>
             </div>
             </div>
-        </div>
+            </div>
 </body>
 
 
