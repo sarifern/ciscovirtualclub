@@ -27,6 +27,8 @@ CATEGORY_CHOICES = ((RUNNER, 'Runner'), )
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     has_donated = models.BooleanField(default=False)
+    has_donated_message = models.BooleanField(default=False)
+    
     avatar = models.CharField(max_length=400, blank=False)
     email = models.CharField(max_length=30, blank=True)
     distance = models.DecimalField(default=0.00,
@@ -90,13 +92,15 @@ def delete_workout(sender, instance, **kwargs):
 @receiver(post_save, sender=Profile)
 def save_profile(sender, instance, **kwargs):
     # update personal distance
-    if instance.has_donated:
+    if instance.has_donated and not instance.has_donated_message:
         imagegif = 'https://media.giphy.com/media/LUPCYuP1GjmcF9tOL9/giphy.gif'
         try:
             WTAPI.messages.create(
                 roomId=os.environ.get('WT_ROOMID'),
                 text='Thank you so much! {username}  #Giveback Ambassador'.format(username=instance.user.first_name),
                 files=[imagegif])
+            instance.has_donated_message = True
+            instance.save()
         except Exception:
             pass
 
