@@ -99,6 +99,7 @@ def save_profile(sender, instance, **kwargs):
                 roomId=os.environ.get('WT_ROOMID'),
                 text='Thank you so much! {username} #Giveback Ambassador'.format(username=instance.user.first_name),
                 files=[imagegif])
+            instance.distance += 5
             instance.has_donated_message = True
             instance.save()
         except Exception:
